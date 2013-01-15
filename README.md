@@ -1,7 +1,7 @@
 LDAPUnit
 ========
 
-LDAPUnit is a Java library help create unit tests for that depend on an LDAP directory server.
+**LDAPUnit** is a Java library help create unit tests for that depend on an LDAP directory server.
 
 DirectoryServerRule
 -------------------
@@ -9,6 +9,33 @@ DirectoryServerRule
 [DirectoryServerRule](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) is used
 launch an embedded LDAP directory server so that the unit tests do not have to be dependent on an external LDAP
 directory server with unpredictable state.
+
+```java
+
+import com.btmatthews.ldapunit.DirectoryServerConfiguration;
+import com.btmatthews.ldapunit.DirectoryServerRule;
+import org.junit.Rule;
+import org.junit.Test;
+.
+.
+
+@DirectoryServerConfiguration
+public class Test {
+
+    @Rule
+    public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
+    .
+    .
+
+    @Test
+    public void testSomething() {
+        .
+        .
+    }
+    .
+    .
+}
+```
 
 DirectoryTester
 ---------------
@@ -19,7 +46,7 @@ directory.
 
 Maven Central Coordinates
 -------------------------
-The **LDAP Maven Plugin** has been published in [Maven Central](http://search.maven.org) at the following
+**LDAPUnit** has been published in [Maven Central](http://search.maven.org) at the following
 coordinates:
 
 ```xml
