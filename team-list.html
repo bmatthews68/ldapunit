@@ -3,15 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>LDAPUnit - Introduction</title>
+    <title>LDAPUnit - Team list</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
       @import url("./css/site.css");
     </style>
     <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
-      <meta name="author" content="Brian Matthews" />
-    <meta name="Date-Creation-yyyymmdd" content="20130116" />
     <meta name="Date-Revision-yyyymmdd" content="20130115" />
     <meta http-equiv="Content-Language" content="en" />
         
@@ -65,8 +63,8 @@
                                 <h5>Overview</h5>
                   <ul>
                   <li class="none">
-            <strong>Introduction</strong>
-          </li>
+                          <a href="index.html" title="Introduction">Introduction</a>
+            </li>
           </ul>
                        <h5>Examples</h5>
                   <ul>
@@ -83,11 +81,11 @@
                           <a href="project-info.html" title="Project Information">Project Information</a>
                     <ul>
                       <li class="none">
-            <strong>About</strong>
-          </li>
-                      <li class="none">
-                          <a href="team-list.html" title="Project Team">Project Team</a>
+                          <a href="index.html" title="About">About</a>
             </li>
+                      <li class="none">
+            <strong>Project Team</strong>
+          </li>
                       <li class="none">
                           <a href="dependency-info.html" title="Dependency Information">Dependency Information</a>
             </li>
@@ -136,12 +134,22 @@
     </div>
     <div id="bodyColumn">
       <div id="contentBox">
-        <!-- Copyright 2013 Brian Thomas Matthews --><!--  --><!-- Licensed under the Apache License, Version 2.0 (the "License"); --><!-- you may not use this file except in compliance with the License. --><!-- You may obtain a copy of the License at --><!--  --><!-- http://www.apache.org/licenses/LICENSE-2.0 --><!--  --><!-- Unless required by applicable law or agreed to in writing, software --><!-- distributed under the License is distributed on an "AS IS" BASIS, --><!-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. --><!-- See the License for the specific language governing permissions and --><!-- limitations under the License. --><div class="section"><h2>LDAPUnit<a name="LDAPUnit"></a></h2><p><b>LDAPUnit</b> makes it easier to create unit tests for components that are dependent on an LDAP directory servers:</p><ul><li><a href="./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html">DirectoryServerRule</a> is used launch an embedded LDAP directory server so that the unit tests do not have to be dependent on an external LDAP directory server with unpredictable state.</li><li><a href="./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html">DirectoryTester</a> is used to connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP directory.</li></ul><p>LDAPUnit relies on <a class="externalLink" href="https://www.unboundid.com/products/ldap-sdk/">UnboundID LDAP SDK</a> to run the embedded LDAP directory server and as the API used to connect to LDAP directory servers.</p><p><a href="./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html">DirectoryServerRule</a> is based on the <b>OpenDJRule</b> implemented in the <a class="externalLink" href="https://github.com/ehsavoie/embedded-ldap">https://github.com/ehsavoie/embedded-ldap</a> project.</p><div class="section"><h3>Examples<a name="Examples"></a></h3><p>To provide you with better understanding of some usages of the <b>LDAPUnit</b> you can take a look at the following examples:</p><ul><li><a href="./examples/directory-server-rule.html">Using DirectoryServerRule</a></li><li><a href="./examples/directory-tester.html">Using DirectoryTester</a></li></ul></div><div class="section"><h3>Maven Coordinates<a name="Maven_Coordinates"></a></h3><p>The <b>LDAPUnit</b> has been published in <a class="externalLink" href="http://search.maven.org">Maven Central</a> at the following coordinates:</p><div><pre>&lt;plugin&gt;
-    &lt;groupId&gt;com.btmatthews.ldapunit&lt;/groupId&gt;
-    &lt;artifactId&gt;ldapunit&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0&lt;/version&gt;
-&lt;/plugin&gt;
-</pre></div></div><div class="section"><h3>Licensing and Source Code<a name="Licensing_and_Source_Code"></a></h3><p>The <b>LDAPUnit</b> is made available under the <a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License</a> and the source code is hosted on <a class="externalLink" href="http://github.com">GitHub</a> at <a class="externalLink" href="https://github.com/bmatthews68/ldapunit">https://github.com/bmatthews68/ldapunit</a>.</p></div></div>
+        <div class="section"><h2>The Team<a name="The_Team"></a></h2><a name="The_Team"></a><p>A successful project requires many people to play many roles. Some members write code or documentation, while others are valuable as testers, submitting patches and suggestions.</p><p>The team is comprised of Members and Contributors. Members have direct access to the source of a project and actively evolve the code-base. Contributors improve the project through submission of patches and suggestions to the Members. The number of Contributors to the project is unbounded. Get involved today. All contributions to the project are greatly appreciated.</p><div class="section"><h3>Members<a name="Members"></a></h3><a name="Members"></a><p>The following is a list of developers with commit privileges that have directly contributed to the project in one way or another.</p><table border="0" class="bodyTable"><tr class="a"><th>Image</th><th>Id</th><th>Name</th><th>Email</th><th>URL</th></tr><tr class="b"><td><img src="http://www.gravatar.com/avatar/b9806dc7e2540898c8f8ec1e042b2ed5?d=mm&amp;s=60" alt="" /></td><td><a name="bmatthews68"></a>bmatthews68</td><td>Brian Matthews</td><td><a class="externalLink" href="mailto:brian@brianmatthews.me">brian@brianmatthews.me</a></td><td><a class="externalLink" href="http://brianmatthews.me">http://brianmatthews.me</a></td></tr></table></div><div class="section"><h3>Contributors<a name="Contributors"></a></h3><a name="Contributors"></a><p>There are no contributors listed for this project. Please check back again later.</p><script type="text/javascript">
+function offsetDate(id, offset) {
+    var now = new Date();
+    var nowTime = now.getTime();
+    var localOffset = now.getTimezoneOffset();
+    var developerTime = nowTime + ( offset * 60 * 60 * 1000 )+ ( localOffset * 60 * 1000 );
+    var developerDate = new Date(developerTime);
+
+    document.getElementById(id).innerHTML = developerDate;
+}
+
+function init(){
+}
+
+window.onLoad = init();
+</script></div></div>
       </div>
     </div>
     <div class="clear">

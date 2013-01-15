@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>LDAPUnit - Checkstyle report</title>
+    <link>https://github.com/bmatthews68/ldapunit</link>
+    <description>LDAPUnit - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2013 Brian Matthews</copyright>
+    <item>
+      <title>File: 6,
+             Errors: 15,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/bmatthews68/ldapunit/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.package-info.java">com/btmatthews/ldapunit/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerConfiguration.java">com/btmatthews/ldapunit/DirectoryServerConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryTester.java">com/btmatthews/ldapunit/DirectoryTester.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerStatement.java">com/btmatthews/ldapunit/DirectoryServerStatement.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryTesterException.java">com/btmatthews/ldapunit/DirectoryTesterException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerRule.java">com/btmatthews/ldapunit/DirectoryServerRule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

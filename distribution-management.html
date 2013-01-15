@@ -3,15 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>LDAPUnit - Introduction</title>
+    <title>LDAPUnit - Project Distribution Management</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
       @import url("./css/site.css");
     </style>
     <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
-      <meta name="author" content="Brian Matthews" />
-    <meta name="Date-Creation-yyyymmdd" content="20130116" />
     <meta name="Date-Revision-yyyymmdd" content="20130115" />
     <meta http-equiv="Content-Language" content="en" />
         
@@ -65,8 +63,8 @@
                                 <h5>Overview</h5>
                   <ul>
                   <li class="none">
-            <strong>Introduction</strong>
-          </li>
+                          <a href="index.html" title="Introduction">Introduction</a>
+            </li>
           </ul>
                        <h5>Examples</h5>
                   <ul>
@@ -83,8 +81,8 @@
                           <a href="project-info.html" title="Project Information">Project Information</a>
                     <ul>
                       <li class="none">
-            <strong>About</strong>
-          </li>
+                          <a href="index.html" title="About">About</a>
+            </li>
                       <li class="none">
                           <a href="team-list.html" title="Project Team">Project Team</a>
             </li>
@@ -110,8 +108,8 @@
                           <a href="plugin-management.html" title="Plugin Management">Plugin Management</a>
             </li>
                       <li class="none">
-                          <a href="distribution-management.html" title="Distribution Management">Distribution Management</a>
-            </li>
+            <strong>Distribution Management</strong>
+          </li>
                       <li class="none">
                           <a href="project-summary.html" title="Project Summary">Project Summary</a>
             </li>
@@ -136,12 +134,7 @@
     </div>
     <div id="bodyColumn">
       <div id="contentBox">
-        <!-- Copyright 2013 Brian Thomas Matthews --><!--  --><!-- Licensed under the Apache License, Version 2.0 (the "License"); --><!-- you may not use this file except in compliance with the License. --><!-- You may obtain a copy of the License at --><!--  --><!-- http://www.apache.org/licenses/LICENSE-2.0 --><!--  --><!-- Unless required by applicable law or agreed to in writing, software --><!-- distributed under the License is distributed on an "AS IS" BASIS, --><!-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. --><!-- See the License for the specific language governing permissions and --><!-- limitations under the License. --><div class="section"><h2>LDAPUnit<a name="LDAPUnit"></a></h2><p><b>LDAPUnit</b> makes it easier to create unit tests for components that are dependent on an LDAP directory servers:</p><ul><li><a href="./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html">DirectoryServerRule</a> is used launch an embedded LDAP directory server so that the unit tests do not have to be dependent on an external LDAP directory server with unpredictable state.</li><li><a href="./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html">DirectoryTester</a> is used to connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP directory.</li></ul><p>LDAPUnit relies on <a class="externalLink" href="https://www.unboundid.com/products/ldap-sdk/">UnboundID LDAP SDK</a> to run the embedded LDAP directory server and as the API used to connect to LDAP directory servers.</p><p><a href="./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html">DirectoryServerRule</a> is based on the <b>OpenDJRule</b> implemented in the <a class="externalLink" href="https://github.com/ehsavoie/embedded-ldap">https://github.com/ehsavoie/embedded-ldap</a> project.</p><div class="section"><h3>Examples<a name="Examples"></a></h3><p>To provide you with better understanding of some usages of the <b>LDAPUnit</b> you can take a look at the following examples:</p><ul><li><a href="./examples/directory-server-rule.html">Using DirectoryServerRule</a></li><li><a href="./examples/directory-tester.html">Using DirectoryTester</a></li></ul></div><div class="section"><h3>Maven Coordinates<a name="Maven_Coordinates"></a></h3><p>The <b>LDAPUnit</b> has been published in <a class="externalLink" href="http://search.maven.org">Maven Central</a> at the following coordinates:</p><div><pre>&lt;plugin&gt;
-    &lt;groupId&gt;com.btmatthews.ldapunit&lt;/groupId&gt;
-    &lt;artifactId&gt;ldapunit&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0&lt;/version&gt;
-&lt;/plugin&gt;
-</pre></div></div><div class="section"><h3>Licensing and Source Code<a name="Licensing_and_Source_Code"></a></h3><p>The <b>LDAPUnit</b> is made available under the <a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License</a> and the source code is hosted on <a class="externalLink" href="http://github.com">GitHub</a> at <a class="externalLink" href="https://github.com/bmatthews68/ldapunit">https://github.com/bmatthews68/ldapunit</a>.</p></div></div>
+        <div class="section"><h2>Overview<a name="Overview"></a></h2><a name="Overview"></a><p>The following is the distribution management information used by this project.</p><div class="section"><h3>Repository - releases.sonatype<a name="Repository_-_releases.sonatype"></a></h3><a name="Repository_-_releases.sonatype"></a><a class="externalLink" href="https://oss.sonatype.org/service/local/staging/deploy/maven2">https://oss.sonatype.org/service/local/staging/deploy/maven2</a></div><div class="section"><h3>Snapshot Repository - snapshots.sonatype<a name="Snapshot_Repository_-_snapshots.sonatype"></a></h3><a name="Snapshot_Repository_-_snapshots.sonatype"></a><a class="externalLink" href="https://oss.sonatype.org/content/repositories/snapshots">https://oss.sonatype.org/content/repositories/snapshots</a></div><div class="section"><h3>Site - gh-pages<a name="Site_-_gh-pages"></a></h3><a name="Site_-_gh-pages"></a><p>gitsite:git@github.com/bmatthews68/ldapunit.git</p></div></div>
       </div>
     </div>
     <div class="clear">
