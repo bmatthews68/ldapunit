@@ -6,8 +6,16 @@ LDAPUnit is a Java library help create unit tests for that depend on an LDAP dir
 DirectoryServerRule
 -------------------
 
+[DirectoryServerRule](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) is used
+launch an embedded LDAP directory server so that the unit tests do not have to be dependent on an external LDAP
+directory server with unpredictable state.
+
 DirectoryTester
 ---------------
+
+[DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) is used to
+connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP
+directory.
 
 Maven Central Coordinates
 -------------------------
@@ -28,7 +36,7 @@ The approach for implementing the **LDAPUnit**'s **DirectoryServerRule** is base
 implemented in the https://github.com/ehsavoie/embedded-ldap project.
 
 Internally **LDAPUnit** is using the [UnboundID LDAP SDK](https://www.unboundid.com/products/ldap-sdk) to run the
-embedded LDAP directory server and as the API for communicating with an LDAP directory server..
+embedded LDAP directory server and as the API for communicating with an LDAP directory server.
 
 License & Source Code
 ---------------------
