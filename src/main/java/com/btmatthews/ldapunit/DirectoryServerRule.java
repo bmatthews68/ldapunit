@@ -31,7 +31,7 @@ import org.junit.runners.model.Statement;
 public class DirectoryServerRule implements TestRule {
 
     /**
-     * Modifies the method-running {@link Statement} to start implement this test-running rule. The configuration for
+     * Modifies the method-running {@link Statement} to implement this test-running rule. The configuration for
      * the embedded LDAP directory server is obtained from the {@link DirectoryServerConfiguration} annotation that was
      * applied to either the test class or test method.
      *

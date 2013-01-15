@@ -80,7 +80,7 @@ system if it was not found on the class path.</td>
 DirectoryTester
 ---------------
 
-[DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) is used to
+[DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) is used to
 connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP
 directory.
 
@@ -112,26 +112,26 @@ public class Test {
 }
 ```
 
-There are two variants of the DirectoryTester constructor
+There are two variants of the
+[DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) constructor
 
-  * **DirectoryTester(String hostname, int port)** - connects anonymously to the directory server on the host with
-    name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
+* **DirectoryTester(String hostname, int port)** - connects anonymously to the directory server on the host with
+  name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
 
-  * **DirectoryTester(String hostname, int port, String bindDN, String password)** - connects to the directory server
-    on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by
-    **port**. Then it binds to the using the authentication identifier and credentials specified by **bindDN** and
-    **password**.
+* **DirectoryTester(String hostname, int port, String bindDN, String password)** - connects to the directory server
+  on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by
+  **port**. Then it binds to the using the authentication identifier and credentials specified by **bindDN** and
+  **password**.
 
-  The following methods can be used to make assertions about or verify the contents of the LDAP directory:
+The following methods can be used to make assertions about or verify the contents of the LDAP directory:
 
-  * **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of
-    **dn**.
+* **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of
+  **dn**.
 
-  * **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
-    of **dn**.
+* **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
+  of **dn**.
 
-  The connection should be closed by calling **disconnect()**.
-
+The connection should be closed by calling **disconnect()**.
 
 Maven Central Coordinates
 -------------------------

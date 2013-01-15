@@ -1,0 +1,69 @@
+ ------
+ DirectoryServerRule Example
+ ------
+ Brian Matthews
+ ------
+ 2013-01-16
+ ------
+
+~~ Copyright 2013 Brian Thomas Matthews
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+
+
+DirectoryServerRule Example
+
+  {{{../apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is used launch an embedded LDAP
+  directory server so that the unit tests do not have to be dependent on an external LDAP directory server with
+  unpredictable state.
+
++-------------------------------+
+import com.btmatthews.ldapunit.DirectoryServerConfiguration;
+import com.btmatthews.ldapunit.DirectoryServerRule;
+import org.junit.Rule;
+import org.junit.Test;
+
+@DirectoryServerConfiguration
+public class Test {
+
+  @Rule
+  public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
+
+  @Test
+  public void testSomething() {
+    // Unit test code that depends on LDAP directory server
+  }
+}
++-------------------------------+
+
+  The {{{../apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html}DirectoryServerConfiguration}}
+  annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following
+  parameters can be configured:
+
+*----------+--------------------------------------------------------------------------------+----------------------+
+| <<Name>> | <<Description>>                                                                | <<Default>>          |
+*----------+--------------------------------------------------------------------------------+----------------------+
+| port     | The TCP port that the LDAP directory server will be configured to listen on.   | 10389                |
+*----------+--------------------------------------------------------------------------------+----------------------+
+| baseDN   | The DN that will be configured as the root of the LDAP directory.              | dc=btmatthews,dc=com |
+*----------+--------------------------------------------------------------------------------+----------------------+
+| authDN   | The DN that will be configured as the administrator account identifier.        | uid=admin,ou=system  |
+*----------+--------------------------------------------------------------------------------+----------------------+
+| password | The password that will be configured as the authentication credentials for the | secret               |
+|          | administrator account.                                                         |                      |
+*----------+--------------------------------------------------------------------------------+----------------------+
+| ldifFile | The location of the an optional LDIF file that can be used to seed the LDAP    |                      |
+|          | directory with an initial data set. The file may be located on the file system |                      |
+|          | or the classpath. The classpath is checked first and then falls back to the    |                      |
+|          | file system if it was not found on the class path.                             |                      |
+*----------+--------------------------------------------------------------------------------+----------------------+

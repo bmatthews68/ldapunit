@@ -1,0 +1,80 @@
+ ------
+ DirectoryTester Example
+ ------
+ Brian Matthews
+ ------
+ 2013-01-16
+ ------
+
+~~ Copyright 2013 Brian Thomas Matthews
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+
+
+DirectoryTester Example
+
+  {{{../apidocs/com/btmatthews/ldapunit/DirectoryTester.html}DirectoryTester}} is used to connect to an LDAP directory
+  server (embedded or external) and make assertions about or verify the contents of the LDAP directory.
+
++-------------------------------+
+import com.btmatthews.ldapunit.DirectoryTester;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class Test {
+
+  private DirectoryTester tester;
+
+  @Before
+  public void setUp() {
+    tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+  }
+
+  @After
+  public void tearDown() {
+    tester.disconnect();)
+  }
+
+  @Test
+  public void testSomething() {
+     // Do something that affects the LDAP directory
+     // Check outcomes with tester.assertXXX() and tester.verifyXXX() methods
+  }
+}
++-------------------------------+
+
+  There are two variants of the {{{../apidocs/com/btmatthews/ldapunit/DirectoryTester.html}DirectoryTester}}
+  constructor:
+
+  * <<DirectoryTester(String hostname, int port)>> - connects anonymously to the directory server on the host with
+    name or IP address specified by <<hostname>> that is listening on the TCP port specified by <<port>>.
+
+  * <<DirectoryTester(String hostname, int port, String bindDN, String password)>> - connects to the directory server
+    on the host with name or IP address specified by <<hostname>> that is listening on the TCP port specified by
+    <<port>>. Then it binds to the using the authentication identifier and credentials specified by <<bindDN>> and
+    <<password>>.
+
+  []
+
+  The following methods can be used to make assertions about or verify the contents of the LDAP directory:
+
+  * <<assertDNExists(String dn)>> - asserts that an entry exists in the LDAP directory with the distinguished name of
+    <<dn>>.
+
+  * <<verifyDNExists(String dn)>> - tests to see if an entry exists in the LDAP directory with the distinguished name
+    of <<dn>>.
+
+  []
+
+  The connection should be closed by calling <<disconnect()>>.

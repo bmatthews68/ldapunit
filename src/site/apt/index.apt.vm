@@ -23,13 +23,13 @@
 
 LDAPUnit
 
-  LDAPUnit makes it easier to create unit tests for components that are dependent on an LDAP directory server:
+  <<LDAPUnit>> makes it easier to create unit tests for components that are dependent on an LDAP directory servers:
 
-  * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule}DirectoryServerRule}} is used launch an embedded LDAP
+  * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is used launch an embedded LDAP
     directory server so that the unit tests do not have to be dependent on an external LDAP directory server with
     unpredictable state.
 
-  * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule}DirectoryTester}} is used to connect to an LDAP directory
+  * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryTester}} is used to connect to an LDAP directory
     server (embedded or external) and make assertions about or verify the contents of the LDAP directory.
 
   []
@@ -37,7 +37,7 @@ LDAPUnit
   LDAPUnit relies on {{{https://www.unboundid.com/products/ldap-sdk/}UnboundID LDAP SDK}} to run the embedded LDAP
   directory server and as the API used to connect to LDAP directory servers.
 
-  {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule}DirectoryServerRule}} is based on the <<OpenDJRule>>
+  {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is based on the <<OpenDJRule>>
   implemented in the {{https://github.com/ehsavoie/embedded-ldap}} project.
 
 * Examples
@@ -51,8 +51,8 @@ LDAPUnit
 
 * Maven Coordinates
 
- The <<LDAPUnit>> has been published in {{{http://search.maven.org}Maven Central}} at the following
- coordinates:
+  The <<LDAPUnit>> has been published in {{{http://search.maven.org}Maven Central}} at the following
+  coordinates:
 
 -------------------
 <plugin>
@@ -64,6 +64,6 @@ LDAPUnit
 
 * Licensing and Source Code
 
- The <<LDAPUnit>> is made available under the
- {{{http://www.apache.org/licenses/LICENSE-2.0.html}Apache License}} and the source code is hosted on
- {{{http://github.com}GitHub}} at {{https://github.com/bmatthews68/ldapunit}}.
+  The <<LDAPUnit>> is made available under the
+  {{{http://www.apache.org/licenses/LICENSE-2.0.html}Apache License}} and the source code is hosted on
+  {{{http://github.com}GitHub}} at {{https://github.com/bmatthews68/ldapunit}}.

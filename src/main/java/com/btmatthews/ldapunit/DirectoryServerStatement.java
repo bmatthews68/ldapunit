@@ -31,22 +31,42 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 15/01/13
- * Time: 11:42
- * To change this template use File | Settings | File Templates.
+ * A {@link Statement} wrapper that launches an embedded LDAP directory server before executing the wrapped statement.
+ * The embedded LDAP directory server is shutdown after the wrapped statement has been executed.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.0.0
  */
 public class DirectoryServerStatement extends Statement {
 
+    /**
+     * The wrapped statement {@link Statement}.
+     */
     private final Statement base;
+    /**
+     * The annotation that defines the directory server configuration.
+     */
     private final DirectoryServerConfiguration annotation;
 
+    /**
+     * Initialise the wrapper statement that starts an embedded LDAP directory server and shuts it down before and after
+     * executing the wrapped statement.
+     *
+     * @param stmt The wrapped statement.
+     * @param cfg  The directory server configuration.
+     */
     public DirectoryServerStatement(final Statement stmt, final DirectoryServerConfiguration cfg) {
         base = stmt;
         annotation = cfg;
     }
 
+    /**
+     * Start an embedded LDAP directory server before executing the wrapped statement and shutdown the LDAP directory
+     * server after the wrapped statement completes.
+     *
+     * @throws Throwable If there was an error starting the server, executing the wrapped statement or shutting the
+     *                   wrapped server.
+     */
     @Override
     public void evaluate() throws Throwable {
         final InMemoryDirectoryServer server = startServer();
@@ -57,6 +77,13 @@ public class DirectoryServerStatement extends Statement {
         }
     }
 
+    /**
+     * Create and configure an embedded LDAP directory server, load seed data and start the server.
+     *
+     * @return The {@link InMemoryDirectoryServer} object.
+     * @throws LDAPException If there was a problem configuring or starting the embedded LDAP directory server.
+     * @throws IOException   If there was a problem reading the LDIF data.
+     */
     private InMemoryDirectoryServer startServer() throws LDAPException, IOException {
         final InMemoryListenerConfig listenerConfig = InMemoryListenerConfig.createLDAPConfig("default", annotation.port());
         final InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig(new DN(annotation.baseDN()));
@@ -69,6 +96,13 @@ public class DirectoryServerStatement extends Statement {
         return server;
     }
 
+    /**
+     * Load LDIF records from a file to seed the LDAP directory.
+     *
+     * @param server The embedded LDAP directory server.
+     * @throws LDAPException If there was a problem loading the LDIF records into the LDAP directory.
+     * @throws IOException   If there was a problem reading the LDIF records from the file.
+     */
     private void loadData(final InMemoryDirectoryServer server) throws LDAPException, IOException {
         final String ldifFile = annotation.ldifFile();
         if (ldifFile != null && !ldifFile.isEmpty()) {
@@ -87,6 +121,11 @@ public class DirectoryServerStatement extends Statement {
         }
     }
 
+    /**
+     * Shutdown the embedded LDAP directory server.
+     *
+     * @param server The embedded LDAP directory server.
+     */
     private void stopServer(final InMemoryDirectoryServer server) {
         server.shutDown(true);
     }
