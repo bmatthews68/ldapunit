@@ -10,32 +10,72 @@ DirectoryServerRule
 launch an embedded LDAP directory server so that the unit tests do not have to be dependent on an external LDAP
 directory server with unpredictable state.
 
-```java
+To use the
+[DirectoryServerRule](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) you need
+to instantiate the rule as a public member of the test class and annotate it with
+[Rule](http://kentbeck.github.com/junit/javadoc/4.10/org/junit/Rule.html). The rule will have no effect unless the class
+or methods have been annotated with
+[DirectoryServerConfiguration](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html).
 
+```java
 import com.btmatthews.ldapunit.DirectoryServerConfiguration;
 import com.btmatthews.ldapunit.DirectoryServerRule;
 import org.junit.Rule;
 import org.junit.Test;
-.
-.
 
 @DirectoryServerConfiguration
 public class Test {
 
     @Rule
     public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
-    .
-    .
 
     @Test
     public void testSomething() {
-        .
-        .
+        // Unit test code that depends on LDAP directory server
     }
-    .
-    .
 }
 ```
+
+The
+[DirectoryServerConfiguration](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html)
+annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following
+parameters can be configured:
+
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>port</td>
+<td></td>
+<td>10389</td>
+</tr>
+<tr>
+<td>baseDN</td>
+<td>The DN that will be configured as the root of the LDAP directory.</td>
+<td>dc=btmatthews,dc=com</td>
+</tr>
+<tr>
+<td>authDN</td>
+<td>The DN that will be configured as the administrator account identifier.</td>
+<td>uid=admin,ou=system</td>
+</tr>
+<tr>
+<td>password</td>
+<td>The password that will be configured as the authentication credentials for the administrator account.</td>
+<td>secret</td>
+</tr>
+<tr>
+<td>ldifFile</td>
+<td>The location of the an optional LDIF file that can be used to seed the LDAP directory with an initial data set. The
+file may be located on the file system or the classpath. The classpath is checked first and then falls back to the file
+system if it was not found on the class path.</td>
+<td></td>
+</tbody>
+</table>
 
 DirectoryTester
 ---------------
