@@ -21,6 +21,9 @@ import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.SearchResultEntry;
 
 /**
+ * Utility that maintains a connection to the LDAP directory server and provides assert and verify methods to
+ * test the LDAP directory contents.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
@@ -49,7 +52,7 @@ public class DirectoryTester {
 
     /**
      * Initialise the LDAP directory tester by connecting to the LDAP directory server using the {@code hostname} and
-     * {@code port} and bind to it using the {@code bindDN} and {@password}.
+     * {@code port} and bind to it using the {@code bindDN} and {@code password}.
      *
      * @param hostname The host name of the directory server.
      * @param port     The TCP port number of the directory server.
@@ -57,7 +60,7 @@ public class DirectoryTester {
      * @param password The password used to bind to the LDAP directory server.
      * @throws DirectoryTesterException If there was a problem connecting to the LDAP directory server.
      */
-    public DirectoryTester(String hostname, int port, String bindDN, String password) {
+    public DirectoryTester(final String hostname, final int port, final String bindDN, final String password) {
         this(hostname, port);
         try {
             connection.bind(bindDN, password);
