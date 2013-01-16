@@ -101,7 +101,7 @@ public class Test {
 
   @After
   public void tearDown() {
-    tester.disconnect();)
+    tester.disconnect();
   }
 
   @Test
