@@ -20,21 +20,30 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 15/01/13
- * Time: 11:33
- * To change this template use File | Settings | File Templates.
+ * Unit test the {@link DirectoryServerRule} rule.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.0.0
  */
 @DirectoryServerConfiguration
 public class TestDirectoryServerRule {
 
+    /**
+     * The rule being tested.
+     */
     @Rule
     public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
 
+    /**
+     * Verify that the {@link DirectoryServerRule} launched an embedded directory server.
+     */
     @Test
     public void checkServerIsRunning() {
         final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
-        tester.disconnect();
+        try {
+            tester.assertDNExists("dc=btmatthews,dc=com");
+        } finally {
+            tester.disconnect();
+        }
     }
- }
+}

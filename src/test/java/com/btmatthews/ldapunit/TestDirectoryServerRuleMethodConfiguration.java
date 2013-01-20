@@ -20,29 +20,48 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 15/01/13
- * Time: 11:33
- * To change this template use File | Settings | File Templates.
+ * Unit test the {@link DirectoryServerRule} rule when the methods are annotated
+ * with {@link DirectoryServerConfiguration}.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.0.0
  */
 public class TestDirectoryServerRuleMethodConfiguration {
 
+    /**
+     * The rule being tested.
+     */
     @Rule
     public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
 
+    /**
+     * Verify that the rule starts a server when the test method is annotated with
+     * {@link DirectoryServerConfiguration}.
+     */
     @DirectoryServerConfiguration
     @Test
     public void checkServerIsRunning() {
-        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
-        tester.disconnect();
+        final DirectoryTester tester = new DirectoryTester();
+        try {
+            tester.assertDNExists("dc=btmatthews,dc=com");
+        } finally {
+            tester.disconnect();
+        }
     }
 
+    /**
+     * Verify that the rule does not start server when the test method is not annotated with
+     * {@link DirectoryServerConfiguration}.
+     */
     @Test(expected = DirectoryTesterException.class)
     public void checkServerIsNotRunning() {
-        new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+        new DirectoryTester();
     }
 
+    /**
+     * Verify the that the rule will seed the server with LDAP directory entries when the {@code ldifFile}
+     * parameter of the annotation is specified. This variation loads the LDIF file as a classpath resource.
+     */
     @Test
     @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
     public void canLoadFromClasspath() {
@@ -60,6 +79,10 @@ public class TestDirectoryServerRuleMethodConfiguration {
         }
     }
 
+    /**
+     * Verify the that the rule will seed the server with LDAP directory entries when the {@code ldifFile}
+     * parameter of the annotation is specified. This variation loads the LDIF file using a file system path.
+     */
     @Test
     @DirectoryServerConfiguration(ldifFile = "src/test/resources/com/btmatthews/ldapunit/initial.ldif")
     public void canLoadFromFilesystem() {

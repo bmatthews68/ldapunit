@@ -25,28 +25,42 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 15/01/13
- * Time: 12:29
- * To change this template use File | Settings | File Templates.
+ * Unit test {@link DirectoryTester}.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.0.0
  */
 public class TestDirectoryTester {
 
+    /**
+     * This rule launches and shuts down the in-memory LDAP directory server.
+     */
     @Rule
     public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
+    /**
+     * The {@link DirectoryTester} being tested.
+     */
     private DirectoryTester tester;
 
+    /**
+     * Prepare for test case execution by connecting to the LDAP directory.
+     */
     @Before
     public void setUp() {
         tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
     }
 
+    /**
+     * Clean up after executing the test case by disconnecting from the LDAP directory server.
+     */
     @After
     public void tearDown() {
         tester.disconnect();
     }
 
+    /**
+     * Verify should return true if the DN exists and false if it does not.
+     */
     @Test
     @DirectoryServerConfiguration
     public void checkVerifyDNExists() {
@@ -54,18 +68,27 @@ public class TestDirectoryTester {
         assertFalse(tester.verifyDNExists("ou=People,dc=btmatthews,dc=com"));
     }
 
+    /**
+     * Verify that the assertion succeeds when the DN does exist.
+     */
     @Test
     @DirectoryServerConfiguration
     public void checkAssertDNExistsSucceeds() {
         tester.assertDNExists("dc=btmatthews,dc=com");
     }
 
+    /**
+     * Verify that the assertion fails if the DN does not exist.
+     */
     @Test(expected = AssertionError.class)
     @DirectoryServerConfiguration
     public void checkAssertDNExistsFails() {
         tester.assertDNExists("ou=People,dc=btmatthews,dc=com");
     }
 
+    /**
+     * An exception is thrown when we try to verify an invalid DN.
+     */
     @Test(expected = DirectoryTesterException.class)
     @DirectoryServerConfiguration
     public void throwsExceptionIfInvalidDN() {
