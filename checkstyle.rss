@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2013 Brian Matthews</copyright>
     <item>
-      <title>File: 6,
-             Errors: 15,
+      <title>File: 7,
+             Errors: 34,
              Warnings: 0,
              Infos: 0
       </title>
@@ -66,7 +66,7 @@
                   0
                 </td>
                 <td>
-                  5
+                  19
                 </td>
               </tr>
                           <tr>
@@ -80,7 +80,7 @@
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
               </tr>
                           <tr>
@@ -95,6 +95,20 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerUtils.java">com/btmatthews/ldapunit/DirectoryServerUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
