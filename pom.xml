@@ -6,7 +6,7 @@
     </prerequisites>
     <groupId>com.btmatthews.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>LDAPUnit</name>
     <description>Supports unit tests involving LDAP</description>
     <inceptionYear>2013</inceptionYear>
@@ -190,7 +190,7 @@
         <url>scm:git:git@github.com:bmatthews68/ldapunit.git</url>
         <connection>scm:git:git@github.com:bmatthews68/ldapunit.git</connection>
         <developerConnection>scm:git:git@github.com:bmatthews68/ldapunit.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>ldapunit-1.0.1</tag>
     </scm>
     <url>https://github.com/bmatthews68/ldapunit</url>
     <organization>
