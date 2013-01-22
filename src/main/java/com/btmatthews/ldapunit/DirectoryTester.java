@@ -20,6 +20,11 @@ import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPConnectionOptions;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.SearchResultEntry;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Utility that maintains a connection to the LDAP directory server and provides assert and verify methods to
@@ -171,14 +176,140 @@ public class DirectoryTester {
     }
 
     /**
+     * Verify that the entry identified by {@code dn} is of type {@code objectclass}.
+     *
+     * @param dn          The distinguished name.
+     * @param objectclass The type name.
+     * @return {@code true} if an entry identified by {@code dn} exists and has attribute named {@code objectclass}.
+     *         Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNIsA(final String dn,
+                               final String objectclass) {
+        try {
+            final SearchResultEntry entry = connection.getEntry(dn, "objectclass");
+            return entry != null
+                    && entry.hasAttribute("objectclass")
+                    && ArrayUtils.contains(entry.getAttributeValues("objectclass"), objectclass);
+        } catch (final LDAPException e) {
+            throw new DirectoryTesterException("Error communicating with LDAP directory server", e);
+        }
+    }
+
+    /**
+     * Verify that the entry identified by {@code dn} has an attribute named {@code attributeName}.
+     *
+     * @param dn            The distinguished name.
+     * @param attributeName The attribute name.
+     * @return {@code true} if an entry identified by {@code dn} exists and has an attributed named
+     *         {@code attributeName}. Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNHasAttribute(final String dn,
+                                        final String attributeName) {
+        try {
+            final SearchResultEntry entry = connection.getEntry(dn, attributeName);
+            return entry != null && entry.hasAttribute(attributeName);
+        } catch (final LDAPException e) {
+            throw new DirectoryTesterException("Error communicating with LDAP directory server", e);
+        }
+    }
+
+    /**
+     * Verify that the entry identified by {@code dn} has an attribute named {@code attributeName} with
+     * the attribute value(s) {@code attributeName}.
+     *
+     * @param dn             The distinguished name.
+     * @param attributeName  The attribute name.
+     * @param attributeValue The attribute value(s).
+     * @return {@code true} if an antry identified by {@code dn} exists with an an attribute named {@code attributeName}
+     *         that has value(s) {@code attributeValue}. Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNHasAttributeValue(final String dn,
+                                             final String attributeName,
+                                             final String... attributeValue) {
+        try {
+            final SearchResultEntry entry = connection.getEntry(dn, attributeName);
+            if (entry != null && entry.hasAttribute(attributeName)) {
+                final Set<String> expectedValues = new HashSet<String>(Arrays.asList(attributeValue));
+                final Set<String> actualValues = new HashSet<String>(Arrays.asList(entry.getAttributeValues(attributeName)));
+                if (actualValues.containsAll(expectedValues)) {
+                    actualValues.removeAll(expectedValues);
+                    if (actualValues.size() == 0) {
+                        return true;
+                    }
+                }
+            }
+        } catch (final LDAPException e) {
+            throw new DirectoryTesterException("Error communicating with LDAP directory server", e);
+        }
+        return false;
+    }
+
+    /**
      * Assert that an entry identified by {@code dn} exists.
      *
      * @param dn The distinguished name.
      */
     public void assertDNExists(final String dn) {
         if (!verifyDNExists(dn)) {
-            final StringBuilder message = new StringBuilder("DN does not exist: ");
+            final StringBuilder message = new StringBuilder("Entry for DN: ");
             message.append(dn);
+            message.append(" does not exist");
+            throw new AssertionError(message);
+        }
+    }
+
+    /**
+     * Assert that the entry identified by {@code dn} is of type {@code objectclass}.
+     *
+     * @param dn          The distinguished name.
+     * @param objectclass The type name.
+     */
+    public void assertDNIsA(final String dn,
+                            final String objectclass) {
+        if (!verifyDNIsA(dn, objectclass)) {
+            final StringBuilder message = new StringBuilder("Entry for DN: ");
+            message.append(dn);
+            message.append(" is not of type: ");
+            message.append(objectclass);
+            throw new AssertionError(message);
+        }
+    }
+
+    /**
+     * Assert that the entry identified by {@code dn} has an attribute named {@code attributeName}.
+     *
+     * @param dn            The distinguished name.
+     * @param attributeName The attribute name.
+     */
+    public void assertDNHasAttribute(final String dn,
+                                     final String attributeName) {
+        if (!verifyDNHasAttribute(dn, attributeName)) {
+            final StringBuilder message = new StringBuilder("Entry for DN: ");
+            message.append(dn);
+            message.append(" does not have attribute: ");
+            message.append(attributeName);
+            throw new AssertionError(message);
+        }
+    }
+
+    /**
+     * Assert that the entry identified by {@code dn} has an attribute named {@code attributeName} with
+     * the attribute value(s) {@code attributeName}.
+     *
+     * @param dn             The distinguished name.
+     * @param attributeName  The attribute name.
+     * @param attributeValue The attribute value(s).
+     */
+    public void assertDNHasAttributeValue(final String dn,
+                                          final String attributeName,
+                                          final String... attributeValue) {
+        if (!verifyDNHasAttributeValue(dn, attributeName, attributeValue)) {
+            final StringBuilder message = new StringBuilder("Attribute named: ");
+            message.append(attributeName);
+            message.append(" for entry for DN: ");
+            message.append(dn);
+            message.append(" is does not match: ");
+            message.append(ArrayUtils.toString(attributeValue));
             throw new AssertionError(message);
         }
     }

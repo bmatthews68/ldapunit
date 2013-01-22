@@ -1,3 +1,19 @@
+/*
+ * Copyright 2013 Brian Thomas Matthews
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.btmatthews.ldapunit;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
@@ -13,7 +29,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DirectoryServerUtils {
+/**
+ * Helper functions to start the in-memory LDAP directory server, load LDAP directory entries from an LDIF files and
+ * shut down the in-memory LDAP directory server.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.0.1
+ */
+public final class DirectoryServerUtils {
 
     /**
      * Create and configure an embedded LDAP directory server, load seed data and start the server.

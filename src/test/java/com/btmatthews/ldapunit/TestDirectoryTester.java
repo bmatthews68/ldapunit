@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
+@DirectoryServerConfiguration
 public class TestDirectoryTester {
 
     /**
@@ -62,7 +63,6 @@ public class TestDirectoryTester {
      * Verify should return true if the DN exists and false if it does not.
      */
     @Test
-    @DirectoryServerConfiguration
     public void checkVerifyDNExists() {
         assertTrue(tester.verifyDNExists("dc=btmatthews,dc=com"));
         assertFalse(tester.verifyDNExists("ou=People,dc=btmatthews,dc=com"));
@@ -72,7 +72,6 @@ public class TestDirectoryTester {
      * Verify that the assertion succeeds when the DN does exist.
      */
     @Test
-    @DirectoryServerConfiguration
     public void checkAssertDNExistsSucceeds() {
         tester.assertDNExists("dc=btmatthews,dc=com");
     }
@@ -81,7 +80,6 @@ public class TestDirectoryTester {
      * Verify that the assertion fails if the DN does not exist.
      */
     @Test(expected = AssertionError.class)
-    @DirectoryServerConfiguration
     public void checkAssertDNExistsFails() {
         tester.assertDNExists("ou=People,dc=btmatthews,dc=com");
     }
@@ -90,8 +88,100 @@ public class TestDirectoryTester {
      * An exception is thrown when we try to verify an invalid DN.
      */
     @Test(expected = DirectoryTesterException.class)
-    @DirectoryServerConfiguration
     public void throwsExceptionIfInvalidDN() {
         tester.verifyDNExists("dc:btmatthews,dc:com");
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#verifyDNHasAttribute(String, String)} behaves correctly.
+     */
+    @Test
+    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    public void checkVerifyDNHasAttribute() {
+        assertTrue(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "dc"));
+        assertFalse(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "ou"));
+        assertFalse(tester.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "dc"));
+        assertTrue(tester.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "ou"));
+        assertFalse(tester.verifyDNHasAttribute("ou=Groups,dc=btmatthews,dc=com", "ou"));
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
+     */
+    @Test
+    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    public void checkVerifyDNIsA() {
+        assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "domain"));
+        assertFalse(tester.verifyDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
+        assertTrue(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "organizationalUnit"));
+        assertFalse(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "inetOrgPerson"));
+        assertFalse(tester.verifyDNIsA("ou=Groips,dc=btmatthews,dc=com", "top"));
+    }
+
+    @Test
+    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    public void checkVerifyDNHasAttributeValue() {
+        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "top", "domain"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "domain", "top"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews", "com"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "ou", "People"));
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#assertDNIsA(String, String)} method succeeds if the LDAP
+     * directory entry is a member of the object class.
+     */
+    @Test
+    public void assertDNIsAShouldSucceed() {
+        tester.assertDNIsA("dc=btmatthews,dc=com", "domain");
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#assertDNIsA(String, String)} method throws an exception if the LDAP
+     * directory entry is not a member of the object class.
+     */
+    @Test(expected = AssertionError.class)
+    public void assertDNIsAShouldFail() {
+        tester.assertDNIsA("dc=btmatthews,dc=com", "organizationalUnit");
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#assertDNHasAttribute(String, String)} method succeeds
+     * if the LDAP directory entry has the named attribute.
+     */
+    @Test
+    public void assertDNHasAttributeShouldSucceed() {
+        tester.assertDNHasAttribute("dc=btmatthews,dc=com", "dc");
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#assertDNHasAttribute(String, String)} method throws an exception
+     * if the LDAP directory entry does not have the named attribute.
+     */
+    @Test(expected = AssertionError.class)
+    public void assertDNHasAttributeShouldFail() {
+        tester.assertDNHasAttribute("dc=btmatthews,dc=com", "ou");
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#assertDNHasAttributeValue(String, String, String...)} method
+     * succeeds if the LDAP directory entry has a matching name/value pair.
+     */
+    @Test
+    public void assertDNHasAttributeValueShouldSucceed() {
+        tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews");
+    }
+
+    /**
+     * Verify that the {@link DirectoryTester#assertDNHasAttributeValue(String, String, String...)} method
+     * throws an exception if the LDAP directory entry does not have the matching name/value pair.
+     */
+    @Test(expected = AssertionError.class)
+    public void assertDNHasAttributeValueShouldFail() {
+        tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com");
     }
 }
