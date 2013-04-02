@@ -65,18 +65,14 @@ public class TestDirectoryServerRuleMethodConfiguration {
     @Test
     @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
     public void canLoadFromClasspath() {
-        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
-        try {
-            tester.assertDNExists("dc=btmatthews,dc=com");
-            tester.assertDNExists("ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=lsimpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=hsimpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=msimpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=ccarlson,ou=People,dc=btmatthews,dc=com");
-        } finally {
-            tester.disconnect();
-        }
+        directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=lsimpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=hsimpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=msimpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=ccarlson,ou=People,dc=btmatthews,dc=com");
+
     }
 
     /**
@@ -86,17 +82,12 @@ public class TestDirectoryServerRuleMethodConfiguration {
     @Test
     @DirectoryServerConfiguration(ldifFile = "src/test/resources/com/btmatthews/ldapunit/initial.ldif")
     public void canLoadFromFilesystem() {
-        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
-        try {
-            tester.assertDNExists("dc=btmatthews,dc=com");
-            tester.assertDNExists("ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=lsimpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=hsimpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=msimpson,ou=People,dc=btmatthews,dc=com");
-            tester.assertDNExists("uid=ccarlson,ou=People,dc=btmatthews,dc=com");
-        } finally {
-            tester.disconnect();
-        }
+        directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=lsimpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=hsimpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=msimpson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("uid=ccarlson,ou=People,dc=btmatthews,dc=com");
     }
 }
