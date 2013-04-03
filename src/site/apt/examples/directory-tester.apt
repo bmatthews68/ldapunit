@@ -84,15 +84,15 @@ public class Test {
   * <<assertDNHasAttribute(String dn, String attributeName)>> - asserts that an entry exists in the LDAP directory
     with the distinguished name of <<dn>> and that it has an attribute named <<attributeName>>.
 
-  * <<verifyDNHasAttribute(String dn, String attributeName)>> - test to see if an entry exists in the LDAP directory
+  * <<verifyDNHasAttribute(String dn, String attributeName)>> - tests to see if an entry exists in the LDAP directory
     with the distinguished name of <<dn>> and check that it has an attribute named <<attributeName>>.
 
   * <<assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)>> - assert that an entry
-    exists in the LDAP directory with the distinguished nane of <<dn>> and that it has an attribute named
+    exists in the LDAP directory with the distinguished name of <<dn>> and that it has an attribute named
     <<attributeName>> with value(s) <<attributeValues>>.
 
-  * <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)>> - test to see if an entry
-    exists in the LDAP directory with the distinguished nane of <<dn>> and check that it has an attribute named
+  * <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)>> - tests to see if an entry
+    exists in the LDAP directory with the distinguished name of <<dn>> and check that it has an attribute named
     <<attributeName>> with value(s) <<attributeValues>>.
 
   []
