@@ -77,6 +77,34 @@ system if it was not found on the class path.</td>
 </tbody>
 </table>
 
+The following methods can be used to make assertions about or verify the contents of the LDAP directory:
+
+* **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of
+  **dn**.
+
+* **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
+  of **dn**.
+
+* **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the
+  distinguished name of **dn** and that it is of type **objectclass**.
+
+* **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the
+  distinguished name of **dn** and check that it is of type **objectclass**.
+
+* **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory
+  with the distinguished name of **dn** and that it has an attribute named **attributeName**.
+
+* **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory
+    with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
+
+* **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry
+  exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named
+  **attributeName** with value(s) **attributeValues**.
+
+* <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry
+  exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
+  **attributeName** with value(s) **attributeValues**.
+
 DirectoryTester
 ---------------
 
@@ -130,6 +158,26 @@ The following methods can be used to make assertions about or verify the content
 
 * **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
   of **dn**.
+
+* **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the
+  distinguished name of **dn** and that it is of type **objectclass**.
+
+* **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the
+  distinguished name of **dn** and check that it is of type **objectclass**.
+
+* **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory
+  with the distinguished name of **dn** and that it has an attribute named **attributeName**.
+
+* **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory
+    with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
+
+* **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry
+  exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named
+  **attributeName** with value(s) **attributeValues**.
+
+* <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry
+  exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
+  **attributeName** with value(s) **attributeValues**.
 
 The connection should be closed by calling **disconnect()**.
 
