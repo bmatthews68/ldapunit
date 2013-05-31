@@ -6,7 +6,7 @@
     </prerequisites>
     <groupId>com.btmatthews.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <name>LDAPUnit</name>
     <description>Supports unit tests involving LDAP</description>
     <inceptionYear>2013</inceptionYear>
