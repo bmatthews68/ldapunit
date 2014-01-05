@@ -117,7 +117,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.10</version>
+                <version>2.11</version>
                 <configuration>
                     <configLocation>config/sun_checks.xml</configLocation>
                 </configuration>
@@ -151,7 +151,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <aggregate>true</aggregate>
                 </configuration>
@@ -173,12 +173,12 @@
         <dependency>
             <groupId>com.unboundid</groupId>
             <artifactId>unboundid-ldapsdk</artifactId>
-            <version>2.3.4</version>
+            <version>2.3.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.1</version>
+            <version>3.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

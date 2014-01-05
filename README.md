@@ -120,23 +120,23 @@ import org.junit.Test;
 
 public class Test {
 
-  private DirectoryTester tester;
+private DirectoryTester tester;
 
-  @Before
-  public void setUp() {
-    tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
-  }
+@Before
+public void setUp() {
+tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+}
 
-  @After
-  public void tearDown() {
-    tester.disconnect();
-  }
+@After
+public void tearDown() {
+tester.disconnect();
+}
 
-  @Test
-  public void testSomething() {
-     // Do something that affects the LDAP directory
-     // Check outcomes with tester.assertXXX() and tester.verifyXXX() methods
-  }
+@Test
+public void testSomething() {
+// Do something that affects the LDAP directory
+// Check outcomes with tester.assertXXX() and tester.verifyXXX() methods
+}
 }
 ```
 
@@ -144,40 +144,40 @@ There are two variants of the
 [DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) constructor
 
 * **DirectoryTester(String hostname, int port)** - connects anonymously to the directory server on the host with
-  name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
+name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
 
 * **DirectoryTester(String hostname, int port, String bindDN, String password)** - connects to the directory server
-  on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by
-  **port**. Then it binds to the using the authentication identifier and credentials specified by **bindDN** and
-  **password**.
+on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by
+**port**. Then it binds to the using the authentication identifier and credentials specified by **bindDN** and
+**password**.
 
 The following methods can be used to make assertions about or verify the contents of the LDAP directory:
 
 * **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of
-  **dn**.
+**dn**.
 
 * **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
-  of **dn**.
+of **dn**.
 
 * **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the
-  distinguished name of **dn** and that it is of type **objectclass**.
+distinguished name of **dn** and that it is of type **objectclass**.
 
 * **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the
-  distinguished name of **dn** and check that it is of type **objectclass**.
+distinguished name of **dn** and check that it is of type **objectclass**.
 
 * **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory
-  with the distinguished name of **dn** and that it has an attribute named **attributeName**.
+with the distinguished name of **dn** and that it has an attribute named **attributeName**.
 
 * **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory
-    with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
+with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
 
 * **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry
-  exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named
-  **attributeName** with value(s) **attributeValues**.
+exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named
+**attributeName** with value(s) **attributeValues**.
 
 * <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry
-  exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
-  **attributeName** with value(s) **attributeValues**.
+exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
+**attributeName** with value(s) **attributeValues**.
 
 The connection should be closed by calling **disconnect()**.
 
@@ -190,7 +190,7 @@ coordinates:
 <plugin>
     <groupId>com.btmatthews.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.3</version>
 </plugin>
 ```
 
