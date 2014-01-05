@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 <rss version="0.91">
   <channel>
     <title>LDAPUnit - Checkstyle report</title>
     <link>https://github.com/bmatthews68/ldapunit</link>
     <description>LDAPUnit - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2013 Brian Matthews</copyright>
+    <copyright>&#169;2013 - 2014 Brian Matthews</copyright>
     <item>
       <title>File: 7,
              Errors: 143,
@@ -29,7 +46,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.package-info.java">com/btmatthews/ldapunit/package-info.java</a>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerUtils.java">com/btmatthews/ldapunit/DirectoryServerUtils.java</a>
                 </td>
                 <td>
                   0
@@ -38,7 +55,21 @@
                   0
                 </td>
                 <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerRule.java">com/btmatthews/ldapunit/DirectoryServerRule.java</a>
+                </td>
+                <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  34
                 </td>
               </tr>
                           <tr>
@@ -71,20 +102,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerStatement.java">com/btmatthews/ldapunit/DirectoryServerStatement.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryTesterException.java">com/btmatthews/ldapunit/DirectoryTesterException.java</a>
                 </td>
                 <td>
@@ -99,7 +116,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerUtils.java">com/btmatthews/ldapunit/DirectoryServerUtils.java</a>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.package-info.java">com/btmatthews/ldapunit/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -108,12 +125,12 @@
                   0
                 </td>
                 <td>
-                  22
+                  0
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerRule.java">com/btmatthews/ldapunit/DirectoryServerRule.java</a>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerStatement.java">com/btmatthews/ldapunit/DirectoryServerStatement.java</a>
                 </td>
                 <td>
                   0
@@ -122,7 +139,7 @@
                   0
                 </td>
                 <td>
-                  34
+                  9
                 </td>
               </tr>
                       </tbody>
