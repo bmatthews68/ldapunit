@@ -68,6 +68,14 @@ public @interface DirectoryServerConfiguration {
      *
      * @return The LDIF file path.
      */
-    String ldifFile() default "";
+    @Deprecated String ldifFile() default "";
 
+    /**
+     * The locations of optional LDIF files that can be used to see the LDAP directory with an initial data set.
+     * The files may localed on the file system or the classpath. The classpath is checked first and then falls back
+     * to che file system if it was not found on the class path.
+     *
+     * @return An array of LDIF file paths.
+     */
+    String[] ldifFiles() default {};
 }

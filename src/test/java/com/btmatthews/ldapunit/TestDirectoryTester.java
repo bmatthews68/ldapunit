@@ -96,7 +96,7 @@ public class TestDirectoryTester {
      * Verify that the {@link DirectoryTester#verifyDNHasAttribute(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttribute() {
         assertTrue(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "dc"));
         assertFalse(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "ou"));
@@ -109,7 +109,7 @@ public class TestDirectoryTester {
      * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void checkVerifyDNIsA() {
         assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "top"));
         assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "domain"));
@@ -121,7 +121,7 @@ public class TestDirectoryTester {
     }
 
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttributeValue() {
         assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "top", "domain"));
         assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "domain", "top"));

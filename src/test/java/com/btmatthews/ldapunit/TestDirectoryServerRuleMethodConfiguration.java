@@ -63,7 +63,7 @@ public class TestDirectoryServerRuleMethodConfiguration {
      * parameter of the annotation is specified. This variation loads the LDIF file as a classpath resource.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void canLoadFromClasspath() {
         directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
         directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");
@@ -80,7 +80,7 @@ public class TestDirectoryServerRuleMethodConfiguration {
      * parameter of the annotation is specified. This variation loads the LDIF file using a file system path.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "src/test/resources/com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "src/test/resources/com/btmatthews/ldapunit/initial.ldif")
     public void canLoadFromFilesystem() {
         directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
         directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");

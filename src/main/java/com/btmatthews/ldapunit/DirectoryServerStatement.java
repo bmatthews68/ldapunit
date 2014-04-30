@@ -58,8 +58,14 @@ public class DirectoryServerStatement extends Statement {
      */
     @Override
     public void evaluate() throws Throwable {
-        final InMemoryDirectoryServer server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-                annotation.authDN(), annotation.authPassword(), annotation.ldifFile());
+        final InMemoryDirectoryServer server;
+        if (annotation.ldifFiles().length == 0) {
+            server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
+                    annotation.authDN(), annotation.authPassword(), annotation.ldifFile());
+        } else {
+            server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
+                    annotation.authDN(), annotation.authPassword(), annotation.ldifFiles());
+        }
         try {
             base.evaluate();
         } finally {

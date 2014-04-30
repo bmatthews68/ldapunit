@@ -19,13 +19,13 @@ package com.btmatthews.ldapunit;
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
 import com.unboundid.ldap.listener.InMemoryListenerConfig;
-import com.unboundid.ldap.sdk.Attribute;
-import com.unboundid.ldap.sdk.DN;
-import com.unboundid.ldap.sdk.Entry;
-import com.unboundid.ldap.sdk.LDAPException;
+import com.unboundid.ldap.sdk.*;
+import com.unboundid.ldif.LDIFChangeRecord;
+import com.unboundid.ldif.LDIFException;
 import com.unboundid.ldif.LDIFReader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -43,23 +43,45 @@ public final class DirectoryServerUtils {
      *
      * @param ldifFile The LDIF resource or file from which LDIF records will be loaded.
      * @return The {@link com.unboundid.ldap.listener.InMemoryDirectoryServer} object.
-     * @throws com.unboundid.ldap.sdk.LDAPException
-     *                             If there was a problem configuring or starting the embedded LDAP directory server.
-     * @throws java.io.IOException If there was a problem reading the LDIF data.
+     * @throws com.unboundid.ldif.LDIFException     If there was an error in the LDIF data.
+     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem configuring or starting the embedded LDAP directory server.
+     * @throws java.io.IOException                  If there was a problem reading the LDIF data.
+     */
+    @Deprecated
+    public static InMemoryDirectoryServer startServer(final int port,
+                                                      final String baseDN,
+                                                      final String authDN,
+                                                      final String authPassword,
+                                                      final String ldifFile)
+            throws LDIFException, LDAPException, IOException {
+        return startServer(port, baseDN, authDN, authPassword, new String[]{ldifFile});
+    }
+
+    /**
+     * Create and configure an embedded LDAP directory server, load seed data and start the server.
+     *
+     * @param ldifFiles The LDIF resources or files from which LDIF records will be loaded.
+     * @return The {@link com.unboundid.ldap.listener.InMemoryDirectoryServer} object.
+     * @throws com.unboundid.ldif.LDIFException     If there was an error in the LDIF data.
+     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem configuring or starting the embedded LDAP directory server.
+     * @throws java.io.IOException                  If there was a problem reading the LDIF data.
      */
     public static InMemoryDirectoryServer startServer(final int port,
                                                       final String baseDN,
                                                       final String authDN,
                                                       final String authPassword,
-                                                      final String ldifFile) throws LDAPException, IOException {
+                                                      final String[] ldifFiles)
+            throws LDIFException, LDAPException, IOException {
         final InMemoryListenerConfig listenerConfig = InMemoryListenerConfig.createLDAPConfig("default", port);
         final InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig(new DN(baseDN));
         config.setListenerConfigs(listenerConfig);
         config.addAdditionalBindCredentials(authDN, authPassword);
         final InMemoryDirectoryServer server = new InMemoryDirectoryServer(config);
         server.add(new Entry(baseDN, new Attribute("objectclass", "domain", "top")));
-        loadData(server, ldifFile);
         server.startListening();
+        for (final String ldifFile : ldifFiles) {
+            loadData(server, ldifFile);
+        }
         return server;
     }
 
@@ -68,25 +90,38 @@ public final class DirectoryServerUtils {
      *
      * @param server   The embedded LDAP directory server.
      * @param ldifFile The LDIF resource or file from which LDIF records will be loaded.
-     * @throws com.unboundid.ldap.sdk.LDAPException
-     *                             If there was a problem loading the LDIF records into the LDAP directory.
-     * @throws java.io.IOException If there was a problem reading the LDIF records from the file.
+     * @throws com.unboundid.ldif.LDIFException     If there was an error in the LDIF data.
+     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem loading the LDIF records into the LDAP directory.
+     * @throws java.io.IOException                  If there was a problem reading the LDIF records from the file.
      */
     public static void loadData(final InMemoryDirectoryServer server,
-                                final String ldifFile) throws LDAPException, IOException {
+                                final String ldifFile)
+            throws LDIFException, LDAPException, IOException {
         if (ldifFile != null && !ldifFile.isEmpty()) {
-            if (new File(ldifFile).exists()) {
-                server.importFromLDIF(false, ldifFile);
+            final InputStream inputStream;
+            final File file = new File(ldifFile);
+            if (file.exists()) {
+                inputStream = new FileInputStream(file);
             } else {
                 final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final InputStream inputStream = classLoader.getResourceAsStream(ldifFile);
-                try {
-                    final LDIFReader reader = new LDIFReader(inputStream);
-                    server.importFromLDIF(false, reader);
-                } finally {
-                    inputStream.close();
-                }
+                inputStream = classLoader.getResourceAsStream(ldifFile);
             }
+            loadData(server.getConnection(), inputStream);
+        }
+    }
+
+    private static void loadData(final LDAPConnection connection,
+                                 final InputStream inputStream)
+            throws LDIFException, LDAPException, IOException {
+        try {
+            final LDIFReader reader = new LDIFReader(inputStream);
+            LDIFChangeRecord changeRecord = reader.readChangeRecord(true);
+            while (changeRecord != null) {
+                changeRecord.processChange(connection);
+                changeRecord = reader.readChangeRecord(true);
+            }
+        } finally {
+            inputStream.close();
         }
     }
 
