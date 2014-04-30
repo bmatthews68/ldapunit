@@ -187,11 +187,11 @@ Maven Central Coordinates
 coordinates:
 
 ```xml
-<plugin>
+<dependency>
     <groupId>com.btmatthews.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>1.0.3</version>
-</plugin>
+    <version>1.1.0</version>
+</depedency>
 ```
 
 Credits
