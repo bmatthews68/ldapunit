@@ -28,7 +28,7 @@ import org.junit.runners.model.Statement;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public class DirectoryServerRule implements TestRule {
+public final class DirectoryServerRule implements TestRule {
 
     /**
      * The current configuration for the in-memory LDAP directory server.
@@ -46,7 +46,6 @@ public class DirectoryServerRule implements TestRule {
      * @return If no configuration was found then {@code base} is returned. Otherwise, a new
      *         {@link DirectoryServerStatement} that wraps {@code base} is returned.
      */
-    @Override
     public Statement apply(final Statement base, final Description description) {
         annotation = description.getAnnotation(DirectoryServerConfiguration.class);
         if (annotation == null) {

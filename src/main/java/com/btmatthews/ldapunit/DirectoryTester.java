@@ -20,7 +20,6 @@ import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPConnectionOptions;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.SearchResultEntry;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -33,7 +32,7 @@ import java.util.Set;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public class DirectoryTester {
+public final class DirectoryTester {
 
     /**
      * The default for the maximum connection attempts.
@@ -189,7 +188,7 @@ public class DirectoryTester {
             final SearchResultEntry entry = connection.getEntry(dn, "objectclass");
             return entry != null
                     && entry.hasAttribute("objectclass")
-                    && ArrayUtils.contains(entry.getAttributeValues("objectclass"), objectclass);
+                    && arrayContains(entry.getAttributeValues("objectclass"), objectclass);
         } catch (final LDAPException e) {
             throw new DirectoryTesterException("Error communicating with LDAP directory server", e);
         }
@@ -309,7 +308,7 @@ public class DirectoryTester {
             message.append(" for entry for DN: ");
             message.append(dn);
             message.append(" is does not match: ");
-            message.append(ArrayUtils.toString(attributeValue));
+            message.append(arrayToString(attributeValue));
             throw new AssertionError(message);
         }
     }
@@ -319,5 +318,28 @@ public class DirectoryTester {
      */
     public void disconnect() {
         connection.close();
+    }
+
+    private boolean arrayContains(final String[] items,
+                                  final String item) {
+        for (final String value : items) {
+            if (item.equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String arrayToString(final String[] items) {
+        final StringBuilder builder = new StringBuilder('[');
+        if (items.length > 0) {
+            builder.append(items[0]);
+            for (int i = 1; i < items.length; i++) {
+                builder.append(',');
+                builder.append(items[i]);
+            }
+        }
+        builder.append(']');
+        return builder.toString();
     }
 }

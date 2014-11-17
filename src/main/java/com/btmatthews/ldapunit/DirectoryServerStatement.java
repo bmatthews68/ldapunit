@@ -26,7 +26,7 @@ import org.junit.runners.model.Statement;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public class DirectoryServerStatement extends Statement {
+public final class DirectoryServerStatement extends Statement {
 
     /**
      * The wrapped statement {@link Statement}.

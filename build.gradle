@@ -5,7 +5,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.unboundid:unboundid-ldapsdk:2.3.6'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'com.unboundid:unboundid-ldapsdk:2.3.7'
     compile 'junit:junit:4.11'
 }
