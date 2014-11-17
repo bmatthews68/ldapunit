@@ -1,3 +1,5 @@
+.gradle/
 .idea/
+build/
 target/
 ldapunit.iml
