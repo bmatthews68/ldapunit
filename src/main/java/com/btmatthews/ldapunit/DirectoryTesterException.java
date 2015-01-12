@@ -23,7 +23,7 @@ package com.btmatthews.ldapunit;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public class DirectoryTesterException extends RuntimeException {
+public final class DirectoryTesterException extends RuntimeException {
 
     /**
      * The default constructor.
