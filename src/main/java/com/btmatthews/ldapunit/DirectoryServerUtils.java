@@ -106,7 +106,9 @@ public final class DirectoryServerUtils {
                 final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 inputStream = classLoader.getResourceAsStream(ldifFile);
             }
-            loadData(server.getConnection(), inputStream);
+            if (inputStream != null) {
+                loadData(server.getConnection(), inputStream);
+            }
         }
     }
 
