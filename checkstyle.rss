@@ -23,10 +23,10 @@ under the License.
     <link>https://github.com/bmatthews68/ldapunit</link>
     <description>LDAPUnit - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2013 - 2014 Brian Matthews</copyright>
+    <copyright>&#169;2013 - 2015 Brian Matthews</copyright>
     <item>
       <title>File: 7,
-             Errors: 162,
+             Errors: 139,
              Warnings: 0,
              Infos: 0
       </title>
@@ -69,7 +69,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  34
+                  25
                 </td>
               </tr>
                           <tr>
@@ -83,7 +83,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  19
+                  17
                 </td>
               </tr>
                           <tr>
@@ -97,7 +97,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  59
+                  48
                 </td>
               </tr>
                           <tr>
@@ -139,7 +139,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  11
+                  10
                 </td>
               </tr>
                       </tbody>
