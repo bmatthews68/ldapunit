@@ -35,12 +35,12 @@
             <extension>
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-provider-gitexe</artifactId>
-                <version>1.9.2</version>
+                <version>1.9.4</version>
             </extension>
             <extension>
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-manager-plexus</artifactId>
-                <version>1.9.2</version>
+                <version>1.9.4</version>
             </extension>
             <extension>
                 <groupId>com.github.stephenc.wagon</groupId>
