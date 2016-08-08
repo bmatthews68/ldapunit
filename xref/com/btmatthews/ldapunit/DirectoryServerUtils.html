@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../apidocs/com/btmatthews/ldapunit/DirectoryServerUtils.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2013 Brian Thomas Matthews</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2013-2016 Brian Thomas Matthews</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:brian@btmatthews.com" target="alexandria_uri">mailto:brian@btmatthews.com</a>"&gt;Brian Matthews&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * @since 1.0.1</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/btmatthews/ldapunit/DirectoryServerUtils.html">DirectoryServerUtils</a> {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/btmatthews/ldapunit/DirectoryServerUtils.html">DirectoryServerUtils</a> {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * Create and configure an embedded LDAP directory server, load seed data and start the server.</em>
@@ -56,11 +56,11 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">     * @throws java.io.IOException                  If there was a problem reading the LDIF data.</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      @Deprecated
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> InMemoryDirectoryServer startServer(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> port,
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>                                                        <strong class="jxr_keyword">final</strong> String baseDN,
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>                                                        <strong class="jxr_keyword">final</strong> String authDN,
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>                                                        <strong class="jxr_keyword">final</strong> String authPassword,
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>                                                        <strong class="jxr_keyword">final</strong> String ldifFile)
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">static</strong> InMemoryDirectoryServer startServer(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> port,
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>                                                 <strong class="jxr_keyword">final</strong> String baseDN,
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>                                                 <strong class="jxr_keyword">final</strong> String authDN,
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>                                                 <strong class="jxr_keyword">final</strong> String authPassword,
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>                                                 <strong class="jxr_keyword">final</strong> String ldifFile)
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">throws</strong> LDIFException, LDAPException, IOException {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">return</strong> startServer(port, baseDN, authDN, authPassword, <strong class="jxr_keyword">new</strong> String[]{ldifFile});
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
@@ -74,11 +74,11 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem configuring or starting the embedded LDAP directory server.</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * @throws java.io.IOException                  If there was a problem reading the LDIF data.</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> InMemoryDirectoryServer startServer(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> port,
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>                                                        <strong class="jxr_keyword">final</strong> String baseDN,
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                                                        <strong class="jxr_keyword">final</strong> String authDN,
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>                                                        <strong class="jxr_keyword">final</strong> String authPassword,
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>                                                        <strong class="jxr_keyword">final</strong> String[] ldifFiles)
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">static</strong> InMemoryDirectoryServer startServer(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> port,
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>                                                 <strong class="jxr_keyword">final</strong> String baseDN,
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>                                                 <strong class="jxr_keyword">final</strong> String authDN,
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>                                                 <strong class="jxr_keyword">final</strong> String authPassword,
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                                                 <strong class="jxr_keyword">final</strong> String[] ldifFiles)
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">throws</strong> LDIFException, LDAPException, IOException {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">final</strong> InMemoryListenerConfig listenerConfig = InMemoryListenerConfig.createLDAPConfig(<span class="jxr_string">"default"</span>, port);
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">final</strong> InMemoryDirectoryServerConfig config = <strong class="jxr_keyword">new</strong> InMemoryDirectoryServerConfig(<strong class="jxr_keyword">new</strong> DN(baseDN));
@@ -102,10 +102,10 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem loading the LDIF records into the LDAP directory.</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     * @throws java.io.IOException                  If there was a problem reading the LDIF records from the file.</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> loadData(<strong class="jxr_keyword">final</strong> InMemoryDirectoryServer server,
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                                  <strong class="jxr_keyword">final</strong> String ldifFile)
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> loadData(<strong class="jxr_keyword">final</strong> InMemoryDirectoryServer server,
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>                                   <strong class="jxr_keyword">final</strong> String ldifFile)
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>              <strong class="jxr_keyword">throws</strong> LDIFException, LDAPException, IOException {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">if</strong> (ldifFile != <strong class="jxr_keyword">null</strong> &amp;&amp; !ldifFile.isEmpty()) {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">if</strong> (ldifFile != <strong class="jxr_keyword">null</strong> &amp;&amp; ldifFile.length() &gt; 0) {
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             <strong class="jxr_keyword">final</strong> InputStream inputStream;
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>             <strong class="jxr_keyword">final</strong> File file = <strong class="jxr_keyword">new</strong> File(ldifFile);
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>             <strong class="jxr_keyword">if</strong> (file.exists()) {
@@ -140,12 +140,12 @@
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * @param server The embedded LDAP directory server.</em>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> stopServer(<strong class="jxr_keyword">final</strong> InMemoryDirectoryServer server) {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> stopServer(<strong class="jxr_keyword">final</strong> InMemoryDirectoryServer server) {
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         server.shutDown(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2013&#x2013;2015 <a href="http://btmatthews.com">Brian Matthews</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2013&#x2013;2016 <a href="http://btmatthews.com">Brian Matthews</a>. All rights reserved.</div>
 </body>
 </html>
