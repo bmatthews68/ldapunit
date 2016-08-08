@@ -70,10 +70,18 @@ parameters can be configured:
 </tr>
 <tr>
 <td>ldifFile</td>
-<td>The location of the an optional LDIF file that can be used to seed the LDAP directory with an initial data set. The
+<td>The location of an optional LDIF file that can be used to seed the LDAP directory with an initial data set. The
 file may be located on the file system or the classpath. The classpath is checked first and then falls back to the file
 system if it was not found on the class path.</td>
 <td></td>
+</tr>
+<tr>
+<td>ldifFiles</td>
+<td>The location of optional LDIF files that can be used to seed the LDAP directory with an initial data set. The
+files may be located on the file system or the classpath. The classpath is checked first and then falls back to the file
+system if it was not found on the class path.</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 

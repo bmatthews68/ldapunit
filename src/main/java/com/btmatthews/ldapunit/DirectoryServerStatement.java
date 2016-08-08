@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.junit.runners.model.Statement;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public final class DirectoryServerStatement extends Statement {
+final class DirectoryServerStatement extends Statement {
 
     /**
      * The wrapped statement {@link Statement}.
@@ -44,7 +44,7 @@ public final class DirectoryServerStatement extends Statement {
      * @param stmt The wrapped statement.
      * @param cfg  The directory server configuration.
      */
-    public DirectoryServerStatement(final Statement stmt, final DirectoryServerConfiguration cfg) {
+    DirectoryServerStatement(final Statement stmt, final DirectoryServerConfiguration cfg) {
         base = stmt;
         annotation = cfg;
     }
@@ -57,6 +57,7 @@ public final class DirectoryServerStatement extends Statement {
      *                   wrapped server.
      */
     @Override
+    @SuppressWarnings("deprecation")
     public void evaluate() throws Throwable {
         final InMemoryDirectoryServer server;
         if (annotation.ldifFiles().length == 0) {

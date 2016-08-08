@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import java.io.InputStream;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.1
  */
-public final class DirectoryServerUtils {
+final class DirectoryServerUtils {
 
     /**
      * Create and configure an embedded LDAP directory server, load seed data and start the server.
@@ -48,11 +48,11 @@ public final class DirectoryServerUtils {
      * @throws java.io.IOException                  If there was a problem reading the LDIF data.
      */
     @Deprecated
-    public static InMemoryDirectoryServer startServer(final int port,
-                                                      final String baseDN,
-                                                      final String authDN,
-                                                      final String authPassword,
-                                                      final String ldifFile)
+    static InMemoryDirectoryServer startServer(final int port,
+                                               final String baseDN,
+                                               final String authDN,
+                                               final String authPassword,
+                                               final String ldifFile)
             throws LDIFException, LDAPException, IOException {
         return startServer(port, baseDN, authDN, authPassword, new String[]{ldifFile});
     }
@@ -66,11 +66,11 @@ public final class DirectoryServerUtils {
      * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem configuring or starting the embedded LDAP directory server.
      * @throws java.io.IOException                  If there was a problem reading the LDIF data.
      */
-    public static InMemoryDirectoryServer startServer(final int port,
-                                                      final String baseDN,
-                                                      final String authDN,
-                                                      final String authPassword,
-                                                      final String[] ldifFiles)
+    static InMemoryDirectoryServer startServer(final int port,
+                                               final String baseDN,
+                                               final String authDN,
+                                               final String authPassword,
+                                               final String[] ldifFiles)
             throws LDIFException, LDAPException, IOException {
         final InMemoryListenerConfig listenerConfig = InMemoryListenerConfig.createLDAPConfig("default", port);
         final InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig(new DN(baseDN));
@@ -94,10 +94,10 @@ public final class DirectoryServerUtils {
      * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem loading the LDIF records into the LDAP directory.
      * @throws java.io.IOException                  If there was a problem reading the LDIF records from the file.
      */
-    public static void loadData(final InMemoryDirectoryServer server,
-                                final String ldifFile)
+    private static void loadData(final InMemoryDirectoryServer server,
+                                 final String ldifFile)
             throws LDIFException, LDAPException, IOException {
-        if (ldifFile != null && !ldifFile.isEmpty()) {
+        if (ldifFile != null && ldifFile.length() > 0) {
             final InputStream inputStream;
             final File file = new File(ldifFile);
             if (file.exists()) {
@@ -132,7 +132,7 @@ public final class DirectoryServerUtils {
      *
      * @param server The embedded LDAP directory server.
      */
-    public static void stopServer(final InMemoryDirectoryServer server) {
+    static void stopServer(final InMemoryDirectoryServer server) {
         server.shutDown(true);
     }
 }

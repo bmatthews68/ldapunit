@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -331,7 +331,7 @@ public final class DirectoryTester {
     }
 
     private String arrayToString(final String[] items) {
-        final StringBuilder builder = new StringBuilder('[');
+        final StringBuilder builder = new StringBuilder("[");
         if (items.length > 0) {
             builder.append(items[0]);
             for (int i = 1; i < items.length; i++) {
