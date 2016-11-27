@@ -198,7 +198,7 @@ coordinates:
 <dependency>
     <groupId>com.btmatthews.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 ```
 
