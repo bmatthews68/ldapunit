@@ -74,7 +74,7 @@ public class TestDirectoryTesterConnection {
             @Override
             public void run() {
                 try {
-                    server = DirectoryServerUtils.startServer(LDAP_PORT, ROOT_DN, AUTH_DN, AUTH_PASSWORD, new String[0]);
+                    server = DirectoryServerUtils.startServer(LDAP_PORT, ROOT_DN, AUTH_DN, AUTH_PASSWORD, new String[0], "");
                 } catch (final Exception e) {
                 }
             }

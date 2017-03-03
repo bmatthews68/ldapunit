@@ -78,4 +78,14 @@ public @interface DirectoryServerConfiguration {
      * @return An array of LDIF file paths.
      */
     String[] ldifFiles() default {};
+    
+    /**
+     * The location of the optional schema LDIF file that can be use to have a LDAP directory with a custom schema.
+     * The file may located on the file system or the classpath. The classpath is checked first and then falls back
+     * to the file system if it was no found on the class path.
+     * 
+     * @return The file path of the schema in LDIF.
+     */
+    String ldifSchema() default "";
+    
 }

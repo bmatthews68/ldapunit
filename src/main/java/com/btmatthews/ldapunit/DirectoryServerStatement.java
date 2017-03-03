@@ -62,10 +62,10 @@ final class DirectoryServerStatement extends Statement {
         final InMemoryDirectoryServer server;
         if (annotation.ldifFiles().length == 0) {
             server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-                    annotation.authDN(), annotation.authPassword(), annotation.ldifFile());
+                    annotation.authDN(), annotation.authPassword(), annotation.ldifFile(), annotation.ldifSchema());
         } else {
             server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-                    annotation.authDN(), annotation.authPassword(), annotation.ldifFiles());
+                    annotation.authDN(), annotation.authPassword(), annotation.ldifFiles(), annotation.ldifSchema());
         }
         try {
             base.evaluate();
