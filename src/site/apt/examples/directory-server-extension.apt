@@ -1,5 +1,5 @@
  ------
- DirectoryServerRule Example
+ DirectoryServerExtension Example
  ------
  Brian Matthews
  ------
@@ -21,27 +21,30 @@
 ~~ limitations under the License.
 
 
-DirectoryServerRule Example
+DirectoryServerExtension Example
 
-  {{{../apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is used launch an embedded LDAP
-  directory server so that the unit tests written using JUnit 4 do not have to be dependent on an external LDAP directory server with
+  {{{../apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html}DirectoryServerExtension}} is used launch an embedded LDAP
+  directory server so that the unit tests written using JUnit 5 do not have to be dependent on an external LDAP directory server with
   unpredictable state.
 
 +-------------------------------+
 import com.btmatthews.ldapunit.DirectoryServerConfiguration;
-import com.btmatthews.ldapunit.DirectoryServerRule;
+import com.btmatthews.ldapunit.DirectoryServerExtension;
 import org.junit.Rule;
 import org.junit.Test;
 
+@ExtendWith(DirectoryServerExtension.class)
 @DirectoryServerConfiguration
 public class Test {
-
-  @Rule
-  public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
 
   @Test
   public void testSomething() {
     // Unit test code that depends on LDAP directory server
+  }
+
+  @Test
+  public void testSomethingWithTester(final DirectoryTester tester) {
+    // Unit test code that depends on LDAP directory server using the tester
   }
 }
 +-------------------------------+

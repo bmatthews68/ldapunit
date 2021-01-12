@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,15 +60,6 @@ public @interface DirectoryServerConfiguration {
      * @return The password.
      */
     String authPassword() default "secret";
-
-    /**
-     * The location of the an optional LDIF file that can be used to seed the LDAP directory with an initial data set.
-     * The file may be located on the file system or the classpath. The classpath is checked
-     * first and then falls back to the file system if it was not found on the class path.
-     *
-     * @return The LDIF file path.
-     */
-    @Deprecated String ldifFile() default "";
 
     /**
      * The locations of optional LDIF files that can be used to see the LDAP directory with an initial data set.

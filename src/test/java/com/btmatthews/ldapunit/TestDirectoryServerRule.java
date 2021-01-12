@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@ package com.btmatthews.ldapunit;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Unit test the {@link DirectoryServerRule} rule.
@@ -70,24 +69,28 @@ public class TestDirectoryServerRule {
     /**
      * Verify that the assertion fails if the DN does not exist.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     public void checkAssertDNExistsFails() {
-        directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");
+        assertThrows(
+                AssertionError.class,
+                () -> directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com"));
     }
 
     /**
      * An exception is thrown when we try to verify an invalid DN.
      */
-    @Test(expected = DirectoryTesterException.class)
+    @Test
     public void throwsExceptionIfInvalidDN() {
-        directoryServerRule.verifyDNExists("dc:btmatthews,dc:com");
+        assertThrows(
+                DirectoryTesterException.class,
+                () -> directoryServerRule.verifyDNExists("dc:btmatthews,dc:com"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttribute(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttribute() {
         assertTrue(directoryServerRule.verifyDNHasAttribute("dc=btmatthews,dc=com", "dc"));
         assertFalse(directoryServerRule.verifyDNHasAttribute("dc=btmatthews,dc=com", "ou"));
@@ -97,10 +100,10 @@ public class TestDirectoryServerRule {
     }
 
     /**
-     * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
+     * Verify that the {@link DirectoryTester#verifyDNIsA(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void checkVerifyDNIsA() {
         assertTrue(directoryServerRule.verifyDNIsA("dc=btmatthews,dc=com", "top"));
         assertTrue(directoryServerRule.verifyDNIsA("dc=btmatthews,dc=com", "domain"));
@@ -111,8 +114,11 @@ public class TestDirectoryServerRule {
         assertFalse(directoryServerRule.verifyDNIsA("ou=Groips,dc=btmatthews,dc=com", "top"));
     }
 
+    /**
+     * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
+     */
     @Test
-    @DirectoryServerConfiguration(ldifFile = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttributeValue() {
         assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "top", "domain"));
         assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "domain", "top"));
@@ -135,9 +141,11 @@ public class TestDirectoryServerRule {
      * Verify that the {@link DirectoryTester#assertDNIsA(String, String)} method throws an exception if the LDAP
      * directory entry is not a member of the object class.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     public void assertDNIsAShouldFail() {
-        directoryServerRule.assertDNIsA("dc=btmatthews,dc=com", "organizationalUnit");
+        assertThrows(
+                AssertionError.class,
+                () -> directoryServerRule.assertDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
     }
 
     /**
@@ -153,9 +161,11 @@ public class TestDirectoryServerRule {
      * Verify that the {@link DirectoryTester#assertDNHasAttribute(String, String)} method throws an exception
      * if the LDAP directory entry does not have the named attribute.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     public void assertDNHasAttributeShouldFail() {
-        directoryServerRule.assertDNHasAttribute("dc=btmatthews,dc=com", "ou");
+        assertThrows(
+                AssertionError.class,
+                () -> directoryServerRule.assertDNHasAttribute("dc=btmatthews,dc=com", "ou"));
     }
 
     /**
@@ -171,8 +181,10 @@ public class TestDirectoryServerRule {
      * Verify that the {@link DirectoryTester#assertDNHasAttributeValue(String, String, String...)} method
      * throws an exception if the LDAP directory entry does not have the matching name/value pair.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     public void assertDNHasAttributeValueShouldFail() {
-        directoryServerRule.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com");
+        assertThrows(
+                AssertionError.class,
+                () -> directoryServerRule.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
     }
 }

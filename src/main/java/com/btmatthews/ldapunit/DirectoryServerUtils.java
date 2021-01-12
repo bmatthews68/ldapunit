@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,25 +37,6 @@ import java.io.InputStream;
  * @since 1.0.1
  */
 final class DirectoryServerUtils {
-
-    /**
-     * Create and configure an embedded LDAP directory server, load seed data and start the server.
-     *
-     * @param ldifFile The LDIF resource or file from which LDIF records will be loaded.
-     * @return The {@link com.unboundid.ldap.listener.InMemoryDirectoryServer} object.
-     * @throws com.unboundid.ldif.LDIFException     If there was an error in the LDIF data.
-     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem configuring or starting the embedded LDAP directory server.
-     * @throws java.io.IOException                  If there was a problem reading the LDIF data.
-     */
-    @Deprecated
-    static InMemoryDirectoryServer startServer(final int port,
-                                               final String baseDN,
-                                               final String authDN,
-                                               final String authPassword,
-                                               final String ldifFile)
-            throws LDIFException, LDAPException, IOException {
-        return startServer(port, baseDN, authDN, authPassword, new String[]{ldifFile});
-    }
 
     /**
      * Create and configure an embedded LDAP directory server, load seed data and start the server.
@@ -112,6 +93,15 @@ final class DirectoryServerUtils {
         }
     }
 
+    /**
+     * Load LDIF records from an input stream to seed the LDAP directory.
+     *
+     * @param connection  A connection to the LDAP directory.
+     * @param inputStream TThe input stream from which LDIF records will be loaded.
+     * @throws com.unboundid.ldif.LDIFException     If there was an error in the LDIF data.
+     * @throws com.unboundid.ldap.sdk.LDAPException If there was a problem loading the LDIF records into the LDAP directory.
+     * @throws java.io.IOException                  If there was a problem reading the LDIF records from the file.
+     */
     private static void loadData(final LDAPConnection connection,
                                  final InputStream inputStream)
             throws LDIFException, LDAPException, IOException {

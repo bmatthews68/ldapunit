@@ -1,23 +1,15 @@
-LDAPUnit
-========
+= LDAPUnit
 
 **LDAPUnit** is a Java library help create unit tests for that depend on a LDAP directory server.
 
-DirectoryServerRule
--------------------
+== DirectoryServerRule
 
-[DirectoryServerRule](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) is used
-launch an embedded LDAP directory server so that the unit tests do not have to be dependent on an external LDAP
-directory server with unpredictable state.
+http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html[DirectoryServerRule] is used to launch an embedded LDAP directory server so that the unit tests written using JUnit 4 do not have to be dependent on an external LDAP directory server with unpredictable state.
 
-To use the
-[DirectoryServerRule](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html) you need
-to instantiate the rule as a public member of the test class and annotate it with
-[Rule](http://kentbeck.github.com/junit/javadoc/4.10/org/junit/Rule.html). The rule will have no effect unless the class
-or methods have been annotated with
-[DirectoryServerConfiguration](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html).
+To use the http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html[DirectoryServerRule] you need to instantiate the rule as a public member of the test class and annotate it with https://junit.org/junit4/javadoc/latest/org/junit/Rule.html[Rule]. The rule will have no effect unless the class or methods have been annotated with http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration].
 
-```java
+[source,java]
+----
 import com.btmatthews.ldapunit.DirectoryServerConfiguration;
 import com.btmatthews.ldapunit.DirectoryServerRule;
 import org.junit.Rule;
@@ -26,64 +18,70 @@ import org.junit.Test;
 @DirectoryServerConfiguration
 public class Test {
 
-    @Rule
-    public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
+  @Rule
+  public DirectoryServerRule directoryServerRule = new DirectoryServerRule();
 
-    @Test
-    public void testSomething() {
-        // Unit test code that depends on LDAP directory server
-    }
+  @Test
+  public void testSomething() {
+    // Unit test code that depends on LDAP directory server
+  }
 }
-```
+----
 
-The
-[DirectoryServerConfiguration](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html)
-annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following
-parameters can be configured:
+== DirectoryServerExtension
 
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>port</td>
-<td>The TCP port that the LDAP directory server will be configured to listen on.</td>
-<td>10389</td>
-</tr>
-<tr>
-<td>baseDN</td>
-<td>The DN that will be configured as the root of the LDAP directory.</td>
-<td>dc=btmatthews,dc=com</td>
-</tr>
-<tr>
-<td>authDN</td>
-<td>The DN that will be configured as the administrator account identifier.</td>
-<td>uid=admin,ou=system</td>
-</tr>
-<tr>
-<td>password</td>
-<td>The password that will be configured as the authentication credentials for the administrator account.</td>
-<td>secret</td>
-</tr>
-<tr>
-<td>ldifFile</td>
-<td>The location of an optional LDIF file that can be used to seed the LDAP directory with an initial data set. The
-file may be located on the file system or the classpath. The classpath is checked first and then falls back to the file
-system if it was not found on the class path.</td>
-<td></td>
-</tr>
-<tr>
-<td>ldifFiles</td>
-<td>The location of optional LDIF files that can be used to seed the LDAP directory with an initial data set. The
+http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] is used to  launch an embedded LDAP directory server so that the unit tests written using JUnit 5 do not have to be dependent on an external LDAP directory server with unpredictable state.
+
+To use the http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] you need to annotate the test class with https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/extension/ExtendWith.html[ExtendWith] with http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] as a value. The extension will have no effect unless the class or methods have been annotated with http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration].
+
+
+[source,java]
+----
+import com.btmatthews.ldapunit.DirectoryServerConfiguration;
+import com.btmatthews.ldapunit.DirectoryServerRule;
+import org.junit.jupiter.api.Test;
+
+@DirectoryServerConfiguration
+class Test {
+
+  @Test
+  void testSomething(final DirectoryTester tester) {
+    // Unit test code that depends on LDAP directory server
+  }
+}
+----
+
+== DirectoryServerConfiguration
+
+The http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration] annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following parameters can be configured:
+
+[cols="m,a,m",options="header,autowidth",stripes=even]
+|===
+| Name
+| Description
+| Default
+
+| port
+| The TCP port that the LDAP directory server will be configured to listen on.
+| 10389
+
+| baseDN
+| The DN that will be configured as the root of the LDAP directory.
+| dc=btmatthews,dc=com
+
+| authDN
+| The DN that will be configured as the administrator account identifier.
+| uid=admin,ou=system
+
+| password</td>
+| The password that will be configured as the authentication credentials for the administrator account.
+| secret
+
+| ldifFiles
+| The location of optional LDIF files that can be used to seed the LDAP directory with an initial data set. The
 files may be located on the file system or the classpath. The classpath is checked first and then falls back to the file
-system if it was not found on the class path.</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+system if it was not found on the class path.
+|===
 
 The following methods can be used to make assertions about or verify the contents of the LDAP directory:
 
@@ -113,14 +111,12 @@ The following methods can be used to make assertions about or verify the content
   exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
   **attributeName** with value(s) **attributeValues**.
 
-DirectoryTester
----------------
+== DirectoryTester
 
-[DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) is used to
-connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP
-directory.
+http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html[DirectoryTester] is used to connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP directory.
 
-```java
+[source,java]
+----
 import com.btmatthews.ldapunit.DirectoryTester;
 import org.junit.After;
 import org.junit.Before;
@@ -130,23 +126,23 @@ public class Test {
 
 private DirectoryTester tester;
 
-@Before
-public void setUp() {
-tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
-}
+  @Before
+  public void setUp() {
+    tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+  }
 
-@After
-public void tearDown() {
-tester.disconnect();
-}
+  @After
+  public void tearDown() {
+    tester.disconnect();
+  }
 
-@Test
-public void testSomething() {
-// Do something that affects the LDAP directory
-// Check outcomes with tester.assertXXX() and tester.verifyXXX() methods
+  @Test
+  public void testSomething() {
+    // Do something that affects the LDAP directory
+    // Check outcomes with tester.assertXXX() and tester.verifyXXX() methods
+  }
 }
-}
-```
+----
 
 There are two variants of the
 [DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) constructor
@@ -189,29 +185,30 @@ exists in the LDAP directory with the distinguished name of **dn** and check tha
 
 The connection should be closed by calling **disconnect()**.
 
-Maven Central Coordinates
--------------------------
+== Maven Central Coordinates
+
 **LDAPUnit** has been published in [Maven Central](http://search.maven.org) at the following
 coordinates:
 
-```xml
+[source,xml]
+----
 <dependency>
-    <groupId>com.btmatthews.ldapunit</groupId>
-    <artifactId>ldapunit</artifactId>
-    <version>1.1.3</version>
+  <groupId>com.btmatthews.ldapunit</groupId>
+  <artifactId>ldapunit</artifactId>
+  <version>2.0.0</version>
 </dependency>
-```
+----
 
-Credits
--------
+== Credits
+
 The approach for implementing the **LDAPUnit**'s **DirectoryServerRule** is based heavily on the **OpenDJRule**
 implemented in the https://github.com/ehsavoie/embedded-ldap project.
 
 Internally **LDAPUnit** is using the [UnboundID LDAP SDK](https://www.unboundid.com/products/ldap-sdk) to run the
 embedded LDAP directory server and as the API for communicating with an LDAP directory server.
 
-License & Source Code
----------------------
+== License & Source Code
+
 The **LDAPUnit** is made available under the
 [Apache License](http://www.apache.org/licenses/LICENSE-2.0.html) and the source code is hosted on
 [GitHub](http://github.com) at https://github.com/bmatthews68/ldapunit.

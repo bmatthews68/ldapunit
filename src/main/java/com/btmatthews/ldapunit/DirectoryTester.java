@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import java.util.Set;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public final class DirectoryTester {
+public final class DirectoryTester implements AutoCloseable {
 
     /**
      * The default for the maximum connection attempts.
@@ -49,7 +49,16 @@ public final class DirectoryTester {
     /**
      * The connection to the LDAP directory server.
      */
-    private final LDAPConnection connection = new LDAPConnection();
+    private final LDAPConnection connection;
+
+    /**
+     * Initialise the LDAP directory tester using an existing LDAP connection.
+     *
+     * @param connection The LDAP connection.
+     */
+    public DirectoryTester(final LDAPConnection connection) {
+        this.connection = connection;
+    }
 
     /**
      * Initialise the LDAP directory tester using the default hostname of {@code localhost} and port number of
@@ -89,6 +98,7 @@ public final class DirectoryTester {
                            final int port,
                            final int retries,
                            final int timeout) {
+        this(new LDAPConnection());
         final LDAPConnectionOptions options = new LDAPConnectionOptions();
         options.setConnectTimeoutMillis(timeout);
         int attempt = 0;
@@ -180,7 +190,7 @@ public final class DirectoryTester {
      * @param dn          The distinguished name.
      * @param objectclass The type name.
      * @return {@code true} if an entry identified by {@code dn} exists and has attribute named {@code objectclass}.
-     *         Otherwise, {@code false} is returned.
+     * Otherwise, {@code false} is returned.
      */
     public boolean verifyDNIsA(final String dn,
                                final String objectclass) {
@@ -200,7 +210,7 @@ public final class DirectoryTester {
      * @param dn            The distinguished name.
      * @param attributeName The attribute name.
      * @return {@code true} if an entry identified by {@code dn} exists and has an attributed named
-     *         {@code attributeName}. Otherwise, {@code false} is returned.
+     * {@code attributeName}. Otherwise, {@code false} is returned.
      */
     public boolean verifyDNHasAttribute(final String dn,
                                         final String attributeName) {
@@ -220,7 +230,7 @@ public final class DirectoryTester {
      * @param attributeName  The attribute name.
      * @param attributeValue The attribute value(s).
      * @return {@code true} if an antry identified by {@code dn} exists with an an attribute named {@code attributeName}
-     *         that has value(s) {@code attributeValue}. Otherwise, {@code false} is returned.
+     * that has value(s) {@code attributeValue}. Otherwise, {@code false} is returned.
      */
     public boolean verifyDNHasAttributeValue(final String dn,
                                              final String attributeName,
@@ -228,8 +238,8 @@ public final class DirectoryTester {
         try {
             final SearchResultEntry entry = connection.getEntry(dn, attributeName);
             if (entry != null && entry.hasAttribute(attributeName)) {
-                final Set<String> expectedValues = new HashSet<String>(Arrays.asList(attributeValue));
-                final Set<String> actualValues = new HashSet<String>(Arrays.asList(entry.getAttributeValues(attributeName)));
+                final Set<String> expectedValues = new HashSet<>(Arrays.asList(attributeValue));
+                final Set<String> actualValues = new HashSet<>(Arrays.asList(entry.getAttributeValues(attributeName)));
                 if (actualValues.containsAll(expectedValues)) {
                     actualValues.removeAll(expectedValues);
                     if (actualValues.size() == 0) {
@@ -320,6 +330,22 @@ public final class DirectoryTester {
         connection.close();
     }
 
+    /**
+     * Close The directory tester by disconnecting from the LDAP directory server.
+     *
+     * @since 2.0.0
+     */
+    public void close() {
+        disconnect();
+    }
+
+    /**
+     * Check if {@code item} is present in {@code items} ignoring case.
+     *
+     * @param items An array of items.
+     * @param item  The item being searched for.
+     * @return {@code true} if {@code item} is present in {@code items}. Otherwise, {@code false}.
+     */
     private boolean arrayContains(final String[] items,
                                   final String item) {
         for (final String value : items) {
@@ -330,6 +356,12 @@ public final class DirectoryTester {
         return false;
     }
 
+    /**
+     * Convert an array of strings to string.
+     *
+     * @param items The array of strings.
+     * @return The formatted string.
+     */
     private String arrayToString(final String[] items) {
         final StringBuilder builder = new StringBuilder("[");
         if (items.length > 0) {

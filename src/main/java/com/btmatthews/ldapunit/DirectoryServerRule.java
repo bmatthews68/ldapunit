@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,8 +49,8 @@ public final class DirectoryServerRule implements TestRule {
     public Statement apply(final Statement base, final Description description) {
         annotation = description.getAnnotation(DirectoryServerConfiguration.class);
         if (annotation == null) {
-            final Class testClass = description.getTestClass();
-            annotation = (DirectoryServerConfiguration) testClass.getAnnotation(DirectoryServerConfiguration.class);
+            final Class<?> testClass = description.getTestClass();
+            annotation = testClass.getAnnotation(DirectoryServerConfiguration.class);
         }
         if (annotation != null) {
             return new DirectoryServerStatement(base, annotation);
@@ -66,12 +66,8 @@ public final class DirectoryServerRule implements TestRule {
      * @since 1.0.2
      */
     public boolean verifyDNExists(final String dn) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNExists(dn);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -86,12 +82,8 @@ public final class DirectoryServerRule implements TestRule {
      */
     public boolean verifyDNIsA(final String dn,
                                final String objectclass) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNIsA(dn, objectclass);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -106,12 +98,8 @@ public final class DirectoryServerRule implements TestRule {
      */
     public boolean verifyDNHasAttribute(final String dn,
                                         final String attributeName) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNHasAttribute(dn, attributeName);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -129,12 +117,8 @@ public final class DirectoryServerRule implements TestRule {
     public boolean verifyDNHasAttributeValue(final String dn,
                                              final String attributeName,
                                              final String... attributeValue) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNHasAttributeValue(dn, attributeName, attributeValue);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -145,12 +129,8 @@ public final class DirectoryServerRule implements TestRule {
      * @since 1.0.2
      */
     public void assertDNExists(final String dn) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNExists(dn);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -163,12 +143,8 @@ public final class DirectoryServerRule implements TestRule {
      */
     public void assertDNIsA(final String dn,
                             final String objectclass) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNIsA(dn, objectclass);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -181,12 +157,8 @@ public final class DirectoryServerRule implements TestRule {
      */
     public void assertDNHasAttribute(final String dn,
                                      final String attributeName) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNHasAttribute(dn, attributeName);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 
@@ -202,12 +174,8 @@ public final class DirectoryServerRule implements TestRule {
     public void assertDNHasAttributeValue(final String dn,
                                           final String attributeName,
                                           final String... attributeValue) {
-        final DirectoryTester directoryTester = getDirectoryTester();
-        try {
+        try (final DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNHasAttributeValue(dn, attributeName, attributeValue);
-
-        } finally {
-            directoryTester.disconnect();
         }
     }
 

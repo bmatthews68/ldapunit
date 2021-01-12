@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package com.btmatthews.ldapunit;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import static org.junit.Assert.assertThrows;
 
 /**
  * Unit test the {@link DirectoryServerRule} rule when the methods are annotated
@@ -41,11 +43,8 @@ public class TestDirectoryServerRuleMethodConfiguration {
     @DirectoryServerConfiguration
     @Test
     public void checkServerIsRunning() {
-        final DirectoryTester tester = new DirectoryTester();
-        try {
+        try (final DirectoryTester tester = new DirectoryTester()) {
             tester.assertDNExists("dc=btmatthews,dc=com");
-        } finally {
-            tester.disconnect();
         }
     }
 
@@ -53,13 +52,15 @@ public class TestDirectoryServerRuleMethodConfiguration {
      * Verify that the rule does not start server when the test method is not annotated with
      * {@link DirectoryServerConfiguration}.
      */
-    @Test(expected = DirectoryTesterException.class)
+    @Test
     public void checkServerIsNotRunning() {
-        new DirectoryTester();
+        assertThrows(
+                DirectoryTesterException.class,
+                DirectoryTester::new);
     }
 
     /**
-     * Verify the that the rule will seed the server with LDAP directory entries when the {@code ldifFile}
+     * Verify the that the rule will seed the server with LDAP directory entries when the {@code ldifFiles}
      * parameter of the annotation is specified. This variation loads the LDIF file as a classpath resource.
      */
     @Test
@@ -76,7 +77,7 @@ public class TestDirectoryServerRuleMethodConfiguration {
     }
 
     /**
-     * Verify the that the rule will seed the server with LDAP directory entries when the {@code ldifFile}
+     * Verify the that the rule will seed the server with LDAP directory entries when the {@code ldifFiles}
      * parameter of the annotation is specified. This variation loads the LDIF file using a file system path.
      */
     @Test

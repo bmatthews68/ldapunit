@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,12 @@
 package com.btmatthews.ldapunit;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Unit test that {@link DirectoryTester} can connect to a server within the retry count and timeout period if the
@@ -56,7 +57,7 @@ public class TestDirectoryTesterConnection {
     /**
      * Clean up after test case execution by shutting down the in-memory LDAP directory server.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         if (server != null) {
             DirectoryServerUtils.stopServer(server);
@@ -69,16 +70,13 @@ public class TestDirectoryTesterConnection {
      */
     @Test
     public void retriesConnection() {
-        final Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    server = DirectoryServerUtils.startServer(LDAP_PORT, ROOT_DN, AUTH_DN, AUTH_PASSWORD, new String[0]);
-                } catch (final Exception e) {
-                }
+        final ScheduledExecutorService timer = Executors.newSingleThreadScheduledExecutor();
+        timer.schedule(() -> {
+            try {
+                server = DirectoryServerUtils.startServer(LDAP_PORT, ROOT_DN, AUTH_DN, AUTH_PASSWORD, new String[0]);
+            } catch (final Exception e) {
             }
-        }, 10000L);
+        }, 10L, TimeUnit.SECONDS);
 
         final DirectoryTester tester = new DirectoryTester();
         try {

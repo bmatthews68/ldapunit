@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Brian Thomas Matthews
+ * Copyright 2013-2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,20 +57,11 @@ final class DirectoryServerStatement extends Statement {
      *                   wrapped server.
      */
     @Override
-    @SuppressWarnings("deprecation")
     public void evaluate() throws Throwable {
-        final InMemoryDirectoryServer server;
-        if (annotation.ldifFiles().length == 0) {
-            server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-                    annotation.authDN(), annotation.authPassword(), annotation.ldifFile());
-        } else {
-            server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-                    annotation.authDN(), annotation.authPassword(), annotation.ldifFiles());
-        }
-        try {
+        try (final InMemoryDirectoryServer server = DirectoryServerUtils.startServer(
+                annotation.port(), annotation.baseDN(), annotation.authDN(),
+                annotation.authPassword(), annotation.ldifFiles())) {
             base.evaluate();
-        } finally {
-            DirectoryServerUtils.stopServer(server);
         }
     }
 }

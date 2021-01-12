@@ -3,10 +3,10 @@
  ------
  Brian Matthews
  ------
- 2016-08-08
+ 2021-01-12
  ------
 
-~~ Copyright 2013-2016 Brian Thomas Matthews
+~~ Copyright 2013-2021 Brian Thomas Matthews
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ LDAPUnit
 
   <<LDAPUnit>> makes it easier to create unit tests for components that are dependent on an LDAP directory servers:
 
+  * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html}DirectoryServerExtension}} is used launch an embedded LDAP
+    directory server so that the unit tests written using JUnit 5 do not have to be dependent on an external LDAP directory server with
+    unpredictable state.
+
   * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is used launch an embedded LDAP
-    directory server so that the unit tests do not have to be dependent on an external LDAP directory server with
+    directory server so that the unit tests written using JUnit 4 do not have to be dependent on an external LDAP directory server with
     unpredictable state.
 
   * {{{./apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryTester}} is used to connect to an LDAP directory
@@ -47,6 +51,8 @@ LDAPUnit
 
   * {{{./examples/directory-server-rule.html}Using DirectoryServerRule}}
   
+  * {{{./examples/directory-server-extension.html}Using DirectoryServerExtension}}
+
   * {{{./examples/directory-tester.html}Using DirectoryTester}}
 
 * Maven Coordinates
