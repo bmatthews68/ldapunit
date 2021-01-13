@@ -265,7 +265,7 @@
         <site>
             <id>gh-pages</id>
             <name>LDAPUnit GitHub Pages</name>
-            <url>git:ssh://git@github.com/bmatthews68/ldapunit.git?gh-pages#</url>
+            <url>git:ssh://git@github.com:bmatthews68/ldapunit.git?gh-pages#</url>
         </site>
         <repository>
             <id>releases.sonatype</id>
