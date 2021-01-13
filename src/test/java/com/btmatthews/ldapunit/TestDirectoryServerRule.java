@@ -18,8 +18,11 @@ package com.btmatthews.ldapunit;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test the {@link DirectoryServerRule} rule.
@@ -41,7 +44,7 @@ public class TestDirectoryServerRule {
      */
     @Test
     public void checkServerIsRunning() {
-        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+        final DirectoryTester tester = new DirectoryTester("localhost", DirectoryServerConfiguration.DEFAULT_PORT, "uid=admin,ou=system", "secret");
         try {
             tester.assertDNExists("dc=btmatthews,dc=com");
         } finally {
@@ -186,5 +189,51 @@ public class TestDirectoryServerRule {
         assertThrows(
                 AssertionError.class,
                 () -> directoryServerRule.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
+    }
+
+    /**
+     * Verify that the server can be started with a custom schema.
+     */
+    @Test
+    @DirectoryServerConfiguration(
+            baseDN = "group-id=users",
+            baseObjectClasses = "group",
+            baseAttributes = {
+                    "group-id=users",
+                    "group-name=Users"
+            },
+            ldifFiles = "com/btmatthews/ldapunit/custom-data-without-default.ldif",
+            schemaFiles = {"com/btmatthews/ldapunit/custom-schema.ldif"})
+    public void assertCustomSchemaCanBeUsedOnItsOwn() {
+
+        directoryServerRule.verifyDNExists("group-id=users");
+        directoryServerRule.verifyDNIsA("group-id=users", "group");
+        directoryServerRule.verifyDNHasAttributeValue("group-id=users", "group-id", "users");
+        directoryServerRule.verifyDNHasAttributeValue("group-id=users", "group-name", "Users");
+
+        directoryServerRule.verifyDNExists("user-id=brian,group-id=users");
+        directoryServerRule.verifyDNIsA("user-id=brian,group-id=users", "user");
+        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users", "user-id", "brian");
+        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users", "user-name", "Brian");
+    }
+
+    /**
+     * Verify that the server can be started with a default and custom schema.
+     */
+    @Test
+    @DirectoryServerConfiguration(
+            ldifFiles = "com/btmatthews/ldapunit/custom-data-with-default.ldif",
+            schemaFiles = {"default", "com/btmatthews/ldapunit/custom-schema.ldif"})
+    public void assertCustomSchemaCanBeUsedWitDefault() {
+
+        directoryServerRule.verifyDNExists("group-id=users,dc=btmatthews,dc=com");
+        directoryServerRule.verifyDNIsA("group-id=users,dc=btmatthews,dc=com", "group");
+        directoryServerRule.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-id", "users");
+        directoryServerRule.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-name", "Users");
+
+        directoryServerRule.verifyDNExists("user-id=brian,group-id=users,dc=btmatthews,dc=com");
+        directoryServerRule.verifyDNIsA("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user");
+        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-id", "brian");
+        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-name", "Brian");
     }
 }

@@ -43,7 +43,7 @@ public class TestDirectoryServerRuleMethodConfiguration {
     @DirectoryServerConfiguration
     @Test
     public void checkServerIsRunning() {
-        try (final DirectoryTester tester = new DirectoryTester()) {
+        try ( DirectoryTester tester = new DirectoryTester()) {
             tester.assertDNExists("dc=btmatthews,dc=com");
         }
     }

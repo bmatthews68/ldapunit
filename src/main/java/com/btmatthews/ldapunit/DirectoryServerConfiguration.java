@@ -34,11 +34,16 @@ import java.lang.annotation.Target;
 public @interface DirectoryServerConfiguration {
 
     /**
+     * The default TCP port for the directory server.
+     */
+    int DEFAULT_PORT = 10389;
+
+    /**
      * The TCP port that the LDAP directory server will be configured to listen on.
      *
      * @return The TCP port.
      */
-    int port() default 10389;
+    int port() default DEFAULT_PORT;
 
     /**
      * The DN that will be configured as the root of the LDAP directory.
@@ -46,6 +51,20 @@ public @interface DirectoryServerConfiguration {
      * @return The DN.
      */
     String baseDN() default "dc=btmatthews,dc=com";
+
+    /**
+     * The object classes used for the base DN.
+     *
+     * @return The object classes.
+     */
+    String[] baseObjectClasses() default {"domain", "top"};
+
+    /**
+     * The attribute name/value pairs used for the base DN.
+     *
+     * @return The attribute name/value pairs.
+     */
+    String[] baseAttributes() default {};
 
     /**
      * The DN that will be configured as the administrator account identifier.
@@ -69,4 +88,13 @@ public @interface DirectoryServerConfiguration {
      * @return An array of LDIF file paths.
      */
     String[] ldifFiles() default {};
+
+    /**
+     * The location of the optional schema LDIF files that can be use to have a LDAP directory with a custom schema.
+     * The file may located on the file system or the classpath. The classpath is checked first and then falls back
+     * to the file system if it was no found on the class path.
+     *
+     * @return The file paths of the schemas in LDIF.
+     */
+    String[] schemaFiles() default {};
 }

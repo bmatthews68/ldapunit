@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2021 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify that the {@link DirectoryServerRule} launched an embedded directory server.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void checkServerIsRunning(final DirectoryTester tester) {
@@ -41,6 +43,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify should return true if the DN exists and false if it does not.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void checkVerifyDNExists(final DirectoryTester tester) {
@@ -50,6 +54,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify that the assertion succeeds when the DN does exist.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void checkAssertDNExistsSucceeds(final DirectoryTester tester) {
@@ -58,6 +64,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify that the assertion fails if the DN does not exist.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void checkAssertDNExistsFails(final DirectoryTester tester) {
@@ -68,6 +76,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * An exception is thrown when we try to verify an invalid DN.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void throwsExceptionIfInvalidDN(final DirectoryTester tester) {
@@ -78,6 +88,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttribute(String, String)} behaves correctly.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
@@ -91,6 +103,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNIsA(String, String)} behaves correctly.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
@@ -106,6 +120,8 @@ public class TestDirectoryServerExtension {
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
@@ -121,6 +137,8 @@ public class TestDirectoryServerExtension {
     /**
      * Verify that the {@link DirectoryTester#assertDNIsA(String, String)} method succeeds if the LDAP
      * directory entry is a member of the object class.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void assertDNIsAShouldSucceed(final DirectoryTester tester) {
@@ -130,6 +148,8 @@ public class TestDirectoryServerExtension {
     /**
      * Verify that the {@link DirectoryTester#assertDNIsA(String, String)} method throws an exception if the LDAP
      * directory entry is not a member of the object class.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void assertDNIsAShouldFail(final DirectoryTester tester) {
@@ -141,6 +161,8 @@ public class TestDirectoryServerExtension {
     /**
      * Verify that the {@link DirectoryTester#assertDNHasAttribute(String, String)} method succeeds
      * if the LDAP directory entry has the named attribute.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void assertDNHasAttributeShouldSucceed(final DirectoryTester tester) {
@@ -150,6 +172,8 @@ public class TestDirectoryServerExtension {
     /**
      * Verify that the {@link DirectoryTester#assertDNHasAttribute(String, String)} method throws an exception
      * if the LDAP directory entry does not have the named attribute.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void assertDNHasAttributeShouldFail(final DirectoryTester tester) {
@@ -161,6 +185,8 @@ public class TestDirectoryServerExtension {
     /**
      * Verify that the {@link DirectoryTester#assertDNHasAttributeValue(String, String, String...)} method
      * succeeds if the LDAP directory entry has a matching name/value pair.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void assertDNHasAttributeValueShouldSucceed(final DirectoryTester tester) {
@@ -170,11 +196,63 @@ public class TestDirectoryServerExtension {
     /**
      * Verify that the {@link DirectoryTester#assertDNHasAttributeValue(String, String, String...)} method
      * throws an exception if the LDAP directory entry does not have the matching name/value pair.
+     *
+     * @param tester Used to perform assertions.
      */
     @Test
     void assertDNHasAttributeValueShouldFail(final DirectoryTester tester) {
         assertThrows(
                 AssertionError.class,
                 () -> tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
+    }
+
+    /**
+     * Verify that the server can be started with a custom schema.
+     *
+     * @param tester Used to perform assertions.
+     */
+    @Test
+    @DirectoryServerConfiguration(
+            baseDN = "group-id=users",
+            baseObjectClasses = "group",
+            baseAttributes = {
+                    "group-id=users",
+                    "group-name=Users"
+            },
+            ldifFiles = "com/btmatthews/ldapunit/custom-data-without-default.ldif",
+            schemaFiles = {"com/btmatthews/ldapunit/custom-schema.ldif"})
+    void assertCustomSchemaCanBeUsedOnItsOwn(final DirectoryTester tester) {
+
+        assertTrue(tester.verifyDNExists("group-id=users"));
+        assertTrue(tester.verifyDNIsA("group-id=users", "group"));
+        assertTrue(tester.verifyDNHasAttributeValue("group-id=users", "group-id", "users"));
+        assertTrue(tester.verifyDNHasAttributeValue("group-id=users", "group-name", "Users"));
+
+        assertTrue(tester.verifyDNExists("user-id=brian,group-id=users"));
+        assertTrue(tester.verifyDNIsA("user-id=brian,group-id=users", "user"));
+        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users", "user-id", "brian"));
+        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users", "user-name", "Brian"));
+    }
+
+    /**
+     * Verify that the server can be started with a default and custom schema.
+     *
+     * @param tester Used to perform assertions.
+     */
+    @Test
+    @DirectoryServerConfiguration(
+            ldifFiles = "com/btmatthews/ldapunit/custom-data-with-default.ldif",
+            schemaFiles = {"default", "com/btmatthews/ldapunit/custom-schema.ldif"})
+    void assertCustomSchemaCanBeUsedWitDefault(final DirectoryTester tester) {
+
+        assertTrue(tester.verifyDNExists("group-id=users,dc=btmatthews,dc=com"));
+        assertTrue(tester.verifyDNIsA("group-id=users,dc=btmatthews,dc=com", "group"));
+        assertTrue(tester.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-id", "users"));
+        assertTrue(tester.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-name", "Users"));
+
+        assertTrue(tester.verifyDNExists("user-id=brian,group-id=users,dc=btmatthews,dc=com"));
+        assertTrue(tester.verifyDNIsA("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user"));
+        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-id", "brian"));
+        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-name", "Brian"));
     }
 }

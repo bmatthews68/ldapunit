@@ -1,0 +1,4 @@
+dn: user-id=brian,group-id=users
+user-id: brian
+user-name: Brian
+objectclass: user

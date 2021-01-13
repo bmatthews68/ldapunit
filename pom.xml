@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <prerequisites>
-        <maven>3.3.3</maven>
+        <maven>3.6.3</maven>
     </prerequisites>
     <groupId>com.btmatthews.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
     <name>LDAPUnit</name>
     <description>Supports unit tests involving LDAP</description>
     <inceptionYear>2013</inceptionYear>
@@ -21,8 +22,8 @@
         <developer>
             <id>bmatthews68</id>
             <name>Brian Matthews</name>
-            <email>brian@brianmatthews.me</email>
-            <url>http://brianmatthews.me</url>
+            <email>brian@btmatthews.com</email>
+            <url>http://www.btmatthews.com/</url>
         </developer>
     </developers>
     <properties>
@@ -42,11 +43,6 @@
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-manager-plexus</artifactId>
                 <version>1.9.5</version>
-            </extension>
-            <extension>
-                <groupId>com.github.stephenc.wagon</groupId>
-                <artifactId>wagon-gitsite</artifactId>
-                <version>0.5</version>
             </extension>
         </extensions>
         <plugins>
@@ -68,23 +64,30 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.0.0-M5</version>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>3.9.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.trajano.wagon</groupId>
+                        <artifactId>wagon-git</artifactId>
+                        <version>2.0.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -96,7 +99,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -108,10 +111,29 @@
             </plugin>
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>3.0.0-M1</version>
                 <configuration>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -147,7 +169,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
                 <configuration>
                     <configLocation>sun_checks.xml</configLocation>
                 </configuration>
@@ -161,20 +183,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.12.0</version>
+                <version>3.14.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M3</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <check>true</check>
-                    <quiet>true</quiet>
-                </configuration>
+                <version>3.0.0-M5</version>
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -182,11 +195,24 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <failOnError>false</failOnError>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                            <report>test-javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.1</version>
             </plugin>
         </plugins>
     </reporting>
@@ -209,6 +235,12 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.7.0</version>
@@ -216,7 +248,7 @@
         </dependency>
     </dependencies>
     <scm>
-        <url>https://github.com/bmatthews68/ldapunitt</url>
+        <url>https://github.com/bmatthews68/ldapunit</url>
         <connection>scm:git:git@github.com:bmatthews68/ldapunit.git</connection>
         <developerConnection>scm:git:git@github.com:bmatthews68/ldapunit.git</developerConnection>
         <tag>HEAD</tag>
@@ -224,7 +256,7 @@
     <url>https://github.com/bmatthews68/ldapunit</url>
     <organization>
         <name>Brian Matthews</name>
-        <url>http://btmatthews.com</url>
+        <url>http://www.btmatthews.com</url>
     </organization>
     <issueManagement>
         <url>https://github.com/bmatthews68/ldapunit/issues</url>
@@ -233,7 +265,8 @@
     <distributionManagement>
         <site>
             <id>gh-pages</id>
-            <url>gitsite:git@github.com/bmatthews68/ldapunit.git</url>
+            <name>LDAPUnit GitHub Pages</name>
+            <url>git:ssh://git@github.com/bmatthews68/ldapunit.git?gh-pages#</url>
         </site>
         <repository>
             <id>releases.sonatype</id>

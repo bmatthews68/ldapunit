@@ -66,7 +66,7 @@ public final class DirectoryServerRule implements TestRule {
      * @since 1.0.2
      */
     public boolean verifyDNExists(final String dn) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNExists(dn);
         }
     }
@@ -82,7 +82,7 @@ public final class DirectoryServerRule implements TestRule {
      */
     public boolean verifyDNIsA(final String dn,
                                final String objectclass) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNIsA(dn, objectclass);
         }
     }
@@ -98,7 +98,7 @@ public final class DirectoryServerRule implements TestRule {
      */
     public boolean verifyDNHasAttribute(final String dn,
                                         final String attributeName) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNHasAttribute(dn, attributeName);
         }
     }
@@ -117,7 +117,7 @@ public final class DirectoryServerRule implements TestRule {
     public boolean verifyDNHasAttributeValue(final String dn,
                                              final String attributeName,
                                              final String... attributeValue) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             return directoryTester.verifyDNHasAttributeValue(dn, attributeName, attributeValue);
         }
     }
@@ -129,7 +129,7 @@ public final class DirectoryServerRule implements TestRule {
      * @since 1.0.2
      */
     public void assertDNExists(final String dn) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNExists(dn);
         }
     }
@@ -143,7 +143,7 @@ public final class DirectoryServerRule implements TestRule {
      */
     public void assertDNIsA(final String dn,
                             final String objectclass) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNIsA(dn, objectclass);
         }
     }
@@ -157,7 +157,7 @@ public final class DirectoryServerRule implements TestRule {
      */
     public void assertDNHasAttribute(final String dn,
                                      final String attributeName) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNHasAttribute(dn, attributeName);
         }
     }
@@ -174,7 +174,7 @@ public final class DirectoryServerRule implements TestRule {
     public void assertDNHasAttributeValue(final String dn,
                                           final String attributeName,
                                           final String... attributeValue) {
-        try (final DirectoryTester directoryTester = getDirectoryTester()) {
+        try (DirectoryTester directoryTester = getDirectoryTester()) {
             directoryTester.assertDNHasAttributeValue(dn, attributeName, attributeValue);
         }
     }
@@ -186,7 +186,8 @@ public final class DirectoryServerRule implements TestRule {
      * @since 1.0.2
      */
     private DirectoryTester getDirectoryTester() {
-        return new DirectoryTester("localhost", annotation.port(), annotation.authDN(), annotation.authPassword());
+        return new DirectoryTester("localhost", annotation.port(), annotation.authDN(),
+                annotation.authPassword());
     }
 
 }

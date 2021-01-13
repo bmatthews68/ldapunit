@@ -39,13 +39,13 @@ public final class DirectoryTester implements AutoCloseable {
      *
      * @since 1.0.1
      */
-    private final static int DEFAULT_RETRIES = 3;
+    private static final int DEFAULT_RETRIES = 3;
     /**
      * The default for the connection timeout.
      *
      * @since 1.0.1
      */
-    private final static int DEFAULT_TIMEOUT = 5000;
+    private static final int DEFAULT_TIMEOUT = 5000;
     /**
      * The connection to the LDAP directory server.
      */
@@ -62,12 +62,12 @@ public final class DirectoryTester implements AutoCloseable {
 
     /**
      * Initialise the LDAP directory tester using the default hostname of {@code localhost} and port number of
-     * {@code 10389}.
+     * {@link DirectoryServerConfiguration#DEFAULT_PORT}.
      *
      * @since 1.0.1
      */
     public DirectoryTester() {
-        this("localhost", 10389);
+        this("localhost", DirectoryServerConfiguration.DEFAULT_PORT);
     }
 
     /**
@@ -102,7 +102,7 @@ public final class DirectoryTester implements AutoCloseable {
         final LDAPConnectionOptions options = new LDAPConnectionOptions();
         options.setConnectTimeoutMillis(timeout);
         int attempt = 0;
-        for (; ; ) {
+        while (true) {
             final long startTime = System.currentTimeMillis();
             try {
                 connection.connect(hostname, port, timeout);

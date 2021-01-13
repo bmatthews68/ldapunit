@@ -1,0 +1,9 @@
+dn: group-id=users,dc=btmatthews,dc=com
+group-id: users
+group-name: Users
+objectclass: group
+
+dn: user-id=brian,group-id=users,dc=btmatthews,dc=com
+user-id: brian
+user-name: Brian
+objectclass: user

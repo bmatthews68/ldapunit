@@ -26,7 +26,7 @@
 		<links>
 			<item name="Maven" href="http://maven.apache.org/" />
             <item name="JUnit" href="https://junit.org/" />
-            <item name="UnboundID" href="https://www.unboundid.com/products/ldap-sdk/" />
+            <item name="UnboundID" href="https://github.com/pingidentity/ldapsdk" />
 		</links>
 		<menu name="Overview">
 			<item name="Introduction" href="index.html" /> 
@@ -37,6 +37,9 @@
 			<item name="DirectoryTester" href="examples/directory-tester.html" />
 		</menu>
 		<menu ref="reports" />
+		<menu name="Coverage">
+			<item name="JaCoCo" href="jacoco/index.html" />
+		</menu>
 	</body>
     <poweredBy>
         <logo name="Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-feather.png"/>

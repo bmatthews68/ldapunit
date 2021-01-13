@@ -21,7 +21,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test {@link DirectoryTester}.
@@ -47,7 +49,7 @@ public class TestDirectoryTester {
      */
     @Before
     public void setUp() {
-        tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+        tester = new DirectoryTester("localhost", DirectoryServerConfiguration.DEFAULT_PORT, "uid=admin,ou=system", "secret");
     }
 
     /**

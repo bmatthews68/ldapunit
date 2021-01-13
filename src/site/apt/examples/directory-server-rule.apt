@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2021-01-12
+ 2021-01-14
  ------
 
 ~~ Copyright 2013-2021 Brian Thomas Matthews
@@ -50,23 +50,33 @@ public class Test {
   annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following
   parameters can be configured:
 
-*-----------+---------------------------------------------------------------------------------+----------------------+
-| <<Name>>  | <<Description>>                                                                 | <<Default>>          |
-*-----------+---------------------------------------------------------------------------------+----------------------+
-| port      | The TCP port that the LDAP directory server will be configured to listen on.    | 10389                |
-*-----------+---------------------------------------------------------------------------------+----------------------+
-| baseDN    | The DN that will be configured as the root of the LDAP directory.               | dc=btmatthews,dc=com |
-*-----------+---------------------------------------------------------------------------------+----------------------+
-| authDN    | The DN that will be configured as the administrator account identifier.         | uid=admin,ou=system  |
-*-----------+---------------------------------------------------------------------------------+----------------------+
-| password  | The password that will be configured as the authentication credentials for the  | secret               |
-|           | administrator account.                                                          |                      |
-*-----------+---------------------------------------------------------------------------------+----------------------+
-| ldifFiles | The locations of an optional LDIF files that can be used to seed the LDAP       |                      |
-|           | directory with an initial data set. The files may be located on the file system |                      |
-|           | or the classpath. The classpath is checked first and then falls back to the     |                      |
-|           | file system if it was not found on the class path.                              |                      |
-*-----------+---------------------------------------------------------------------------------+----------------------+
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| <<Name>>            | <<Description>>                                                                 | <<Default>>          |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| port                | The TCP port that the LDAP directory server will be configured to listen on.    | 10389                |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| baseDN              | The DN that will be configured as the root of the LDAP directory.               | dc=btmatthews,dc=com |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| baseDNAttributes    | The attribute name/value pairs to use when creating the base DN.                |                      |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| baseDNObjectClasses | The object classes to use used when creating the base DN.                       | domain,top           |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| authDN              | The DN that will be configured as the administrator account identifier.         | uid=admin,ou=system  |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| password            | The password that will be configured as the authentication credentials for the  | secret               |
+|                     | administrator account.                                                          |                      |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| ldifFiles           | The locations of an optional LDIF files that can be used to seed the LDAP       |                      |
+|                     | directory with an initial data set. The files may be located on the file system |                      |
+|                     | or the classpath. The classpath is checked first and then falls back to the     |                      |
+|                     | file system if it was not found on the class path.                              |                      |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
+| schemaFiles         | The location of optional custom schema files that can be used to define the     |                      |
+|                     | schema of the directory server. The files may be located on the file system or  |                      |
+|                     | the classpath. The classpath is checked first and then falls back to the file   |                      |
+|                     | system if it was not found on the classpath. `default` is a special value that  |                      |
+|                     | indicates that the default schema should be loaded.                             |                      |
+*---------------------+---------------------------------------------------------------------------------+----------------------+
 
   The following methods can be used to make assertions about or verify the contents of the LDAP directory:
 

@@ -69,6 +69,14 @@ The http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServ
 | The DN that will be configured as the root of the LDAP directory.
 | dc=btmatthews,dc=com
 
+| baseDNAttributes
+| The attribute name/value pairs to use when creating the base DN.
+|
+
+| baseObjectClasses
+| The object classes to use used when creating the base DN.
+| domain,top
+
 | authDN
 | The DN that will be configured as the administrator account identifier.
 | uid=admin,ou=system
@@ -78,38 +86,32 @@ The http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServ
 | secret
 
 | ldifFiles
-| The location of optional LDIF files that can be used to seed the LDAP directory with an initial data set. The
-files may be located on the file system or the classpath. The classpath is checked first and then falls back to the file
-system if it was not found on the class path.
+| The location of optional LDIF files that can be used to seed the LDAP directory with an initial data set. The files may be located on the file system or the classpath. The classpath is checked first and then falls back to the file system if it was not found on the classpath.
+|
+
+| schemaFiles
+| The location of optional custom schema files that can be used to define the schema of the directory server. The files may be located on the file system or the classpath. The classpath is checked first and then falls back to the file system if it was not found on the classpath. `default` is a special value that indicates that the default schema should be loaded.
+|
+
 |===
 
 The following methods can be used to make assertions about or verify the contents of the LDAP directory:
 
-* **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of
-  **dn**.
+* **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of **dn**.
 
-* **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
-  of **dn**.
+* **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn**.
 
-* **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the
-  distinguished name of **dn** and that it is of type **objectclass**.
+* **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the distinguished name of **dn** and that it is of type **objectclass**.
 
-* **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the
-  distinguished name of **dn** and check that it is of type **objectclass**.
+* **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn** and check that it is of type **objectclass**.
 
-* **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory
-  with the distinguished name of **dn** and that it has an attribute named **attributeName**.
+* **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory with the distinguished name of **dn** and that it has an attribute named **attributeName**.
 
-* **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory
-    with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
+* **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
 
-* **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry
-  exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named
-  **attributeName** with value(s) **attributeValues**.
+* **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named **attributeName** with value(s) **attributeValues**.
 
-* <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry
-  exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
-  **attributeName** with value(s) **attributeValues**.
+* <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named **attributeName** with value(s) **attributeValues**.
 
 == DirectoryTester
 
@@ -144,44 +146,29 @@ private DirectoryTester tester;
 }
 ----
 
-There are two variants of the
-[DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) constructor
+There are two variants of the [DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) constructor
 
-* **DirectoryTester(String hostname, int port)** - connects anonymously to the directory server on the host with
-name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
+* **DirectoryTester(String hostname, int port)** - connects anonymously to the directory server on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
 
-* **DirectoryTester(String hostname, int port, String bindDN, String password)** - connects to the directory server
-on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by
-**port**. Then it binds to the using the authentication identifier and credentials specified by **bindDN** and
-**password**.
+* **DirectoryTester(String hostname, int port, String bindDN, String password)** - connects to the directory server on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by **port**. Then it binds to the using the authentication identifier and credentials specified by **bindDN** and **password**.
 
 The following methods can be used to make assertions about or verify the contents of the LDAP directory:
 
-* **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of
-**dn**.
+* **assertDNExists(String dn)** - asserts that an entry exists in the LDAP directory with the distinguished name of **dn**.
 
-* **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name
-of **dn**.
+* **verifyDNExists(String dn)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn**.
 
-* **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the
-distinguished name of **dn** and that it is of type **objectclass**.
+* **assertDNIsA(String dn, String objectclass)** - asserts that an entry exists in the LDAP directory with the distinguished name of **dn** and that it is of type **objectclass**.
 
-* **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the
-distinguished name of **dn** and check that it is of type **objectclass**.
+* **verifyDNIsA(String dn, String objectclass)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn** and check that it is of type **objectclass**.
 
-* **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory
-with the distinguished name of **dn** and that it has an attribute named **attributeName**.
+* **assertDNHasAttribute(String dn, String attributeName)** - asserts that an entry exists in the LDAP directory with the distinguished name of **dn** and that it has an attribute named **attributeName**.
 
-* **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory
-with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
+* **verifyDNHasAttribute(String dn, String attributeName)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named **attributeName**.
 
-* **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry
-exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named
-**attributeName** with value(s) **attributeValues**.
+* **assertDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - assert that an entry exists in the LDAP directory with the distinguished nane of **dn** and that it has an attribute named **attributeName** with value(s) **attributeValues**.
 
-* <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry
-exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named
-**attributeName** with value(s) **attributeValues**.
+* <<verifyDNHasAttributeValue(String dn, String attributeName, String... attributeValue)** - tests to see if an entry exists in the LDAP directory with the distinguished name of **dn** and check that it has an attribute named **attributeName** with value(s) **attributeValues**.
 
 The connection should be closed by calling **disconnect()**.
 
@@ -195,20 +182,20 @@ coordinates:
 <dependency>
   <groupId>com.btmatthews.ldapunit</groupId>
   <artifactId>ldapunit</artifactId>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
 </dependency>
 ----
 
+== Contributions
+
+Contributions are welcome as long as the code is clearly commented and accompanied by unit tests.
+
 == Credits
 
-The approach for implementing the **LDAPUnit**'s **DirectoryServerRule** is based heavily on the **OpenDJRule**
-implemented in the https://github.com/ehsavoie/embedded-ldap project.
+The approach for implementing the **LDAPUnit**'s **DirectoryServerRule** is based heavily on the **OpenDJRule** implemented in the https://github.com/ehsavoie/embedded-ldap project.
 
-Internally **LDAPUnit** is using the [UnboundID LDAP SDK](https://www.unboundid.com/products/ldap-sdk) to run the
-embedded LDAP directory server and as the API for communicating with an LDAP directory server.
+Internally **LDAPUnit** is using the [UnboundID LDAP SDK](https://www.unboundid.com/products/ldap-sdk) to run the embedded LDAP directory server and as the API for communicating with an LDAP directory server.
 
 == License & Source Code
 
-The **LDAPUnit** is made available under the
-[Apache License](http://www.apache.org/licenses/LICENSE-2.0.html) and the source code is hosted on
-[GitHub](http://github.com) at https://github.com/bmatthews68/ldapunit.
+The **LDAPUnit** is made available under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0.html) and the source code is hosted on [GitHub](http://github.com) at https://github.com/bmatthews68/ldapunit.

@@ -1,0 +1,52 @@
+dn: cn=schema
+objectClass: top
+objectClass: ldapSubentry
+objectClass: subschema
+attributeTypes: ( 2.5.4.0
+  NAME 'objectClass'
+  EQUALITY objectIdentifierMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.38
+  X-ORIGIN 'RFC 4512' )
+attributeTypes: ( 1.3.6.1.4.1.32473.1.1.1
+  NAME 'group-id'
+  DESC 'Group identifier'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributeTypes: ( 1.3.6.1.4.1.32473.1.1.2
+  NAME 'group-name'
+  DESC 'Group name'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributeTypes: ( 1.3.6.1.4.1.32473.1.1.3
+  NAME 'user-id'
+  DESC 'User identifier'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributeTypes: ( 1.3.6.1.4.1.32473.1.1.4
+  NAME 'user-name'
+  DESC 'User name'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+objectClasses: ( 2.5.6.0
+  NAME 'top'
+  ABSTRACT
+  MUST objectClass
+  X-ORIGIN 'RFC 4512' )
+objectClasses: ( 1.3.6.1.4.1.32473.1.2.1
+  NAME 'group'
+  SUP top
+  MUST ( group-id )
+  MAY ( group-name ) )
+objectClasses: ( 1.3.6.1.4.1.32473.1.2.2
+  NAME 'user'
+  SUP top
+  STRUCTURAL
+  MUST ( user-id $ user-name ) )
