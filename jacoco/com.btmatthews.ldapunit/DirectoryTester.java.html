@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirectoryTester.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LDAPUnit</a> &gt; <a href="index.source.html" class="el_package">com.btmatthews.ldapunit</a> &gt; <span class="el_source">DirectoryTester.java</span></div><h1>DirectoryTester.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2013-2021 Brian Thomas Matthews
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.btmatthews.ldapunit;
+
+import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.LDAPConnectionOptions;
+import com.unboundid.ldap.sdk.LDAPException;
+import com.unboundid.ldap.sdk.SearchResultEntry;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Utility that maintains a connection to the LDAP directory server and provides assert and verify methods to
+ * test the LDAP directory contents.
+ *
+ * @author &lt;a href=&quot;mailto:brian@btmatthews.com&quot;&gt;Brian Matthews&lt;/a&gt;
+ * @since 1.0.0
+ */
+public final class DirectoryTester implements AutoCloseable {
+
+    /**
+     * The default for the maximum connection attempts.
+     *
+     * @since 1.0.1
+     */
+    private static final int DEFAULT_RETRIES = 3;
+    /**
+     * The default for the connection timeout.
+     *
+     * @since 1.0.1
+     */
+    private static final int DEFAULT_TIMEOUT = 5000;
+    /**
+     * The connection to the LDAP directory server.
+     */
+    private final LDAPConnection connection;
+
+    /**
+     * Initialise the LDAP directory tester using an existing LDAP connection.
+     *
+     * @param connection The LDAP connection.
+     */
+<span class="fc" id="L59">    public DirectoryTester(final LDAPConnection connection) {</span>
+<span class="fc" id="L60">        this.connection = connection;</span>
+<span class="fc" id="L61">    }</span>
+
+    /**
+     * Initialise the LDAP directory tester using the default hostname of {@code localhost} and port number of
+     * {@link DirectoryServerConfiguration#DEFAULT_PORT}.
+     *
+     * @since 1.0.1
+     */
+    public DirectoryTester() {
+<span class="fc" id="L70">        this(&quot;localhost&quot;, DirectoryServerConfiguration.DEFAULT_PORT);</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * Initialise the LDAP directory tester by connecting to the LDAP directory server using the {@code hostname} and
+     * {@code port}.
+     *
+     * @param hostname The host name of the directory server.
+     * @param port     The TCP port number of the directory server.
+     * @throws DirectoryTesterException If there was a problem connecting to the LDAP directory server.
+     */
+    public DirectoryTester(final String hostname, final int port) {
+<span class="fc" id="L82">        this(hostname, port, DEFAULT_RETRIES, DEFAULT_TIMEOUT);</span>
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * Initialise the LDAP directory tester by connecting to the LDAP directory server using the {@code hostname} and
+     * {@code port}.The connection attempt is retried a maximum of {@code retries} times with a timeout of
+     * {@code timeout} for each attempt.
+     *
+     * @param hostname The host name of the directory server.
+     * @param port     The TCP port number of the directory server.
+     * @param retries  The maximum number of connection attempts.
+     * @param timeout  The timeout for each connection attempt.
+     * @throws DirectoryTesterException If there was a problem connecting to the LDAP directory server.
+     * @since 1.0.1
+     */
+    public DirectoryTester(final String hostname,
+                           final int port,
+                           final int retries,
+                           final int timeout) {
+<span class="fc" id="L101">        this(new LDAPConnection());</span>
+<span class="fc" id="L102">        final LDAPConnectionOptions options = new LDAPConnectionOptions();</span>
+<span class="fc" id="L103">        options.setConnectTimeoutMillis(timeout);</span>
+<span class="fc" id="L104">        int attempt = 0;</span>
+        while (true) {
+<span class="fc" id="L106">            final long startTime = System.currentTimeMillis();</span>
+            try {
+<span class="fc" id="L108">                connection.connect(hostname, port, timeout);</span>
+<span class="fc" id="L109">                break;</span>
+<span class="fc" id="L110">            } catch (final LDAPException e) {</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                if (attempt++ &gt;= retries) {</span>
+<span class="fc" id="L112">                    throw new DirectoryTesterException(&quot;Could not connect to LDAP directory server&quot;, e);</span>
+                } else {
+<span class="fc" id="L114">                    long timeDifference = System.currentTimeMillis() - startTime;</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                    if (timeDifference &lt; timeout) {</span>
+                        try {
+<span class="fc" id="L117">                            Thread.sleep(timeout - timeDifference);</span>
+<span class="nc" id="L118">                        } catch (final InterruptedException i) {</span>
+<span class="nc" id="L119">                            throw new DirectoryTesterException(&quot;Could not connect to LDAP directory server&quot;, e);</span>
+<span class="fc" id="L120">                        }</span>
+                    }
+                }
+            }
+<span class="fc" id="L124">        }</span>
+<span class="fc" id="L125">    }</span>
+
+    /**
+     * Initialise the LDAP directory tester by connecting to the LDAP directory server using the {@code hostname} and
+     * {@code port} and bind to it using the {@code bindDN} and {@code password}.
+     *
+     * @param hostname The host name of the directory server.
+     * @param port     The TCP port number of the directory server.
+     * @param bindDN   The DN used to bind to the LDAP directory server.
+     * @param password The password used to bind to the LDAP directory server.
+     * @throws DirectoryTesterException If there was a problem connecting to the LDAP directory server.
+     */
+    public DirectoryTester(final String hostname,
+                           final int port,
+                           final String bindDN,
+                           final String password) {
+<span class="fc" id="L141">        this(hostname, port, bindDN, password, DEFAULT_RETRIES, DEFAULT_TIMEOUT);</span>
+<span class="fc" id="L142">    }</span>
+
+    /**
+     * Initialise the LDAP directory tester by connecting to the LDAP directory server using the {@code hostname} and
+     * {@code port} and bind to it using the {@code bindDN} and {@code password}. The connection attempt is retried
+     * a maximum of {@code retries} times with a timeout of {@code timeout} for each attempt.
+     *
+     * @param hostname The host name of the directory server.
+     * @param port     The TCP port number of the directory server.
+     * @param bindDN   The DN used to bind to the LDAP directory server.
+     * @param password The password used to bind to the LDAP directory server.
+     * @param retries  The maximum number of connection attempts.
+     * @param timeout  The timeout for each connection attempt.
+     * @throws DirectoryTesterException If there was a problem connecting to the LDAP directory server.
+     * @since 1.0.1
+     */
+    public DirectoryTester(final String hostname,
+                           final int port,
+                           final String bindDN,
+                           final String password,
+                           final int retries,
+                           final int timeout) {
+<span class="fc" id="L164">        this(hostname, port, retries, timeout);</span>
+        try {
+<span class="fc" id="L166">            connection.bind(bindDN, password);</span>
+<span class="nc" id="L167">        } catch (final LDAPException e) {</span>
+<span class="nc" id="L168">            throw new DirectoryTesterException(&quot;Could not bind to LDAP directory server&quot;, e);</span>
+<span class="fc" id="L169">        }</span>
+<span class="fc" id="L170">    }</span>
+
+    /**
+     * Verify that an entry identified by {@code dn} exists.
+     *
+     * @param dn The distinguished name.
+     * @return {@code true} if an entry identified by {@code dn} exists. Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNExists(final String dn) {
+        try {
+<span class="fc" id="L180">            final SearchResultEntry entry = connection.getEntry(dn);</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">            return entry != null;</span>
+<span class="fc" id="L182">        } catch (final LDAPException e) {</span>
+<span class="fc" id="L183">            throw new DirectoryTesterException(&quot;Error communicating with LDAP directory server&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Verify that the entry identified by {@code dn} is of type {@code objectclass}.
+     *
+     * @param dn          The distinguished name.
+     * @param objectclass The type name.
+     * @return {@code true} if an entry identified by {@code dn} exists and has attribute named {@code objectclass}.
+     * Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNIsA(final String dn,
+                               final String objectclass) {
+        try {
+<span class="fc" id="L198">            final SearchResultEntry entry = connection.getEntry(dn, &quot;objectclass&quot;);</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">            return entry != null</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">                    &amp;&amp; entry.hasAttribute(&quot;objectclass&quot;)</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">                    &amp;&amp; arrayContains(entry.getAttributeValues(&quot;objectclass&quot;), objectclass);</span>
+<span class="nc" id="L202">        } catch (final LDAPException e) {</span>
+<span class="nc" id="L203">            throw new DirectoryTesterException(&quot;Error communicating with LDAP directory server&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Verify that the entry identified by {@code dn} has an attribute named {@code attributeName}.
+     *
+     * @param dn            The distinguished name.
+     * @param attributeName The attribute name.
+     * @return {@code true} if an entry identified by {@code dn} exists and has an attributed named
+     * {@code attributeName}. Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNHasAttribute(final String dn,
+                                        final String attributeName) {
+        try {
+<span class="fc" id="L218">            final SearchResultEntry entry = connection.getEntry(dn, attributeName);</span>
+<span class="fc bfc" id="L219" title="All 4 branches covered.">            return entry != null &amp;&amp; entry.hasAttribute(attributeName);</span>
+<span class="nc" id="L220">        } catch (final LDAPException e) {</span>
+<span class="nc" id="L221">            throw new DirectoryTesterException(&quot;Error communicating with LDAP directory server&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Verify that the entry identified by {@code dn} has an attribute named {@code attributeName} with
+     * the attribute value(s) {@code attributeName}.
+     *
+     * @param dn             The distinguished name.
+     * @param attributeName  The attribute name.
+     * @param attributeValue The attribute value(s).
+     * @return {@code true} if an antry identified by {@code dn} exists with an an attribute named {@code attributeName}
+     * that has value(s) {@code attributeValue}. Otherwise, {@code false} is returned.
+     */
+    public boolean verifyDNHasAttributeValue(final String dn,
+                                             final String attributeName,
+                                             final String... attributeValue) {
+        try {
+<span class="fc" id="L239">            final SearchResultEntry entry = connection.getEntry(dn, attributeName);</span>
+<span class="pc bpc" id="L240" title="1 of 4 branches missed.">            if (entry != null &amp;&amp; entry.hasAttribute(attributeName)) {</span>
+<span class="fc" id="L241">                final Set&lt;String&gt; expectedValues = new HashSet&lt;&gt;(Arrays.asList(attributeValue));</span>
+<span class="fc" id="L242">                final Set&lt;String&gt; actualValues = new HashSet&lt;&gt;(Arrays.asList(entry.getAttributeValues(attributeName)));</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">                if (actualValues.containsAll(expectedValues)) {</span>
+<span class="fc" id="L244">                    actualValues.removeAll(expectedValues);</span>
+<span class="pc bpc" id="L245" title="1 of 2 branches missed.">                    if (actualValues.size() == 0) {</span>
+<span class="fc" id="L246">                        return true;</span>
+                    }
+                }
+            }
+<span class="nc" id="L250">        } catch (final LDAPException e) {</span>
+<span class="nc" id="L251">            throw new DirectoryTesterException(&quot;Error communicating with LDAP directory server&quot;, e);</span>
+<span class="fc" id="L252">        }</span>
+<span class="fc" id="L253">        return false;</span>
+    }
+
+    /**
+     * Assert that an entry identified by {@code dn} exists.
+     *
+     * @param dn The distinguished name.
+     */
+    public void assertDNExists(final String dn) {
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        if (!verifyDNExists(dn)) {</span>
+<span class="fc" id="L263">            final StringBuilder message = new StringBuilder(&quot;Entry for DN: &quot;);</span>
+<span class="fc" id="L264">            message.append(dn);</span>
+<span class="fc" id="L265">            message.append(&quot; does not exist&quot;);</span>
+<span class="fc" id="L266">            throw new AssertionError(message);</span>
+        }
+<span class="fc" id="L268">    }</span>
+
+    /**
+     * Assert that the entry identified by {@code dn} is of type {@code objectclass}.
+     *
+     * @param dn          The distinguished name.
+     * @param objectclass The type name.
+     */
+    public void assertDNIsA(final String dn,
+                            final String objectclass) {
+<span class="fc bfc" id="L278" title="All 2 branches covered.">        if (!verifyDNIsA(dn, objectclass)) {</span>
+<span class="fc" id="L279">            final StringBuilder message = new StringBuilder(&quot;Entry for DN: &quot;);</span>
+<span class="fc" id="L280">            message.append(dn);</span>
+<span class="fc" id="L281">            message.append(&quot; is not of type: &quot;);</span>
+<span class="fc" id="L282">            message.append(objectclass);</span>
+<span class="fc" id="L283">            throw new AssertionError(message);</span>
+        }
+<span class="fc" id="L285">    }</span>
+
+    /**
+     * Assert that the entry identified by {@code dn} has an attribute named {@code attributeName}.
+     *
+     * @param dn            The distinguished name.
+     * @param attributeName The attribute name.
+     */
+    public void assertDNHasAttribute(final String dn,
+                                     final String attributeName) {
+<span class="fc bfc" id="L295" title="All 2 branches covered.">        if (!verifyDNHasAttribute(dn, attributeName)) {</span>
+<span class="fc" id="L296">            final StringBuilder message = new StringBuilder(&quot;Entry for DN: &quot;);</span>
+<span class="fc" id="L297">            message.append(dn);</span>
+<span class="fc" id="L298">            message.append(&quot; does not have attribute: &quot;);</span>
+<span class="fc" id="L299">            message.append(attributeName);</span>
+<span class="fc" id="L300">            throw new AssertionError(message);</span>
+        }
+<span class="fc" id="L302">    }</span>
+
+    /**
+     * Assert that the entry identified by {@code dn} has an attribute named {@code attributeName} with
+     * the attribute value(s) {@code attributeName}.
+     *
+     * @param dn             The distinguished name.
+     * @param attributeName  The attribute name.
+     * @param attributeValue The attribute value(s).
+     */
+    public void assertDNHasAttributeValue(final String dn,
+                                          final String attributeName,
+                                          final String... attributeValue) {
+<span class="fc bfc" id="L315" title="All 2 branches covered.">        if (!verifyDNHasAttributeValue(dn, attributeName, attributeValue)) {</span>
+<span class="fc" id="L316">            final StringBuilder message = new StringBuilder(&quot;Attribute named: &quot;);</span>
+<span class="fc" id="L317">            message.append(attributeName);</span>
+<span class="fc" id="L318">            message.append(&quot; for entry for DN: &quot;);</span>
+<span class="fc" id="L319">            message.append(dn);</span>
+<span class="fc" id="L320">            message.append(&quot; is does not match: &quot;);</span>
+<span class="fc" id="L321">            message.append(arrayToString(attributeValue));</span>
+<span class="fc" id="L322">            throw new AssertionError(message);</span>
+        }
+<span class="fc" id="L324">    }</span>
+
+    /**
+     * Disconnect from the LDAP directory server.
+     */
+    public void disconnect() {
+<span class="fc" id="L330">        connection.close();</span>
+<span class="fc" id="L331">    }</span>
+
+    /**
+     * Close The directory tester by disconnecting from the LDAP directory server.
+     *
+     * @since 2.0.0
+     */
+    public void close() {
+<span class="fc" id="L339">        disconnect();</span>
+<span class="fc" id="L340">    }</span>
+
+    /**
+     * Check if {@code item} is present in {@code items} ignoring case.
+     *
+     * @param items An array of items.
+     * @param item  The item being searched for.
+     * @return {@code true} if {@code item} is present in {@code items}. Otherwise, {@code false}.
+     */
+    private boolean arrayContains(final String[] items,
+                                  final String item) {
+<span class="fc bfc" id="L351" title="All 2 branches covered.">        for (final String value : items) {</span>
+<span class="fc bfc" id="L352" title="All 2 branches covered.">            if (item.equalsIgnoreCase(value)) {</span>
+<span class="fc" id="L353">                return true;</span>
+            }
+        }
+<span class="fc" id="L356">        return false;</span>
+    }
+
+    /**
+     * Convert an array of strings to string.
+     *
+     * @param items The array of strings.
+     * @return The formatted string.
+     */
+    private String arrayToString(final String[] items) {
+<span class="fc" id="L366">        final StringBuilder builder = new StringBuilder(&quot;[&quot;);</span>
+<span class="pc bpc" id="L367" title="1 of 2 branches missed.">        if (items.length &gt; 0) {</span>
+<span class="fc" id="L368">            builder.append(items[0]);</span>
+<span class="pc bpc" id="L369" title="1 of 2 branches missed.">            for (int i = 1; i &lt; items.length; i++) {</span>
+<span class="nc" id="L370">                builder.append(',');</span>
+<span class="nc" id="L371">                builder.append(items[i]);</span>
+            }
+        }
+<span class="fc" id="L374">        builder.append(']');</span>
+<span class="fc" id="L375">        return builder.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

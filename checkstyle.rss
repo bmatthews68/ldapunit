@@ -23,10 +23,10 @@ under the License.
     <link>https://github.com/bmatthews68/ldapunit</link>
     <description>LDAPUnit - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2013 - 2016 Brian Matthews</copyright>
+    <copyright>&#169;2013 - 2021 Brian Matthews</copyright>
     <item>
-      <title>File: 7,
-             Errors: 133,
+      <title>File: 8,
+             Errors: 146,
              Warnings: 0,
              Infos: 0
       </title>
@@ -55,7 +55,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  35
+                  29
                 </td>
               </tr>
                           <tr>
@@ -74,20 +74,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerConfiguration.java">com/btmatthews/ldapunit/DirectoryServerConfiguration.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryTester.java">com/btmatthews/ldapunit/DirectoryTester.java</a>
                 </td>
                 <td>
@@ -97,7 +83,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  48
+                  44
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerConfiguration.java">com/btmatthews/ldapunit/DirectoryServerConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
                 </td>
               </tr>
                           <tr>
@@ -112,6 +112,20 @@ under the License.
                 </td>
                 <td>
                   4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/bmatthews68/ldapunit/checkstyle.html#com.btmatthews.ldapunit.DirectoryServerExtension.java">com/btmatthews/ldapunit/DirectoryServerExtension.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  28
                 </td>
               </tr>
                           <tr>
@@ -139,7 +153,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  10
+                  7
                 </td>
               </tr>
                       </tbody>

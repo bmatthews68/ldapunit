@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../../../apidocs/com/btmatthews/ldapunit/DirectoryServerStatement.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2013-2016 Brian Thomas Matthews</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright 2013-2021 Brian Thomas Matthews</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * You may obtain a copy of the License at</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> *     <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> *     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.0</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * Unless required by applicable law or agreed to in writing, software</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:brian@btmatthews.com" target="alexandria_uri">mailto:brian@btmatthews.com</a>"&gt;Brian Matthews&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * @since 1.0.0</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../com/btmatthews/ldapunit/DirectoryServerStatement.html">DirectoryServerStatement</a> <strong class="jxr_keyword">extends</strong> Statement {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="DirectoryServerStatement" href="../../../com/btmatthews/ldapunit/DirectoryServerStatement.html#DirectoryServerStatement">DirectoryServerStatement</a> <strong class="jxr_keyword">extends</strong> Statement {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">     * The wrapped statement {@link Statement}.</em>
@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     * The annotation that defines the directory server configuration.</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../com/btmatthews/ldapunit/DirectoryServerConfiguration.html">DirectoryServerConfiguration</a> annotation;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> DirectoryServerConfiguration annotation;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     * Initialise the wrapper statement that starts an embedded LDAP directory server and shuts it down before and after</em>
@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * @param stmt The wrapped statement.</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @param cfg  The directory server configuration.</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <a href="../../../com/btmatthews/ldapunit/DirectoryServerStatement.html">DirectoryServerStatement</a>(<strong class="jxr_keyword">final</strong> Statement stmt, <strong class="jxr_keyword">final</strong> <a href="../../../com/btmatthews/ldapunit/DirectoryServerConfiguration.html">DirectoryServerConfiguration</a> cfg) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <a name="DirectoryServerStatement" href="../../../com/btmatthews/ldapunit/DirectoryServerStatement.html#DirectoryServerStatement">DirectoryServerStatement</a>(<strong class="jxr_keyword">final</strong> Statement stmt, <strong class="jxr_keyword">final</strong> DirectoryServerConfiguration cfg) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          base = stmt;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          annotation = cfg;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
@@ -65,25 +65,14 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     *                   wrapped server.</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      @Override
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      @SuppressWarnings(<span class="jxr_string">"deprecation"</span>)
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> evaluate() <strong class="jxr_keyword">throws</strong> Throwable {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">final</strong> InMemoryDirectoryServer server;
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">if</strong> (annotation.ldifFiles().length == 0) {
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>                      annotation.authDN(), annotation.authPassword(), annotation.ldifFile());
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>              server = DirectoryServerUtils.startServer(annotation.port(), annotation.baseDN(),
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>                      annotation.authDN(), annotation.authPassword(), annotation.ldifFiles());
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>              base.evaluate();
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>              DirectoryServerUtils.stopServer(server);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          }
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> evaluate() <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">try</strong> (InMemoryDirectoryServer server = DirectoryServerUtils.startServer(annotation)) {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>              base.evaluate();
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2013&#x2013;2016 <a href="http://btmatthews.com">Brian Matthews</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2013&#x2013;2021 <a href="http://www.btmatthews.com">Brian Matthews</a>. All rights reserved.</div>
 </body>
 </html>

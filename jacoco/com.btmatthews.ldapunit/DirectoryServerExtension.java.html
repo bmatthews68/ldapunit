@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirectoryServerExtension.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LDAPUnit</a> &gt; <a href="index.source.html" class="el_package">com.btmatthews.ldapunit</a> &gt; <span class="el_source">DirectoryServerExtension.java</span></div><h1>DirectoryServerExtension.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2021 Brian Thomas Matthews
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.btmatthews.ldapunit;
+
+import com.unboundid.ldap.listener.InMemoryDirectoryServer;
+import com.unboundid.ldap.sdk.LDAPException;
+import com.unboundid.ldif.LDIFException;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
+import org.junit.jupiter.api.extension.ExtensionContext.Store;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolutionException;
+import org.junit.jupiter.api.extension.ParameterResolver;
+
+import java.io.IOException;
+
+/**
+ * JUnit 5 (Jupiter) extension that will start an embedded directory server before the test method execution and
+ * stop the embedded directory server when the test method completes.
+ *
+ * @author &lt;a href=&quot;mailto:brian@btmatthews.com&quot;&gt;Brian Matthews&lt;/a&gt;
+ * @since 2.0.0
+ */
+<span class="fc" id="L40">public class DirectoryServerExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback,</span>
+        ParameterResolver {
+
+    /**
+     * The name of the property used to cache the reference to the embedded directory server.
+     */
+    private static final String SERVER = &quot;server&quot;;
+
+    /**
+     * This callback is invoked before the test method is executed and is responsible for starting the embedded
+     * directory server.
+     *
+     * @param extensionContext – the extension context for the Executable about to be invoked; never {@code null}.
+     */
+    @Override
+    public void beforeTestExecution(final ExtensionContext extensionContext) {
+<span class="fc" id="L56">        final DirectoryServerConfiguration annotation = getAnnotation(extensionContext);</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (annotation != null) {</span>
+            try {
+<span class="fc" id="L59">                final InMemoryDirectoryServer server = DirectoryServerUtils.startServer(annotation);</span>
+<span class="fc" id="L60">                getStore(extensionContext).put(SERVER, server);</span>
+<span class="nc" id="L61">            } catch (final LDIFException | LDAPException | IOException e) {</span>
+<span class="nc" id="L62">                throw new AssertionError(&quot;Failed to launch embedded Directory Server&quot;, e);</span>
+<span class="fc" id="L63">            }</span>
+        }
+<span class="fc" id="L65">    }</span>
+
+    /**
+     * This callback is invoked after the test method is executed and is responsible for stopping the embedded
+     * directory server.
+     *
+     * @param extensionContext – the extension context for the Executable about to be invoked; never {@code null}.
+     */
+    @Override
+    public void afterTestExecution(final ExtensionContext extensionContext) {
+<span class="fc" id="L75">        final Store store = getStore(extensionContext);</span>
+<span class="fc" id="L76">        final InMemoryDirectoryServer server = store.get(SERVER, InMemoryDirectoryServer.class);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (server != null) {</span>
+<span class="fc" id="L78">            DirectoryServerUtils.stopServer(server);</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Get teh context storage for the method invocation.
+     *
+     * @param extensionContext – the extension context for the Executable about to be invoked; never {@code null}.
+     * @return The context store.
+     */
+    private Store getStore(final ExtensionContext extensionContext) {
+<span class="fc" id="L89">        final Namespace namespace = Namespace.create(</span>
+                DirectoryServerExtension.class,
+<span class="fc" id="L91">                extensionContext.getRequiredTestMethod());</span>
+<span class="fc" id="L92">        return extensionContext.getStore(namespace);</span>
+    }
+
+    /**
+     * Locate the annotation that specifies the configuration for the embedded directory server. The annotation is
+     * sought on the test method declaration before falling back to check the test class.
+     *
+     * @param extensionContext – the extension context for the Executable about to be invoked; never {@code null}.
+     * @return The {@code DirectoryServerConfiguration} annotation if found. Otherwise, {@code null}.
+     */
+    private DirectoryServerConfiguration getAnnotation(final ExtensionContext extensionContext) {
+<span class="fc" id="L103">        final DirectoryServerConfiguration annotation = extensionContext.getRequiredTestMethod()</span>
+<span class="fc" id="L104">                .getAnnotation(DirectoryServerConfiguration.class);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (annotation == null) {</span>
+<span class="fc" id="L106">            return extensionContext.getRequiredTestClass().getAnnotation(DirectoryServerConfiguration.class);</span>
+        } else {
+<span class="fc" id="L108">            return annotation;</span>
+        }
+    }
+
+    /**
+     * Check the parameter type is {@link DirectoryTester}.
+     *
+     * @param parameterContext The context for the parameter for which an argument should be resolved;
+     *                         never {@code null}.
+     * @param extensionContext The extension context for the Executable about to be invoked; never {@code null}.
+     * @return {@code true} if the parameter type is {@link DirectoryTester}. Otherwise, {@code false}.
+     */
+    @Override
+    public boolean supportsParameter(final ParameterContext parameterContext,
+                                     final ExtensionContext extensionContext)
+            throws ParameterResolutionException {
+<span class="fc" id="L124">        return DirectoryTester.class.equals(parameterContext.getParameter().getType());</span>
+    }
+
+    /**
+     * Resolve {@link DirectoryTester} parameters.
+     *
+     * @param parameterContext The context for the parameter for which an argument should be resolved;
+     *                         never {@code null}.
+     * @param extensionContext –The extension context for the Executable about to be invoked; never {@code null}.
+     * @return The resolved parameter.
+     * @throws ParameterResolutionException If a conneciton to the directory server could not be established.
+     */
+    @Override
+    public Object resolveParameter(final ParameterContext parameterContext,
+                                   final ExtensionContext extensionContext)
+            throws ParameterResolutionException {
+<span class="fc" id="L140">        final InMemoryDirectoryServer server = getStore(extensionContext).get(SERVER, InMemoryDirectoryServer.class);</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        if (server != null) {</span>
+            try {
+<span class="fc" id="L143">                return new DirectoryTester(server.getConnection());</span>
+<span class="nc" id="L144">            } catch (final LDAPException e) {</span>
+<span class="nc" id="L145">                throw new ParameterResolutionException(&quot;Cannot connect to directory server&quot;, e);</span>
+            }
+        }
+<span class="nc" id="L148">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
