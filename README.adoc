@@ -1,5 +1,7 @@
 = LDAPUnit
 
+image:https://img.shields.io/maven-central/v/com.btmatthews.ldapunit/ldapunit[link=https://search.maven.org/search?q=g:%22com.btmatthews.ldapunit%22%20AND%20a:%22ldapunit%22] image:https://img.shields.io/github/license/bmatthews68/ldapunit[] image:https://img.shields.io/snyk/vulnerabilities/github/bmatthews68/ldapunit[]
+
 **LDAPUnit** is a Java library help create unit tests for that depend on a LDAP directory server.
 
 == DirectoryServerRule
