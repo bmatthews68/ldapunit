@@ -131,7 +131,7 @@ public class DirectoryServerExtension implements BeforeTestExecutionCallback, Af
      *                         never {@code null}.
      * @param extensionContext –The extension context for the Executable about to be invoked; never {@code null}.
      * @return The resolved parameter.
-     * @throws ParameterResolutionException If a conneciton to the directory server could not be established.
+     * @throws ParameterResolutionException If a connection to the directory server could not be established.
      */
     @Override
     public Object resolveParameter(final ParameterContext parameterContext,
