@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2013-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertThrows;
  * Unit test the {@link DirectoryServerRule} rule when the methods are annotated
  * with {@link DirectoryServerConfiguration}.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.0
  */
 public class TestDirectoryServerRuleMethodConfiguration {
@@ -44,7 +44,7 @@ public class TestDirectoryServerRuleMethodConfiguration {
     @Test
     public void checkServerIsRunning() {
         try ( DirectoryTester tester = new DirectoryTester()) {
-            tester.assertDNExists("dc=btmatthews,dc=com");
+            tester.assertDNExists("dc=buralotech,dc=com");
         }
     }
 
@@ -64,15 +64,15 @@ public class TestDirectoryServerRuleMethodConfiguration {
      * parameter of the annotation is specified. This variation loads the LDIF file as a classpath resource.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void canLoadFromClasspath() {
-        directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=lsimpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=hsimpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=msimpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=ccarlson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("cn=Bart Simpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=lsimpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=hsimpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=msimpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=ccarlson,ou=People,dc=buralotech,dc=com");
 
     }
 
@@ -81,14 +81,14 @@ public class TestDirectoryServerRuleMethodConfiguration {
      * parameter of the annotation is specified. This variation loads the LDIF file using a file system path.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "src/test/resources/com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "src/test/resources/com/buralotech/oss/ldapunit/initial.ldif")
     public void canLoadFromFilesystem() {
-        directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=lsimpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=hsimpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=msimpson,ou=People,dc=btmatthews,dc=com");
-        directoryServerRule.assertDNExists("uid=ccarlson,ou=People,dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("cn=Bart Simpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=lsimpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=hsimpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=msimpson,ou=People,dc=buralotech,dc=com");
+        directoryServerRule.assertDNExists("uid=ccarlson,ou=People,dc=buralotech,dc=com");
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?> 
 <!-- 
-    Copyright 2013-2021 Brian Thomas Matthews
+    Copyright 2013-2024 Brian Thomas Matthews
 	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -15,10 +15,9 @@
 	limitations under the License.
 -->
 <project name="${project.name}">
-    <googleAnalyticsAccountId>UA-5713196-14</googleAnalyticsAccountId>
     <bannerLeft>
 		<name>LDAPUnit</name>
-		<href>http://ldapunit.btmatthews.com</href>
+		<href>https://buralotech.com/projects/oss/ldapunit.html</href>
 	</bannerLeft>  
 	<publishDate format="dd MMM yyyy" position="left" />  
     <version position="left" />  

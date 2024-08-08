@@ -1,19 +1,19 @@
 = LDAPUnit
 
-image:https://img.shields.io/maven-central/v/com.btmatthews.ldapunit/ldapunit[link=https://search.maven.org/search?q=g:%22com.btmatthews.ldapunit%22%20AND%20a:%22ldapunit%22] image:https://img.shields.io/github/license/bmatthews68/ldapunit[] image:https://img.shields.io/snyk/vulnerabilities/github/bmatthews68/ldapunit[]
+image:https://img.shields.io/maven-central/v/com.buralotech.oss.ldapunit/ldapunit[link=https://search.maven.org/search?q=g:%22com.buralotech.oss.ldapunit%22%20AND%20a:%22ldapunit%22] image:https://img.shields.io/github/license/bmatthews68/ldapunit[] image:https://img.shields.io/snyk/vulnerabilities/github/bmatthews68/ldapunit[]
 
 **LDAPUnit** is a Java library help create unit tests for that depend on a LDAP directory server.
 
 == DirectoryServerRule
 
-http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html[DirectoryServerRule] is used to launch an embedded LDAP directory server so that the unit tests written using JUnit 4 do not have to be dependent on an external LDAP directory server with unpredictable state.
+https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerRule.html[DirectoryServerRule] is used to launch an embedded LDAP directory server so that the unit tests written using JUnit 4 do not have to be dependent on an external LDAP directory server with unpredictable state.
 
-To use the http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html[DirectoryServerRule] you need to instantiate the rule as a public member of the test class and annotate it with https://junit.org/junit4/javadoc/latest/org/junit/Rule.html[Rule]. The rule will have no effect unless the class or methods have been annotated with http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration].
+To use the https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerRule.html[DirectoryServerRule] you need to instantiate the rule as a public member of the test class and annotate it with https://junit.org/junit4/javadoc/latest/org/junit/Rule.html[Rule]. The rule will have no effect unless the class or methods have been annotated with https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration].
 
 [source,java]
 ----
-import com.btmatthews.ldapunit.DirectoryServerConfiguration;
-import com.btmatthews.ldapunit.DirectoryServerRule;
+import com.buralotech.oss.ldapunit.DirectoryServerConfiguration;
+import com.buralotech.oss.ldapunit.DirectoryServerRule;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,15 +32,15 @@ public class Test {
 
 == DirectoryServerExtension
 
-http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] is used to  launch an embedded LDAP directory server so that the unit tests written using JUnit 5 do not have to be dependent on an external LDAP directory server with unpredictable state.
+https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] is used to  launch an embedded LDAP directory server so that the unit tests written using JUnit 5 do not have to be dependent on an external LDAP directory server with unpredictable state.
 
-To use the http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] you need to annotate the test class with https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/extension/ExtendWith.html[ExtendWith] with http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] as a value. The extension will have no effect unless the class or methods have been annotated with http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration].
+To use the https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] you need to annotate the test class with https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/extension/ExtendWith.html[ExtendWith] with https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerExtension.html[DirectoryServerExtension] as a value. The extension will have no effect unless the class or methods have been annotated with https://www.buralotech.com/ldapunit/apidocs/com/buralotec/oss/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration].
 
 
 [source,java]
 ----
-import com.btmatthews.ldapunit.DirectoryServerConfiguration;
-import com.btmatthews.ldapunit.DirectoryServerRule;
+import com.buralotech.oss.ldapunit.DirectoryServerConfiguration;
+import com.buralotech.oss.ldapunit.DirectoryServerRule;
 import org.junit.jupiter.api.Test;
 
 @DirectoryServerConfiguration
@@ -55,7 +55,7 @@ class Test {
 
 == DirectoryServerConfiguration
 
-The http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration] annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following parameters can be configured:
+The https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryServerConfiguration.html[DirectoryServerConfiguration] annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following parameters can be configured:
 
 [cols="m,a,m",options="header,autowidth",stripes=even]
 |===
@@ -69,7 +69,7 @@ The http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryServ
 
 | baseDN
 | The DN that will be configured as the root of the LDAP directory.
-| dc=btmatthews,dc=com
+| dc=buralotech,dc=com
 
 | baseDNAttributes
 | The attribute name/value pairs to use when creating the base DN.
@@ -117,11 +117,11 @@ The following methods can be used to make assertions about or verify the content
 
 == DirectoryTester
 
-http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html[DirectoryTester] is used to connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP directory.
+https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryTester.html[DirectoryTester] is used to connect to an LDAP directory server (embedded or external) and make assertions about or verify the contents of the LDAP directory.
 
 [source,java]
 ----
-import com.btmatthews.ldapunit.DirectoryTester;
+import com.buralotech.oss.ldapunit.DirectoryTester;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -148,7 +148,7 @@ private DirectoryTester tester;
 }
 ----
 
-There are two variants of the [DirectoryTester](http://ldapunit.btmatthews.com/apidocs/com/btmatthews/ldapunit/DirectoryTester.html) constructor
+There are two variants of the [DirectoryTester](https://www.buralotech.com/ldapunit/apidocs/com/buralotech/oss/ldapunit/DirectoryTester.html) constructor
 
 * **DirectoryTester(String hostname, int port)** - connects anonymously to the directory server on the host with name or IP address specified by **hostname** that is listening on the TCP port specified by **port**.
 
@@ -182,9 +182,9 @@ coordinates:
 [source,xml]
 ----
 <dependency>
-  <groupId>com.btmatthews.ldapunit</groupId>
+  <groupId>com.buralotech.oss.ldapunit</groupId>
   <artifactId>ldapunit</artifactId>
-  <version>2.1.0</version>
+  <version>3.0.0</version>
 </dependency>
 ----
 

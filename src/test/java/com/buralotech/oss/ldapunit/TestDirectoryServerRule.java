@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2013-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test the {@link DirectoryServerRule} rule.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.0
  */
 @DirectoryServerConfiguration
@@ -46,7 +46,7 @@ public class TestDirectoryServerRule {
     public void checkServerIsRunning() {
         final DirectoryTester tester = new DirectoryTester("localhost", DirectoryServerConfiguration.DEFAULT_PORT, "uid=admin,ou=system", "secret");
         try {
-            tester.assertDNExists("dc=btmatthews,dc=com");
+            tester.assertDNExists("dc=buralotech,dc=com");
         } finally {
             tester.disconnect();
         }
@@ -57,8 +57,8 @@ public class TestDirectoryServerRule {
      */
     @Test
     public void checkVerifyDNExists() {
-        assertTrue(directoryServerRule.verifyDNExists("dc=btmatthews,dc=com"));
-        assertFalse(directoryServerRule.verifyDNExists("ou=People,dc=btmatthews,dc=com"));
+        assertTrue(directoryServerRule.verifyDNExists("dc=buralotech,dc=com"));
+        assertFalse(directoryServerRule.verifyDNExists("ou=People,dc=buralotech,dc=com"));
     }
 
     /**
@@ -66,7 +66,7 @@ public class TestDirectoryServerRule {
      */
     @Test
     public void checkAssertDNExistsSucceeds() {
-        directoryServerRule.assertDNExists("dc=btmatthews,dc=com");
+        directoryServerRule.assertDNExists("dc=buralotech,dc=com");
     }
 
     /**
@@ -76,7 +76,7 @@ public class TestDirectoryServerRule {
     public void checkAssertDNExistsFails() {
         assertThrows(
                 AssertionError.class,
-                () -> directoryServerRule.assertDNExists("ou=People,dc=btmatthews,dc=com"));
+                () -> directoryServerRule.assertDNExists("ou=People,dc=buralotech,dc=com"));
     }
 
     /**
@@ -86,49 +86,49 @@ public class TestDirectoryServerRule {
     public void throwsExceptionIfInvalidDN() {
         assertThrows(
                 DirectoryTesterException.class,
-                () -> directoryServerRule.verifyDNExists("dc:btmatthews,dc:com"));
+                () -> directoryServerRule.verifyDNExists("dc:buralotech,dc:com"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttribute(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttribute() {
-        assertTrue(directoryServerRule.verifyDNHasAttribute("dc=btmatthews,dc=com", "dc"));
-        assertFalse(directoryServerRule.verifyDNHasAttribute("dc=btmatthews,dc=com", "ou"));
-        assertFalse(directoryServerRule.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "dc"));
-        assertTrue(directoryServerRule.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "ou"));
-        assertFalse(directoryServerRule.verifyDNHasAttribute("ou=Groups,dc=btmatthews,dc=com", "ou"));
+        assertTrue(directoryServerRule.verifyDNHasAttribute("dc=buralotech,dc=com", "dc"));
+        assertFalse(directoryServerRule.verifyDNHasAttribute("dc=buralotech,dc=com", "ou"));
+        assertFalse(directoryServerRule.verifyDNHasAttribute("ou=People,dc=buralotech,dc=com", "dc"));
+        assertTrue(directoryServerRule.verifyDNHasAttribute("ou=People,dc=buralotech,dc=com", "ou"));
+        assertFalse(directoryServerRule.verifyDNHasAttribute("ou=Groups,dc=buralotech,dc=com", "ou"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNIsA(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void checkVerifyDNIsA() {
-        assertTrue(directoryServerRule.verifyDNIsA("dc=btmatthews,dc=com", "top"));
-        assertTrue(directoryServerRule.verifyDNIsA("dc=btmatthews,dc=com", "domain"));
-        assertFalse(directoryServerRule.verifyDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
-        assertTrue(directoryServerRule.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "top"));
-        assertTrue(directoryServerRule.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "organizationalUnit"));
-        assertFalse(directoryServerRule.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "inetOrgPerson"));
-        assertFalse(directoryServerRule.verifyDNIsA("ou=Groips,dc=btmatthews,dc=com", "top"));
+        assertTrue(directoryServerRule.verifyDNIsA("dc=buralotech,dc=com", "top"));
+        assertTrue(directoryServerRule.verifyDNIsA("dc=buralotech,dc=com", "domain"));
+        assertFalse(directoryServerRule.verifyDNIsA("dc=buralotech,dc=com", "organizationalUnit"));
+        assertTrue(directoryServerRule.verifyDNIsA("ou=People,dc=buralotech,dc=com", "top"));
+        assertTrue(directoryServerRule.verifyDNIsA("ou=People,dc=buralotech,dc=com", "organizationalUnit"));
+        assertFalse(directoryServerRule.verifyDNIsA("ou=People,dc=buralotech,dc=com", "inetOrgPerson"));
+        assertFalse(directoryServerRule.verifyDNIsA("ou=Groips,dc=buralotech,dc=com", "top"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttributeValue() {
-        assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "top", "domain"));
-        assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "domain", "top"));
-        assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews"));
-        assertFalse(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
-        assertFalse(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews", "com"));
-        assertFalse(directoryServerRule.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "ou", "People"));
+        assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=buralotech,dc=com", "objectclass", "top", "domain"));
+        assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=buralotech,dc=com", "objectclass", "domain", "top"));
+        assertTrue(directoryServerRule.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech"));
+        assertFalse(directoryServerRule.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "com"));
+        assertFalse(directoryServerRule.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech", "com"));
+        assertFalse(directoryServerRule.verifyDNHasAttributeValue("dc=buralotech,dc=com", "ou", "People"));
     }
 
     /**
@@ -137,7 +137,7 @@ public class TestDirectoryServerRule {
      */
     @Test
     public void assertDNIsAShouldSucceed() {
-        directoryServerRule.assertDNIsA("dc=btmatthews,dc=com", "domain");
+        directoryServerRule.assertDNIsA("dc=buralotech,dc=com", "domain");
     }
 
     /**
@@ -148,7 +148,7 @@ public class TestDirectoryServerRule {
     public void assertDNIsAShouldFail() {
         assertThrows(
                 AssertionError.class,
-                () -> directoryServerRule.assertDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
+                () -> directoryServerRule.assertDNIsA("dc=buralotech,dc=com", "organizationalUnit"));
     }
 
     /**
@@ -157,7 +157,7 @@ public class TestDirectoryServerRule {
      */
     @Test
     public void assertDNHasAttributeShouldSucceed() {
-        directoryServerRule.assertDNHasAttribute("dc=btmatthews,dc=com", "dc");
+        directoryServerRule.assertDNHasAttribute("dc=buralotech,dc=com", "dc");
     }
 
     /**
@@ -168,7 +168,7 @@ public class TestDirectoryServerRule {
     public void assertDNHasAttributeShouldFail() {
         assertThrows(
                 AssertionError.class,
-                () -> directoryServerRule.assertDNHasAttribute("dc=btmatthews,dc=com", "ou"));
+                () -> directoryServerRule.assertDNHasAttribute("dc=buralotech,dc=com", "ou"));
     }
 
     /**
@@ -177,7 +177,7 @@ public class TestDirectoryServerRule {
      */
     @Test
     public void assertDNHasAttributeValueShouldSucceed() {
-        directoryServerRule.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews");
+        directoryServerRule.assertDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech");
     }
 
     /**
@@ -188,7 +188,7 @@ public class TestDirectoryServerRule {
     public void assertDNHasAttributeValueShouldFail() {
         assertThrows(
                 AssertionError.class,
-                () -> directoryServerRule.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
+                () -> directoryServerRule.assertDNHasAttributeValue("dc=buralotech,dc=com", "dc", "com"));
     }
 
     /**
@@ -202,8 +202,8 @@ public class TestDirectoryServerRule {
                     "group-id=users",
                     "group-name=Users"
             },
-            ldifFiles = "com/btmatthews/ldapunit/custom-data-without-default.ldif",
-            schemaFiles = {"com/btmatthews/ldapunit/custom-schema.ldif"})
+            ldifFiles = "com/buralotech/oss/ldapunit/custom-data-without-default.ldif",
+            schemaFiles = {"com/buralotech/oss/ldapunit/custom-schema.ldif"})
     public void assertCustomSchemaCanBeUsedOnItsOwn() {
 
         directoryServerRule.verifyDNExists("group-id=users");
@@ -222,18 +222,18 @@ public class TestDirectoryServerRule {
      */
     @Test
     @DirectoryServerConfiguration(
-            ldifFiles = "com/btmatthews/ldapunit/custom-data-with-default.ldif",
-            schemaFiles = {"default", "com/btmatthews/ldapunit/custom-schema.ldif"})
+            ldifFiles = "com/buralotech/oss/ldapunit/custom-data-with-default.ldif",
+            schemaFiles = {"default", "com/buralotech/oss/ldapunit/custom-schema.ldif"})
     public void assertCustomSchemaCanBeUsedWitDefault() {
 
-        directoryServerRule.verifyDNExists("group-id=users,dc=btmatthews,dc=com");
-        directoryServerRule.verifyDNIsA("group-id=users,dc=btmatthews,dc=com", "group");
-        directoryServerRule.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-id", "users");
-        directoryServerRule.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-name", "Users");
+        directoryServerRule.verifyDNExists("group-id=users,dc=buralotech,dc=com");
+        directoryServerRule.verifyDNIsA("group-id=users,dc=buralotech,dc=com", "group");
+        directoryServerRule.verifyDNHasAttributeValue("group-id=users,dc=buralotech,dc=com", "group-id", "users");
+        directoryServerRule.verifyDNHasAttributeValue("group-id=users,dc=buralotech,dc=com", "group-name", "Users");
 
-        directoryServerRule.verifyDNExists("user-id=brian,group-id=users,dc=btmatthews,dc=com");
-        directoryServerRule.verifyDNIsA("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user");
-        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-id", "brian");
-        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-name", "Brian");
+        directoryServerRule.verifyDNExists("user-id=brian,group-id=users,dc=buralotech,dc=com");
+        directoryServerRule.verifyDNIsA("user-id=brian,group-id=users,dc=buralotech,dc=com", "user");
+        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=buralotech,dc=com", "user-id", "brian");
+        directoryServerRule.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=buralotech,dc=com", "user-name", "Brian");
     }
 }

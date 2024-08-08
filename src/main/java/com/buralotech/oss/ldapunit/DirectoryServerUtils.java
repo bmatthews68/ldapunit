@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2013-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
@@ -39,7 +39,7 @@ import java.io.InputStream;
  * Helper functions to start the in-memory LDAP directory server, load LDAP directory entries from an LDIF files and
  * shut down the in-memory LDAP directory server.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.1
  */
 final class DirectoryServerUtils {

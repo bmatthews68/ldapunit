@@ -3,10 +3,10 @@
  ------
  Brian Matthews
  ------
- 2021-01-12
+ 2024-08-08
  ------
 
-~~ Copyright 2013-2021 Brian Thomas Matthews
+~~ Copyright 2013-2024 Brian Thomas Matthews
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@
 
 DirectoryTester Example
 
-  {{{../apidocs/com/btmatthews/ldapunit/DirectoryTester.html}DirectoryTester}} is used to connect to an LDAP directory
+  {{{../apidocs/com/buralotech/oss/ldapunit/DirectoryTester.html}DirectoryTester}} is used to connect to an LDAP directory
   server (embedded or external) and make assertions about or verify the contents of the LDAP directory.
 
   * JUnit 4
 
 +-------------------------------+
-import com.btmatthews.ldapunit.DirectoryTester;
+import com.buralotech.oss.ldapunit.DirectoryTester;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +59,7 @@ public class Test {
   * JUnit 5
 
 +-------------------------------+
-import com.btmatthews.ldapunit.DirectoryTester;
+import com.buralotech.oss.ldapunit.DirectoryTester;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,7 +86,7 @@ public class Test {
 }
 +-------------------------------+
 
-  There are two variants of the {{{../apidocs/com/btmatthews/ldapunit/DirectoryTester.html}DirectoryTester}}
+  There are two variants of the {{{../apidocs/com/buralotech/oss/ldapunit/DirectoryTester.html}DirectoryTester}}
   constructor:
 
   * <<DirectoryTester(String hostname, int port)>> - connects anonymously to the directory server on the host with
@@ -131,13 +131,13 @@ public class Test {
 
   The connection should be closed by calling <<disconnect()>>.
 
-  {{{../apidocs/com/btmatthews/ldapunit/DirectoryTester.html}DirectoryTester}} implements <<AutoCloseable>> so it can be
+  {{{../apidocs/com/buralotech/oss/ldapunit/DirectoryTester.html}DirectoryTester}} implements <<AutoCloseable>> so it can be
   used with <<try-with-resources>> to avoid the need to explicitly call <<disconnect()>> or <<close()>>.
 
   * JUnit 4
 
 +-------------------------------+
-import com.btmatthews.ldapunit.DirectoryTester;
+import com.buralotech.oss.ldapunit.DirectoryTester;
 import org.junit.Test;
 
 public class Test {
@@ -155,7 +155,7 @@ public class Test {
   * JUnit 5
 
 +-------------------------------+
-import com.btmatthews.ldapunit.DirectoryTester;
+import com.buralotech.oss.ldapunit.DirectoryTester;
 import org.junit.jupiter.api.Test;
 
 public class Test {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2013-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import org.junit.jupiter.api.AfterEach;
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * Unit test that {@link DirectoryTester} can connect to a server within the retry count and timeout period if the
  * server start is delayed.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.1
  */
 public class TestDirectoryTesterConnection {
@@ -36,7 +36,7 @@ public class TestDirectoryTesterConnection {
     /**
      * The root DN.
      */
-    private static final String ROOT_DN = "dc=btmatthews,dc=com";
+    private static final String ROOT_DN = "dc=buralotech,dc=com";
 
     /**
      * The object classes for the root DN.

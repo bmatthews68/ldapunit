@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2013-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import org.junit.runners.model.Statement;
@@ -23,7 +23,7 @@ import org.junit.runners.model.Statement;
  * A {@link Statement} wrapper that launches an embedded LDAP directory server before executing the wrapped statement.
  * The embedded LDAP directory server is shutdown after the wrapped statement has been executed.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.0
  */
 final class DirectoryServerStatement extends Statement {

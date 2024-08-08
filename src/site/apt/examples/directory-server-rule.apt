@@ -3,10 +3,10 @@
  ------
  Brian Matthews
  ------
- 2021-01-14
+ 2024-08-08
  ------
 
-~~ Copyright 2013-2021 Brian Thomas Matthews
+~~ Copyright 2013-2024 Brian Thomas Matthews
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@
 
 DirectoryServerRule Example
 
-  {{{../apidocs/com/btmatthews/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is used launch an embedded LDAP
+  {{{../apidocs/com/buralotech/oss/ldapunit/DirectoryServerRule.html}DirectoryServerRule}} is used launch an embedded LDAP
   directory server so that the unit tests written using JUnit 4 do not have to be dependent on an external LDAP directory server with
   unpredictable state.
 
 +-------------------------------+
-import com.btmatthews.ldapunit.DirectoryServerConfiguration;
-import com.btmatthews.ldapunit.DirectoryServerRule;
+import com.buralotech.oss.ldapunit.DirectoryServerConfiguration;
+import com.buralotech.oss.ldapunit.DirectoryServerRule;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -46,7 +46,7 @@ public class Test {
 }
 +-------------------------------+
 
-  The {{{../apidocs/com/btmatthews/ldapunit/DirectoryServerConfiguration.html}DirectoryServerConfiguration}}
+  The {{{../apidocs/com/buralotech/oss/ldapunit/DirectoryServerConfiguration.html}DirectoryServerConfiguration}}
   annotation is used to provide the configuration parameters for the embedded LDAP directory server. The following
   parameters can be configured:
 
@@ -55,7 +55,7 @@ public class Test {
 *---------------------+---------------------------------------------------------------------------------+----------------------+
 | port                | The TCP port that the LDAP directory server will be configured to listen on.    | 10389                |
 *---------------------+---------------------------------------------------------------------------------+----------------------+
-| baseDN              | The DN that will be configured as the root of the LDAP directory.               | dc=btmatthews,dc=com |
+| baseDN              | The DN that will be configured as the root of the LDAP directory.               | dc=buralotech,dc=com |
 *---------------------+---------------------------------------------------------------------------------+----------------------+
 | baseDNAttributes    | The attribute name/value pairs to use when creating the base DN.                |                      |
 *---------------------+---------------------------------------------------------------------------------+----------------------+

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Brian Thomas Matthews
+ * Copyright 2021-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit test the {@link DirectoryServerExtension} extension.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.2.0
  */
 @ExtendWith(DirectoryServerExtension.class)
@@ -38,7 +38,7 @@ public class TestDirectoryServerExtension {
      */
     @Test
     void checkServerIsRunning(final DirectoryTester tester) {
-        tester.assertDNExists("dc=btmatthews,dc=com");
+        tester.assertDNExists("dc=buralotech,dc=com");
     }
 
     /**
@@ -48,8 +48,8 @@ public class TestDirectoryServerExtension {
      */
     @Test
     void checkVerifyDNExists(final DirectoryTester tester) {
-        assertTrue(tester.verifyDNExists("dc=btmatthews,dc=com"));
-        assertFalse(tester.verifyDNExists("ou=People,dc=btmatthews,dc=com"));
+        assertTrue(tester.verifyDNExists("dc=buralotech,dc=com"));
+        assertFalse(tester.verifyDNExists("ou=People,dc=buralotech,dc=com"));
     }
 
     /**
@@ -59,7 +59,7 @@ public class TestDirectoryServerExtension {
      */
     @Test
     void checkAssertDNExistsSucceeds(final DirectoryTester tester) {
-        tester.assertDNExists("dc=btmatthews,dc=com");
+        tester.assertDNExists("dc=buralotech,dc=com");
     }
 
     /**
@@ -71,7 +71,7 @@ public class TestDirectoryServerExtension {
     void checkAssertDNExistsFails(final DirectoryTester tester) {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNExists("ou=People,dc=btmatthews,dc=com"));
+                () -> tester.assertDNExists("ou=People,dc=buralotech,dc=com"));
     }
 
     /**
@@ -83,7 +83,7 @@ public class TestDirectoryServerExtension {
     void throwsExceptionIfInvalidDN(final DirectoryTester tester) {
         assertThrows(
                 DirectoryTesterException.class,
-                () -> tester.verifyDNExists("dc:btmatthews,dc:com"));
+                () -> tester.verifyDNExists("dc:buralotech,dc:com"));
     }
 
     /**
@@ -92,13 +92,13 @@ public class TestDirectoryServerExtension {
      * @param tester Used to perform assertions.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     void checkVerifyDNHasAttribute(final DirectoryTester tester) {
-        assertTrue(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "dc"));
-        assertFalse(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "ou"));
-        assertFalse(tester.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "dc"));
-        assertTrue(tester.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "ou"));
-        assertFalse(tester.verifyDNHasAttribute("ou=Groups,dc=btmatthews,dc=com", "ou"));
+        assertTrue(tester.verifyDNHasAttribute("dc=buralotech,dc=com", "dc"));
+        assertFalse(tester.verifyDNHasAttribute("dc=buralotech,dc=com", "ou"));
+        assertFalse(tester.verifyDNHasAttribute("ou=People,dc=buralotech,dc=com", "dc"));
+        assertTrue(tester.verifyDNHasAttribute("ou=People,dc=buralotech,dc=com", "ou"));
+        assertFalse(tester.verifyDNHasAttribute("ou=Groups,dc=buralotech,dc=com", "ou"));
     }
 
     /**
@@ -107,15 +107,15 @@ public class TestDirectoryServerExtension {
      * @param tester Used to perform assertions.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     void checkVerifyDNIsA(final DirectoryTester tester) {
-        assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "top"));
-        assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "domain"));
-        assertFalse(tester.verifyDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
-        assertTrue(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "top"));
-        assertTrue(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "organizationalUnit"));
-        assertFalse(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "inetOrgPerson"));
-        assertFalse(tester.verifyDNIsA("ou=Groips,dc=btmatthews,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("dc=buralotech,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("dc=buralotech,dc=com", "domain"));
+        assertFalse(tester.verifyDNIsA("dc=buralotech,dc=com", "organizationalUnit"));
+        assertTrue(tester.verifyDNIsA("ou=People,dc=buralotech,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("ou=People,dc=buralotech,dc=com", "organizationalUnit"));
+        assertFalse(tester.verifyDNIsA("ou=People,dc=buralotech,dc=com", "inetOrgPerson"));
+        assertFalse(tester.verifyDNIsA("ou=Groips,dc=buralotech,dc=com", "top"));
     }
 
     /**
@@ -124,14 +124,14 @@ public class TestDirectoryServerExtension {
      * @param tester Used to perform assertions.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     void checkVerifyDNHasAttributeValue(final DirectoryTester tester) {
-        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "top", "domain"));
-        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "domain", "top"));
-        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews"));
-        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
-        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews", "com"));
-        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "ou", "People"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "objectclass", "top", "domain"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "objectclass", "domain", "top"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "com"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech", "com"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "ou", "People"));
     }
 
     /**
@@ -142,7 +142,7 @@ public class TestDirectoryServerExtension {
      */
     @Test
     void assertDNIsAShouldSucceed(final DirectoryTester tester) {
-        tester.assertDNIsA("dc=btmatthews,dc=com", "domain");
+        tester.assertDNIsA("dc=buralotech,dc=com", "domain");
     }
 
     /**
@@ -155,7 +155,7 @@ public class TestDirectoryServerExtension {
     void assertDNIsAShouldFail(final DirectoryTester tester) {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
+                () -> tester.assertDNIsA("dc=buralotech,dc=com", "organizationalUnit"));
     }
 
     /**
@@ -166,7 +166,7 @@ public class TestDirectoryServerExtension {
      */
     @Test
     void assertDNHasAttributeShouldSucceed(final DirectoryTester tester) {
-        tester.assertDNHasAttribute("dc=btmatthews,dc=com", "dc");
+        tester.assertDNHasAttribute("dc=buralotech,dc=com", "dc");
     }
 
     /**
@@ -179,7 +179,7 @@ public class TestDirectoryServerExtension {
     void assertDNHasAttributeShouldFail(final DirectoryTester tester) {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNHasAttribute("dc=btmatthews,dc=com", "ou"));
+                () -> tester.assertDNHasAttribute("dc=buralotech,dc=com", "ou"));
     }
 
     /**
@@ -190,7 +190,7 @@ public class TestDirectoryServerExtension {
      */
     @Test
     void assertDNHasAttributeValueShouldSucceed(final DirectoryTester tester) {
-        tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews");
+        tester.assertDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech");
     }
 
     /**
@@ -203,7 +203,7 @@ public class TestDirectoryServerExtension {
     void assertDNHasAttributeValueShouldFail(final DirectoryTester tester) {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
+                () -> tester.assertDNHasAttributeValue("dc=buralotech,dc=com", "dc", "com"));
     }
 
     /**
@@ -219,8 +219,8 @@ public class TestDirectoryServerExtension {
                     "group-id=users",
                     "group-name=Users"
             },
-            ldifFiles = "com/btmatthews/ldapunit/custom-data-without-default.ldif",
-            schemaFiles = {"com/btmatthews/ldapunit/custom-schema.ldif"})
+            ldifFiles = "com/buralotech/oss/ldapunit/custom-data-without-default.ldif",
+            schemaFiles = {"com/buralotech/oss/ldapunit/custom-schema.ldif"})
     void assertCustomSchemaCanBeUsedOnItsOwn(final DirectoryTester tester) {
 
         assertTrue(tester.verifyDNExists("group-id=users"));
@@ -241,18 +241,18 @@ public class TestDirectoryServerExtension {
      */
     @Test
     @DirectoryServerConfiguration(
-            ldifFiles = "com/btmatthews/ldapunit/custom-data-with-default.ldif",
-            schemaFiles = {"default", "com/btmatthews/ldapunit/custom-schema.ldif"})
+            ldifFiles = "com/buralotech/oss/ldapunit/custom-data-with-default.ldif",
+            schemaFiles = {"default", "com/buralotech/oss/ldapunit/custom-schema.ldif"})
     void assertCustomSchemaCanBeUsedWitDefault(final DirectoryTester tester) {
 
-        assertTrue(tester.verifyDNExists("group-id=users,dc=btmatthews,dc=com"));
-        assertTrue(tester.verifyDNIsA("group-id=users,dc=btmatthews,dc=com", "group"));
-        assertTrue(tester.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-id", "users"));
-        assertTrue(tester.verifyDNHasAttributeValue("group-id=users,dc=btmatthews,dc=com", "group-name", "Users"));
+        assertTrue(tester.verifyDNExists("group-id=users,dc=buralotech,dc=com"));
+        assertTrue(tester.verifyDNIsA("group-id=users,dc=buralotech,dc=com", "group"));
+        assertTrue(tester.verifyDNHasAttributeValue("group-id=users,dc=buralotech,dc=com", "group-id", "users"));
+        assertTrue(tester.verifyDNHasAttributeValue("group-id=users,dc=buralotech,dc=com", "group-name", "Users"));
 
-        assertTrue(tester.verifyDNExists("user-id=brian,group-id=users,dc=btmatthews,dc=com"));
-        assertTrue(tester.verifyDNIsA("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user"));
-        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-id", "brian"));
-        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=btmatthews,dc=com", "user-name", "Brian"));
+        assertTrue(tester.verifyDNExists("user-id=brian,group-id=users,dc=buralotech,dc=com"));
+        assertTrue(tester.verifyDNIsA("user-id=brian,group-id=users,dc=buralotech,dc=com", "user"));
+        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=buralotech,dc=com", "user-id", "brian"));
+        assertTrue(tester.verifyDNHasAttributeValue("user-id=brian,group-id=users,dc=buralotech,dc=com", "user-name", "Brian"));
     }
 }

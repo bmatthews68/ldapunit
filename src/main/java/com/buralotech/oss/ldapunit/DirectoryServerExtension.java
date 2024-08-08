@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Brian Thomas Matthews
+ * Copyright 2021-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.sdk.LDAPException;
@@ -34,7 +34,7 @@ import java.io.IOException;
  * JUnit 5 (Jupiter) extension that will start an embedded directory server before the test method execution and
  * stop the embedded directory server when the test method completes.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 2.0.0
  */
 public class DirectoryServerExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback,

@@ -1,15 +1,15 @@
-dn: ou=People,dc=btmatthews,dc=com
+dn: ou=People,dc=buralotech,dc=com
 ou: People
 objectclass: organizationalUnit
 
-dn: cn=Bart Simpson,ou=People,dc=btmatthews,dc=com
+dn: cn=Bart Simpson,ou=People,dc=buralotech,dc=com
 cn: Bart Simpson
 sn: Simpson
 givenName: Bart
 uid: bsimpson
 objectclass: inetOrgPerson
 
-dn: uid=lsimpson,ou=People,dc=btmatthews,dc=com
+dn: uid=lsimpson,ou=People,dc=buralotech,dc=com
 cn: Lisa Simpson
 sn: Simpson
 givenName: Lisa
@@ -17,7 +17,7 @@ uid: lsimpson
 title: Kid
 objectclass: inetOrgPerson
 
-dn: uid=hsimpson,ou=People,dc=btmatthews,dc=com
+dn: uid=hsimpson,ou=People,dc=buralotech,dc=com
 cn: Homer Simpson
 sn: Simpson
 givenName: Homer
@@ -25,7 +25,7 @@ uid: hsimpson
 title: Parent
 objectclass: inetOrgPerson
 
-dn: uid=msimpson,ou=People,dc=btmatthews,dc=com
+dn: uid=msimpson,ou=People,dc=buralotech,dc=com
 cn: Marge Simpson
 sn: Simpson
 givenName: Marge
@@ -33,7 +33,7 @@ uid: msimpson
 title: Parent
 objectclass: inetOrgPerson
 
-dn: uid=ccarlson,ou=People,dc=btmatthews,dc=com
+dn: uid=ccarlson,ou=People,dc=buralotech,dc=com
 cn: Carl Carlson
 sn: Carlson
 givenName: Carl

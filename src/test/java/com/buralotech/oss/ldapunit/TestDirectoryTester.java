@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Brian Thomas Matthews
+ * Copyright 2013-2024 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.btmatthews.ldapunit;
+package com.buralotech.oss.ldapunit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test {@link DirectoryTester}.
  *
- * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.0
  */
 @DirectoryServerConfiguration
@@ -65,8 +65,8 @@ public class TestDirectoryTester {
      */
     @Test
     public void checkVerifyDNExists() {
-        assertTrue(tester.verifyDNExists("dc=btmatthews,dc=com"));
-        assertFalse(tester.verifyDNExists("ou=People,dc=btmatthews,dc=com"));
+        assertTrue(tester.verifyDNExists("dc=buralotech,dc=com"));
+        assertFalse(tester.verifyDNExists("ou=People,dc=buralotech,dc=com"));
     }
 
     /**
@@ -74,7 +74,7 @@ public class TestDirectoryTester {
      */
     @Test
     public void checkAssertDNExistsSucceeds() {
-        tester.assertDNExists("dc=btmatthews,dc=com");
+        tester.assertDNExists("dc=buralotech,dc=com");
     }
 
     /**
@@ -84,7 +84,7 @@ public class TestDirectoryTester {
     public void checkAssertDNExistsFails() {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNExists("ou=People,dc=btmatthews,dc=com"));
+                () -> tester.assertDNExists("ou=People,dc=buralotech,dc=com"));
     }
 
     /**
@@ -94,49 +94,49 @@ public class TestDirectoryTester {
     public void throwsExceptionIfInvalidDN() {
         assertThrows(
                 DirectoryTesterException.class,
-                () -> tester.verifyDNExists("dc:btmatthews,dc:com"));
+                () -> tester.verifyDNExists("dc:buralotech,dc:com"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttribute(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttribute() {
-        assertTrue(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "dc"));
-        assertFalse(tester.verifyDNHasAttribute("dc=btmatthews,dc=com", "ou"));
-        assertFalse(tester.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "dc"));
-        assertTrue(tester.verifyDNHasAttribute("ou=People,dc=btmatthews,dc=com", "ou"));
-        assertFalse(tester.verifyDNHasAttribute("ou=Groups,dc=btmatthews,dc=com", "ou"));
+        assertTrue(tester.verifyDNHasAttribute("dc=buralotech,dc=com", "dc"));
+        assertFalse(tester.verifyDNHasAttribute("dc=buralotech,dc=com", "ou"));
+        assertFalse(tester.verifyDNHasAttribute("ou=People,dc=buralotech,dc=com", "dc"));
+        assertTrue(tester.verifyDNHasAttribute("ou=People,dc=buralotech,dc=com", "ou"));
+        assertFalse(tester.verifyDNHasAttribute("ou=Groups,dc=buralotech,dc=com", "ou"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNIsA(String, String)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void checkVerifyDNIsA() {
-        assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "top"));
-        assertTrue(tester.verifyDNIsA("dc=btmatthews,dc=com", "domain"));
-        assertFalse(tester.verifyDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
-        assertTrue(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "top"));
-        assertTrue(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "organizationalUnit"));
-        assertFalse(tester.verifyDNIsA("ou=People,dc=btmatthews,dc=com", "inetOrgPerson"));
-        assertFalse(tester.verifyDNIsA("ou=Groips,dc=btmatthews,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("dc=buralotech,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("dc=buralotech,dc=com", "domain"));
+        assertFalse(tester.verifyDNIsA("dc=buralotech,dc=com", "organizationalUnit"));
+        assertTrue(tester.verifyDNIsA("ou=People,dc=buralotech,dc=com", "top"));
+        assertTrue(tester.verifyDNIsA("ou=People,dc=buralotech,dc=com", "organizationalUnit"));
+        assertFalse(tester.verifyDNIsA("ou=People,dc=buralotech,dc=com", "inetOrgPerson"));
+        assertFalse(tester.verifyDNIsA("ou=Groips,dc=buralotech,dc=com", "top"));
     }
 
     /**
      * Verify that the {@link DirectoryTester#verifyDNHasAttributeValue(String, String, String...)} behaves correctly.
      */
     @Test
-    @DirectoryServerConfiguration(ldifFiles = "com/btmatthews/ldapunit/initial.ldif")
+    @DirectoryServerConfiguration(ldifFiles = "com/buralotech/oss/ldapunit/initial.ldif")
     public void checkVerifyDNHasAttributeValue() {
-        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "top", "domain"));
-        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "objectclass", "domain", "top"));
-        assertTrue(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews"));
-        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
-        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews", "com"));
-        assertFalse(tester.verifyDNHasAttributeValue("dc=btmatthews,dc=com", "ou", "People"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "objectclass", "top", "domain"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "objectclass", "domain", "top"));
+        assertTrue(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "com"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech", "com"));
+        assertFalse(tester.verifyDNHasAttributeValue("dc=buralotech,dc=com", "ou", "People"));
     }
 
     /**
@@ -145,7 +145,7 @@ public class TestDirectoryTester {
      */
     @Test
     public void assertDNIsAShouldSucceed() {
-        tester.assertDNIsA("dc=btmatthews,dc=com", "domain");
+        tester.assertDNIsA("dc=buralotech,dc=com", "domain");
     }
 
     /**
@@ -156,7 +156,7 @@ public class TestDirectoryTester {
     public void assertDNIsAShouldFail() {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNIsA("dc=btmatthews,dc=com", "organizationalUnit"));
+                () -> tester.assertDNIsA("dc=buralotech,dc=com", "organizationalUnit"));
     }
 
     /**
@@ -165,7 +165,7 @@ public class TestDirectoryTester {
      */
     @Test
     public void assertDNHasAttributeShouldSucceed() {
-        tester.assertDNHasAttribute("dc=btmatthews,dc=com", "dc");
+        tester.assertDNHasAttribute("dc=buralotech,dc=com", "dc");
     }
 
     /**
@@ -176,7 +176,7 @@ public class TestDirectoryTester {
     public void assertDNHasAttributeShouldFail() {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNHasAttribute("dc=btmatthews,dc=com", "ou"));
+                () -> tester.assertDNHasAttribute("dc=buralotech,dc=com", "ou"));
     }
 
     /**
@@ -185,7 +185,7 @@ public class TestDirectoryTester {
      */
     @Test
     public void assertDNHasAttributeValueShouldSucceed() {
-        tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "btmatthews");
+        tester.assertDNHasAttributeValue("dc=buralotech,dc=com", "dc", "buralotech");
     }
 
     /**
@@ -196,6 +196,6 @@ public class TestDirectoryTester {
     public void assertDNHasAttributeValueShouldFail() {
         assertThrows(
                 AssertionError.class,
-                () -> tester.assertDNHasAttributeValue("dc=btmatthews,dc=com", "dc", "com"));
+                () -> tester.assertDNHasAttributeValue("dc=buralotech,dc=com", "dc", "com"));
     }
 }
