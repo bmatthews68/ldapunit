@@ -1,6 +1,6 @@
 = LDAPUnit
 
-image:https://img.shields.io/maven-central/v/com.buralotech.oss.ldapunit/ldapunit[link=https://search.maven.org/search?q=g:%22com.buralotech.oss.ldapunit%22%20AND%20a:%22ldapunit%22] image:https://img.shields.io/github/license/bmatthews68/ldapunit[] image:https://img.shields.io/snyk/vulnerabilities/github/bmatthews68/ldapunit[]
+image:https://img.shields.io/maven-central/v/com.buralotech.oss.ldapunit/ldapunit[link=https://search.maven.org/search?q=g:%22com.buralotech.oss.ldapunit%22%20AND%20a:%22ldapunit%22] image:https://img.shields.io/github/license/bmatthews68/ldapunit[] image:https://img.shields.io/librariesio/github/bmatthews68/ldapunit[Libraries.io dependency status for GitHub repo]
 
 **LDAPUnit** is a Java library help create unit tests for that depend on a LDAP directory server.
 
