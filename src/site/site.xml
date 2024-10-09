@@ -18,7 +18,7 @@
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd"
 	  name="${project.name}">
-    <bannerLeft name="LDAPUnit" href="https://bmatthews68.github.io/ldapuni"/>
+    <bannerLeft name="LDAPUnit" href="https://bmatthews68.github.io/ldapunit"/>
 	<poweredBy>
 		<logo name="Maven" href="http://maven.apache.org/">
 			<image src="http://maven.apache.org/images/logos/maven-feather.png"/>
