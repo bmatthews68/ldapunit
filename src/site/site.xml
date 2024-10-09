@@ -17,7 +17,7 @@
 <project name="${project.name}">
     <bannerLeft>
 		<name>LDAPUnit</name>
-		<href>https://buralotech.com/projects/oss/ldapunit.html</href>
+		<href>https://bmatthews68.github.io/ldapunit</href>
 	</bannerLeft>  
 	<publishDate format="dd MMM yyyy" position="left" />  
     <version position="left" />  
