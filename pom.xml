@@ -333,7 +333,7 @@
     <scm>
         <url>https://github.com/bmatthews68/ldapunit</url>
         <connection>scm:git:git@github.com:bmatthews68/ldapunit.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:bmatthews68/ldapunit.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:bmatthews68/ldapunit.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>
