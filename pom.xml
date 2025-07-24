@@ -14,7 +14,8 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.buralotech.oss.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
@@ -109,6 +110,23 @@
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>4.0.0-M16</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>2.1.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-scm</artifactId>
+                        <version>2.1.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-manager-plexus</artifactId>
+                        <version>3.5.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
@@ -315,7 +333,7 @@
     <scm>
         <url>https://github.com/bmatthews68/ldapunit</url>
         <connection>scm:git:git@github.com:bmatthews68/ldapunit.git</connection>
-        <developerConnection>scm:git:git@github.com:bmatthews68/ldapunit.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com:bmatthews68/ldapunit.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>
