@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.buralotech.oss.ldapunit</groupId>
     <artifactId>ldapunit</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1-SNAPSHOT</version>
     <name>LDAPUnit</name>
     <description>Supports unit tests involving LDAP</description>
     <inceptionYear>2013</inceptionYear>
@@ -381,6 +381,6 @@
         <url>https://github.com/bmatthews68/ldapunit</url>
         <connection>scm:git:git@github.com:bmatthews68/ldapunit.git</connection>
         <developerConnection>scm:git:git@github.com:bmatthews68/ldapunit.git</developerConnection>
-        <tag>3.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 </project>
