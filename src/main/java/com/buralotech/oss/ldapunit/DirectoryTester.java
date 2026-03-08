@@ -20,6 +20,7 @@ import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPConnectionOptions;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.SearchResultEntry;
+import org.assertj.core.api.AssertProvider;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -32,7 +33,7 @@ import java.util.Set;
  * @author <a href="mailto:bmatthews68@gmail.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public final class DirectoryTester implements AutoCloseable {
+public final class DirectoryTester implements AssertProvider<DirectoryAssertions>, AutoCloseable {
 
     /**
      * The default for the maximum connection attempts.
@@ -373,5 +374,15 @@ public final class DirectoryTester implements AutoCloseable {
         }
         builder.append(']');
         return builder.toString();
+    }
+
+    /**
+     * Provide the assertions object.
+     *
+     * @return The assertions object.
+     */
+    @Override
+    public DirectoryAssertions assertThat() {
+        return new DirectoryAssertions(this);
     }
 }
