@@ -127,6 +127,8 @@ public class Test {
     exists in the LDAP directory with the distinguished name of <<dn>> and check that it has an attribute named
     <<attributeName>> with value(s) <<attributeValues>>.
 
+  * <<assertThat()>> - returns an AssertJ fluent API asserter
+
   []
 
   The connection should be closed by calling <<disconnect()>>.
